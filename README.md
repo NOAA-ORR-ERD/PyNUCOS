@@ -1,7 +1,7 @@
 PyNUCOS
 =======
 
-Python NOAA UNit Converter for OIl Spills
+Python NOAA UNit Converter for Oil Spills
 
 This repo provides a python package for doing physical unit conversion. It includes the odd units (API gravity, etc) that are used for oils spill response and planning, but not the odd units that other fields may require.
 
