@@ -9,7 +9,7 @@ from unit_conversion import __version__
 
 setup(
     name = "unit_conversion",
-    description='Physical Unit conversion utilties -- units useful for oil and chemical spill response',
+    description='Physical Unit conversion utilities -- units useful for oil and chemical spill response',
     author='Christopher H. Barker',
     author_email='Chris.Barker@noaa.gov',
     url='https://github.com/NOAA-ORR-ERD/PyNUCOS',
