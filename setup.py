@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-This setup is suitable for "python setup.py develop" if setuptools.
+This setup is suitable for "python setup.py develop" from setuptools.
 """
 from setuptools import setup
 
@@ -16,3 +16,4 @@ setup(
     version = __version__,
     packages = ['unit_conversion'],
     )
+
