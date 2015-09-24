@@ -9,8 +9,10 @@ a data module, plus a module for lat-lon conversion.
 All of unit_conversion is imported here for convenience
 
 """
+
+from __future__ import absolute_import
+
+
 __version__ = "2.2"
 
-from unit_conversion import *
-
-
+from .unit_conversion import *

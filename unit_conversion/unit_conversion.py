@@ -22,13 +22,17 @@ CHANGELOG:
                  - Unit data moved to separate module
 """
 
+from __future__ import unicode_literals, absolute_import
+
 __version__ = "1.2.2"
 
-import unit_data
-reload(unit_data)
-from unit_data import ConvertDataUnits
+from . import unit_data
+import imp
+imp.reload(unit_data)
 
-from lat_long import LatLongConverter, Latitude, Longitude, DummyLatitude, DummyLongitude # for backward compatibility
+from .unit_data import ConvertDataUnits
+from .lat_long import (LatLongConverter, Latitude, Longitude,
+                       DummyLatitude, DummyLongitude) # Backward compatibility.
 
 ## A few utilities
 def Simplify(String):
@@ -60,7 +64,7 @@ def GetUnitNames(UnitType):
 def FindUnitTypes():
     """
     returns a mapping of all the unit names to the unit types
-    
+
     raises an exception if there is more than one option -- this will check
     the unit database for duplicated names
 
@@ -70,7 +74,7 @@ def FindUnitTypes():
     for unit_type in ConvertDataUnits.keys():
         if unit_type == "Oil Concentration" or unit_type == "Concentration In Water":
             continue # skipping Oil Concentration, 'cause this is really length -- lots of duplicate units!
-                     # skipping Concentration in water, cause this has lots of duplicate units 
+                     # skipping Concentration in water, cause this has lots of duplicate units
         for PrimaryName, data in ConvertDataUnits[unit_type].items():
             # strip out whitespace and capitalization
             #Pname = Simplify(PrimaryName)
@@ -81,7 +85,7 @@ def FindUnitTypes():
             for n in data[1]:
                 if unit_type == "Volume" and n == 'oz':
                     continue # skip, "oz" is only mass
-                if unit_types.has_key(n):
+                if n in unit_types:
                     raise ValueError("Duplicate name in units table: %s"%n)
                 unit_types[n] = unit_type
     return unit_types
@@ -89,7 +93,7 @@ def FindUnitTypes():
 def GetUnitAbbreviation(unit_type, unit):
     """
     return the standard abbreviation for a given unit
-    
+
     :param unit_type: the type of unit: "mass", "length", etc.
     :param unit: the unit you want the abbreviation for: "gram", etc.
     """
@@ -128,7 +132,7 @@ class ConverterClass:
 
     sub-classes will handle special cases
     """
-        
+
     def __init__(self, TypeName, UnitsDict):
         """
         Create a Converter
@@ -234,7 +238,7 @@ class DensityConverterClass(ConverterClass):
 
         FromUnit = Simplify(FromUnit)
         ToUnit = Simplify(ToUnit)
-         
+
         try:
             FromUnit = self.Synonyms[FromUnit]
         except KeyError:
@@ -265,7 +269,7 @@ class OilQuantityConverter:
 
         :param Mass: mass you want converted to volume
         :param MassUnits: unit of mass input
-        :param Density: density of oil 
+        :param Density: density of oil
         :param DensityUnits: units of density
         :param VolumeUnits: units of volume desired
 
@@ -286,7 +290,7 @@ class OilQuantityConverter:
 
         :param Volume: volume you want converted to mass
         :param VolumeUnits: units of volume input
-        :param Density: density of oil 
+        :param Density: density of oil
         :param DensityUnits: units of density
         :param MassUnits: unit of mass desired for output
         """
@@ -327,7 +331,7 @@ def convert(UnitType, FromUnit, ToUnit, Value):
     except:
         raise InvalidUnitTypeError(UnitType)
     return Converter.Convert(FromUnit, ToUnit, Value )
-    
+
 Convert = convert # so to have the old, non-PEP8 compatible name
 
 ### This is used by TapInput
@@ -348,7 +352,8 @@ class InvalidUnitError(UnitConversionError):
     Exception raised when a unit is not in the Unit conversion database
 
     """
-    def __init__(self, (unit, unit_type) ):
+    def __init__(self, unit_unit_type):
+        (unit, unit_type) = unit_unit_type
         self.unit = unit
         self.type = unit_type if unit_type else ""
 
@@ -365,18 +370,20 @@ class InvalidUnitTypeError(UnitConversionError):
 
     def __str__(self):
         return "The unit type: %s is not in the UnitConversion database"%self.unitType
-    
+
 class MismatchedUnitError(UnitConversionError):
     """
     Exception raised when a unit is not in the Unitconversion database
 
     """
     ##fixme -- this appear to be used anywhere...
-    def __init__(self, (FromUnit, FromUnitType, ToUnit, ToUnitType) ):
-        self.FromUnit     =  FromUnit    
+    def __init__(self, FromUnit_FromUnitType_ToUnit_ToUnitType):
+        (FromUnit, FromUnitType, ToUnit, ToUnitType) = \
+            FromUnit_FromUnitType_ToUnit_ToUnitType
+        self.FromUnit     =  FromUnit
         self.FromUnitType =  FromUnitType
-        self.ToUnit       =  ToUnit      
-        self.ToUnitType   =  ToUnitType  
+        self.ToUnit       =  ToUnit
+        self.ToUnitType   =  ToUnitType
 
     def __str__(self):
         return "The unit: %s of  type %s is not compatible with %s of type %s"% \
