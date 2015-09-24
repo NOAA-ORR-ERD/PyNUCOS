@@ -35,7 +35,7 @@ def signbit(value):
     @rtype:  bool
     @return: C{True} if the sign bit of C{value} is set;
              C{False} if it is not set.
-    
+
     signbit and doubleToRawLongBits
     are from Martin Jansche:
 
@@ -65,7 +65,7 @@ class LatLongConverter:
     def ToDecDeg(self, d=0, m=0, s=0, ustring = False, max=180):
         """
         DecDegrees = ToDecDeg(d=0, m=0, s=0)
-        
+
         converts degrees, minutes, seconds to decimal degrees (returned as a Float).
         """
         if  m < 0 or s < 0:
@@ -80,7 +80,7 @@ class LatLongConverter:
             d = abs(d)
         else:
             Sign = 1
-        
+
         deg_has_fract = bool(math.modf(d)[0])
         min_has_fract = bool(math.modf(m)[0])
         if deg_has_fract and (m != 0.0 or s != 0.0):
@@ -170,7 +170,7 @@ class Latitude:
            South.  (These apply to zero too; positive zero is North.)
 
        Methods:
-       .degrees() -> (float, str)            
+       .degrees() -> (float, str)
        .degrees_minutes() -> (int, float, str)
        .degrees_minutes_seconds() -> (int, int, float, str)
        The 'str' argument is the direction: "North" or "South".
@@ -216,9 +216,9 @@ class Latitude:
             else:
                 msg = "direction must start with %r or %r" % (pdir, ndir)
                 raise ValueError(msg)
-        
+
         self.value = LatLongConverter.ToDecDeg(deg, min, sec, max=self.max)
-        
+
     def direction(self):
         if self.value < 0.0:
             return self.negative_direction
@@ -246,15 +246,15 @@ class Latitude:
     def format(self, style):
         """
         format(style)
-        
+
         returns formatted value as Unicode string with u'\xb0' (degree symbol).
-        
+
         style is one of:
         1:  decimal degrees
         2:  degrees, decimal minutes
         3:  degrees, minutes, seconds
         """
-        
+
         if   style == 1:
             return u'''%0.2f\xb0 %s''' % self.degrees()
         elif style == 2:
@@ -267,14 +267,14 @@ class Latitude:
     def format_html(self, style):
         """
         format_html(style)
-        
+
         Backward compatibility for Quixote rlink and Pylons inews.
         """
-        return self.format(style).replace(u"\xb0", u"&deg;").encode("ascii")
+        return self.format(style).replace(u"\xb0", u"&deg;")
 
 class Longitude(Latitude):
     """See Latitude docstring.
-    
+
        Positive is East; negative is West.  Degrees must be between -180.0 and
        180.0
     """
@@ -282,7 +282,7 @@ class Longitude(Latitude):
     positive_direction = "East"
     min = -180.0
     max = 180.0
-    
+
 class DummyLatitude:
     """A pseudo-Latitude whose components are None.
        Useful in building HTML forms where the value is not required.

@@ -22,10 +22,10 @@ import pytest
 
 # def test_import():
 #     import sys
-#     print "PATH:"
-#     print sys.path
-#     print 
-#     print "testing:", unit_conversion.__file__
+#     print("PATH:")
+#     print(sys.path)
+#     print("\n")
+#     print("testing:", unit_conversion.__file__)
 #     assert False
 
 
@@ -41,7 +41,7 @@ KnownValues = [
     ("Length", "LatitudeDegrees", "NauticalMiles", 1.0, 60 ),
     ("Length", "micron", "mm", 100, .1 ),
     ("Length", "km", "yard", 1, 1093.6133 ),
-   
+
 
     # all values close to value in the "Open Water Oil Identification Job Aid"
     # and close to values in the Unit Conversion sheet distributed with the dispersion mission planner.
@@ -49,11 +49,11 @@ KnownValues = [
     #  so we treat it differently here: (i.e. using bbl/acre as a length would be really wierd)
     ("Oil Concentration", "micron", "mm", 100, .1 ),
     ("Oil Concentration", "in", "mm", 1.0, 25.4 ),
-    ("Oil Concentration", "micron", "bbl/acre", 1.0, 0.02545396 ), # calculated from HCP -- 
-    ("Oil Concentration", "bbl/acre", "m^3/km^2", 1.0, 39.2866 ), # calculated from HCP -- 
-    ("Oil Concentration", "bbl/acre", "bbl/sq.mile", 1.0, 640.0 ), # calculated from HCP -- 
-    ("Oil Concentration", "gal/acre", "bbl/acre", 42.0, 1.0 ), # calculated from HCP -- 
-    ("Oil Concentration", "m^3/km^2", "liter/hectare", 1, 10.0 ), # calculated from HCP -- 
+    ("Oil Concentration", "micron", "bbl/acre", 1.0, 0.02545396 ), # calculated from HCP --
+    ("Oil Concentration", "bbl/acre", "m^3/km^2", 1.0, 39.2866 ), # calculated from HCP --
+    ("Oil Concentration", "bbl/acre", "bbl/sq.mile", 1.0, 640.0 ), # calculated from HCP --
+    ("Oil Concentration", "gal/acre", "bbl/acre", 42.0, 1.0 ), # calculated from HCP --
+    ("Oil Concentration", "m^3/km^2", "liter/hectare", 1, 10.0 ), # calculated from HCP --
 
     ("Area", "sq m","ft^2", 10, 107.63910),
     ("Area", "Acre","square yards", 1, 4840),
@@ -101,15 +101,15 @@ KnownValues = [
     ("Discharge", "cfs","l/s", 1.0, 28.31685),
     ("Discharge", "gal/hr","gal/min", 60.0, 1.0),
     ("Discharge", "bbl/day","l/s", 1.0, (158.9873/24/3600)), # calculated from bll=>liter
-    ("Discharge", "ft^3/min","gal/min", 1.0, 7.4805195), 
-    ("Discharge", "m^3/min", "m^3/s", 1.0, 1.0/60.0),  
-    ("Discharge", "m^3/min", "gal/min", 1.0, 264.1721),  
-    ("Discharge", "gal/hr","m^3/min", 1.0, 6.3090197e-5),  
-    ("Discharge", "gal/hr","m^3/hr", 1.0, 6.3090197e-5*60.0), # calculated from m^3/min  
-    ("Discharge", "bbl/day","gal/day", 1.0, 42), # from definition of bbl  
-    ("Discharge", "l/min","cfs", 1.0, 0.000588578), 
-    ("Discharge", "bbl/hr","cfs", 1.0, 5.614583/3600.), # calculated from cfs 
-    ("Discharge", "cfs","gal/sec", 1.0, 448.83117/60), # calculated from gal/min 
+    ("Discharge", "ft^3/min","gal/min", 1.0, 7.4805195),
+    ("Discharge", "m^3/min", "m^3/s", 1.0, 1.0/60.0),
+    ("Discharge", "m^3/min", "gal/min", 1.0, 264.1721),
+    ("Discharge", "gal/hr","m^3/min", 1.0, 6.3090197e-5),
+    ("Discharge", "gal/hr","m^3/hr", 1.0, 6.3090197e-5*60.0), # calculated from m^3/min
+    ("Discharge", "bbl/day","gal/day", 1.0, 42), # from definition of bbl
+    ("Discharge", "l/min","cfs", 1.0, 0.000588578),
+    ("Discharge", "bbl/hr","cfs", 1.0, 5.614583/3600.), # calculated from cfs
+    ("Discharge", "cfs","gal/sec", 1.0, 448.83117/60), # calculated from gal/min
 
 
     ("Kinematic Viscosity", "stokes", "cSt", 1, 100.0),
@@ -123,7 +123,7 @@ KnownValues = [
     ("temperature", "F","C", 212, 100),
     ("temperature", "C","K", 0, 273.16),
     ("temperature", "F","K", 32, 273.16),
-    
+
     ("density", "g/cm^3","Specific Gravity (15C)", 1, (1/0.99913)),
     ("density", "g/cm^3","Specific Gravity (15C)", 0.99913, 1),
     ("density", "Specific gravity","gramspercubiccentimeter", 1, 0.99913),
@@ -161,15 +161,15 @@ def test_known_values():
         yield check_known_value, val
 
 def check_known_value(test):
-#        print "testing:", test
+#        print("testing:", test)
         Type = test[0]
         From = test[1]
         To = test[2]
         Value = test[3]
-        True = test[4]
+        true = test[4]
         Calculated = unit_conversion.Convert(*test[:4])
-        print "Calculated: %f, True: %f"%((Calculated, True))
-        assert(Close(Calculated, True))
+        print("Calculated: %f, True: %f" % ((Calculated, true)))
+        assert(Close(Calculated, true))
 
 
 class testBadnames(unittest.TestCase):
@@ -195,7 +195,7 @@ class testBadnames(unittest.TestCase):
                           )
 class testOilQuantityConverterClass(unittest.TestCase):
     OQC = unit_conversion.OilQuantityConverter
-    
+
     def testMassToVolume1(self):
         self.failUnless(Close(self.OQC.ToVolume(Mass=1,
                                                 MassUnits="metricton",
@@ -204,7 +204,7 @@ class testOilQuantityConverterClass(unittest.TestCase):
                                                 VolumeUnits="bbl"),
                               6.9626324)
                         )
-                         
+
     def testMassToVolume2(self):
         self.failUnless(Close(self.OQC.ToVolume(Mass=1,
                                            MassUnits="metricton",
@@ -220,7 +220,7 @@ class testOilQuantityConverterClass(unittest.TestCase):
                                      Density=25,
                                      DensityUnits="API",
                                      MassUnits="metricton")
-        print Expected, Calculated
+        print(Expected, Calculated)
         self.failUnless(Close(Expected, Calculated))
 
     def testVolumeToMass1(self):
@@ -246,17 +246,17 @@ def test_GetUnitNames():
     ## note: not testing all of them
     ##       either all types or all names
     names = unit_conversion.GetUnitNames('Length')
-    print names
+    print(names)
     assert "meter" in names
     assert "foot" in names
     assert not "feet" in names
     names = unit_conversion.GetUnitNames('Area')
-    print names
+    print(names)
     assert "square foot" in names
     assert "acre" in names
     assert "square meter" in names
     assert not "feet" in names
-    
+
 def test_GetUnitAbbreviation():
     names = [('Length', 'meter', 'm'),
              ('Volume', 'cubic meter', 'm^3'),
@@ -265,14 +265,14 @@ def test_GetUnitAbbreviation():
              ('Discharge', 'cubic foot per second', 'cfs'),
              ]
     for unit_type, unit, abrv in names:
-        print unit_type, unit, abrv
+        print(unit_type, unit, abrv)
         assert abrv == unit_conversion.GetUnitAbbreviation(unit_type, unit)
 
 
 def test_FindUnitTypes():
     # just testing that it's there an doesn't crash!
     all_units = unit_conversion.FindUnitTypes()
-    print all_units
+    print(all_units)
     assert all_units['s'] == 'Time'
     assert all_units['S'] == 'Density'
     assert all_units['feet/s'] == 'Velocity'
@@ -281,7 +281,7 @@ def test_FindUnitTypes():
 def test_is_same_unit():
     # a few examples...not complete, but at least it's there and works for some cases
 
-    print "testing is_same_unit"
+    print("testing is_same_unit")
     assert unit_conversion.is_same_unit('knot', 'knots')
     assert unit_conversion.is_same_unit('knot', 'kts')
     assert not unit_conversion.is_same_unit('knot', 'm/s')
