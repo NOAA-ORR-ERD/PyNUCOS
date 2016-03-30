@@ -34,20 +34,6 @@ ConvertDataUnits = {
                "liter per hectare": (0.000001, ["liter/hectare", ]),  # calculated from HCP
                },
 
-    #     # this is technically length but used differently, so I'm keeping it separate
-    #     # micron is the base unit
-    #     "Oil Concentration": {"micron": (1.0, ["microns"]),
-    #                           "cubic meter per square kilometer": (1.0, ["m^3/km^2", ]),
-    #                           "millimeter": (1000., ["mm", "millimeters"]),
-    #                           "inch": (25400., ["in", "inches"]),
-    #                           "barrel per acre": (39.2866176, ["bbl/acre", ]),  # calculated from HCP
-    #                           "barrel per square mile": (0.06138533995, ["bbl/sq.mile", ]),  # calculated from HCP
-    #                           "gallon per acre": (0.93539563202687404, ["gal/acre", ]),  # calculated from HCP
-    #                           "liter per hectare": (0.1, ["liter/hectare", ]),  # calculated from HCP
-    #                           },
-
-
-
     # All Areas in terms of square meter
     "Area": {"square meter": (1.0, ["m^2", "sq m"]),
              "square centimeter": (.0001, ["cm^2", "sq cm"]),
@@ -163,7 +149,7 @@ ConvertDataUnits = {
                                "part per trillion": (.000001, ["parts per trillion", "pptr"]),
                                "fraction (decimal)": (1e6, ["fraction", "mass per mass"]),
                                "percent": (1e4, ["%", "parts per hundred", "per cent"]),
-                               "kilogram per cubic meter": (1000, ["kg/m^3", "kg/m3"]),
+                               #                                "kilogram per cubic meter": (1000, ["kg/m^3", "kg/m3"]),
                                "pound per cubic foot": (16018.463, ["lb/ft^3"]),
                                "milligram per liter": (1.0, ["mg/l"]),
                                "milligram per kilogram": (1.0, ["mg/kg"]),
@@ -173,11 +159,11 @@ ConvertDataUnits = {
                                }
 }
 
+# build the unit sets to allow quick lookup of type and conversion legality
 unit_sets = {}
 for k in ConvertDataUnits.keys():
     unit_sets[k] = set(itertools.chain(*[y for (x, y) in ConvertDataUnits[k].values()]))
-
-unit_sets.keys()
+unit_sets['Oil Concentration'] = unit_sets['Length']
 
 
 def write_units(filename=None):
