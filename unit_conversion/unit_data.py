@@ -159,11 +159,26 @@ ConvertDataUnits = {
                                }
 }
 
-# build the unit sets to allow quick lookup of type and conversion legality
+'''
+Build the unit sets to allow quick lookup of type and conversion legality
+this creates something like the following:
+unit_sets = {'Length': set(['m','km','mm',...]),
+             'Area': set(['m^2','cm^2',...]),
+             ...
+             }
+'''
 unit_sets = {}
 for k in ConvertDataUnits.keys():
+
     unit_sets[k] = set(itertools.chain(*[y for (x, y) in ConvertDataUnits[k].values()]))
 unit_sets['Oil Concentration'] = unit_sets['Length']
+
+'''
+Build the global unit list
+'''
+supported_units = set([])
+for s in unit_sets.values():
+    supported_units = supported_units.union(s)
 
 
 def write_units(filename=None):

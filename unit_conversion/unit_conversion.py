@@ -375,6 +375,9 @@ def convert(UnitType=None, FromUnit=None, ToUnit=None, Value=None):
 
     if UnitType is None:
         UnitType = get_unit_type(FromUnit)
+        UnitType2 = get_unit_type(ToUnit)
+        if UnitType != UnitType2:
+            raise UnitConversionError("Cannot convert {0} to {1}".format(FromUnit, ToUnit))
     UnitType = Simplify(UnitType)
     try:
         Converter = Converters[UnitType]
