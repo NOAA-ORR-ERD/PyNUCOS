@@ -87,7 +87,7 @@ ConvertDataUnits = {
              "day": (86400.0, ["days"]),
              },
     # All Velocities in meter per second
-    "Velocity": {"meter per second": (1.0, ["m/s", "meters per second", "mps"]),
+    "Velocity": {"meter per second": (1.0, ["m/s", "meters per second", "mps", "meter second-1", "meters s-1"]),
                  "meter per minute": (0.01666666666, ["m/min", "meters per minute"]),
                  "centimeter per second": (.01, ["cm/s"]),
                  "kilometer per hour": (0.277777, ["km/h", "km/hr"]),
@@ -143,20 +143,25 @@ ConvertDataUnits = {
                 },
 
     ### Concentration in water in PPM
-    "Concentration In Water": {"part per million": (1.0, ["ppm", "parts per million"]),
+    "Concentration In Water": {"kilogram per cubic meter": (1.0, ["kg/m^3"]),
+                               "part per million": (1.0, ["ppm", "parts per million"]),
                                "part per billion": (.001, ["ppb", "parts per billion"]),
                                "part per thousand": (1000, ["ppt", "parts per thousand"]),
                                "part per trillion": (.000001, ["parts per trillion", "pptr"]),
                                "fraction (decimal)": (1e6, ["fraction", "mass per mass"]),
                                "percent": (1e4, ["%", "parts per hundred", "per cent"]),
-                               #                                "kilogram per cubic meter": (1000, ["kg/m^3", "kg/m3"]),
+                               "kilogram per cubic meter": (1000, ["kg/m^3", "kg/m3"]),
                                "pound per cubic foot": (16018.463, ["lb/ft^3"]),
                                "milligram per liter": (1.0, ["mg/l"]),
                                "milligram per kilogram": (1.0, ["mg/kg"]),
                                "milligram per milliliter": (1000, ["mg/ml"]),
                                "microgram per liter": (0.001, ["ug/l"]),
                                "nanogram per liter": (0.000001, []),
-                               }
+                               },
+
+    "Angular Measure" : {"radians": (1.0, ["radians","radian", "rad"]),
+                         "degrees": (180/3.14159265359, ["degrees", "degree", "deg"])
+                         }
 }
 
 '''
@@ -171,6 +176,7 @@ unit_sets = {}
 for k in ConvertDataUnits.keys():
 
     unit_sets[k] = set(itertools.chain(*[y for (x, y) in ConvertDataUnits[k].values()]))
+del unit_sets['Concentration In Water']
 unit_sets['Oil Concentration'] = unit_sets['Length']
 
 '''
