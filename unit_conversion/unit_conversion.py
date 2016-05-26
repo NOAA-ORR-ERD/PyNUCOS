@@ -318,35 +318,54 @@ for (unittype,data) in ConvertDataUnits.items():
 def is_supported(unit):
     return unit in FindUnitTypes().keys()
 
-def convert(UnitType=None, FromUnit=None, ToUnit=None, Value=0):
+def convert(unit1, unit2, value, unit_type=None):
     """
-    Convert(FromUnit, ToUnit, Value)
+    convert(unit_type1, unit_type2, value, unit_type)
 
-    returns a new value, in the units of ToUnit.
+    returns a new value, in the units of unit_type2.
 
-    :param FromUnit: the unit the original value is in
-    :param ToUnit: the unit you want the value converted to
-    :param Value: the original value
+    :param unit_type1: the unit the original value is in 
+    :param unit_type2: the unit you want the value converted to
+    :param value: the original numerical value
+    :param unit_type: the string name of the unit type, if it is ambiguous
     """
-    if UnitType is None:
+
+    if unit_type is None:
         all_units = FindUnitTypes()
-        UnitType=UnitType2=None
+        unit_type=unit_type2=None
         try:
-            UnitType = all_units[FromUnit]
+            unit_type = all_units[unit1]
         except:
-            raise InvalidUnitTypeError(UnitType)
+            raise InvalidUnitError(unit1, unit_type)
         try:
-            UnitType2 = all_units[ToUnit]
+            unit_type2 = all_units[unit2]
         except:
-            raise InvalidUnitTypeError(UnitType)
-        if UnitType != UnitType2:
-            raise UnitConversionError("Cannot convert {0} to {1}".format(FromUnit, ToUnit))
-    UnitType = Simplify(UnitType)
+            raise InvalidUnitError(unit2)
+        if unit_type != unit_type2:
+            raise UnitConversionError("Cannot convert {0} to {1}".format(unit1, unit2))
+    else:
+        simp_types = [Simplify(k) for k in GetUnitTypes()]
+        #~~DEPRECATED~~
+        if Simplify(unit1) in simp_types:
+            #This maintains compatibility with the old usage of this function
+            v = unit_type
+            unit_type = Simplify(unit1)
+            try:
+                Converter = Converters[unit_type]
+            except:
+                raise InvalidUnitTypeError(unit_type)
+            return Converter.Convert(unit2, value, v)
+        if not isinstance(unit_type, (str, unicode)):
+            raise InvalidUnitTypeError(unit1)
+        #~~DEPRECATED~~
+        if Simplify(unit_type) not in simp_types:
+            raise InvalidUnitTypeError(unit_type)
+    unit_type = Simplify(unit_type)
     try:
-        Converter = Converters[UnitType]
+        Converter = Converters[unit_type]
     except:
-        raise InvalidUnitTypeError(UnitType)
-    return Converter.Convert(FromUnit, ToUnit, Value)
+        raise InvalidUnitTypeError(unit_type)
+    return Converter.Convert(unit1, unit2, value)
 
 Convert = convert # so to have the old, non-PEP8 compatible name
 

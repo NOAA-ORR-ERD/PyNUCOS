@@ -162,14 +162,14 @@ def test_known_values():
 
 def check_known_value(test):
 #        print("testing:", test)
-        Type = test[0]
-        From = test[1]
-        To = test[2]
-        Value = test[3]
-        true = test[4]
-        Calculated = unit_conversion.Convert(*test[:4])
-        print("Calculated: %f, True: %f" % ((Calculated, true)))
-        assert(Close(Calculated, true))
+    Type = test[0]
+    From = test[1]
+    To = test[2]
+    Value = test[3]
+    true = test[4]
+    Calculated = unit_conversion.Convert(*test[:4])
+    print("Calculated: %f, True: %f" % ((Calculated, true)))
+    assert(Close(Calculated, true))
 
 
 class testBadnames(unittest.TestCase):
@@ -231,6 +231,42 @@ class testOilQuantityConverterClass(unittest.TestCase):
                                      DensityUnits="SG",
                                      MassUnits="longton")
         self.failUnless(Close(Expected, Calculated))
+
+class testNewConvertAPI(unittest.TestCase):
+    def test_bad_convert(self):
+        self.failUnlessRaises(unit_conversion.UnitConversionError,
+                          unit_conversion.convert,
+                          "kg","miles", 0,
+                          )
+        self.failUnlessRaises(unit_conversion.UnitConversionError,
+                          unit_conversion.convert,
+                          "kg","miles", 0,
+                          )
+
+    def test_invalid_unit(self):
+        self.failUnlessRaises(unit_conversion.InvalidUnitError,
+                          unit_conversion.convert,
+                          "kg","miles", 0, "Mass"
+                          )
+        self.failUnlessRaises(unit_conversion.InvalidUnitError,
+                          unit_conversion.convert,
+                          "kgt","miles", 0
+                          )
+        self.failUnlessRaises(unit_conversion.InvalidUnitError,
+                          unit_conversion.convert,
+                          "kg","miless", 0,
+                          )
+
+    def testBadUnit2(self):
+        self.failUnlessRaises(unit_conversion.InvalidUnitError,
+                          unit_conversion.convert,
+                          "Length","feet","spam", 0,
+                          )
+    def testBadUnit3(self):
+        self.failUnlessRaises(unit_conversion.InvalidUnitError,
+                          unit_conversion.convert,
+                          "Density","API","feet", 0,
+                          )
 
 def test_GetUnitTypes():
     ## note: not testing all of them
@@ -309,5 +345,3 @@ def test_invalid_unit_convert():
         unit_conversion.convert("temperature", "feet", "C", 1.0)
     with pytest.raises(unit_conversion.InvalidUnitError):
         unit_conversion.convert("temperature", "f", "feet", 1.0)
-
-
