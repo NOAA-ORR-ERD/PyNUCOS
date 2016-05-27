@@ -248,24 +248,21 @@ class testNewConvertAPI(unittest.TestCase):
                           unit_conversion.convert,
                           "kg","miles", 0, "Mass"
                           )
-        self.failUnlessRaises(unit_conversion.InvalidUnitError,
+        self.failUnlessRaises(unit_conversion.NotSupportedUnitError,
                           unit_conversion.convert,
                           "kgt","miles", 0
                           )
-        self.failUnlessRaises(unit_conversion.InvalidUnitError,
+        self.failUnlessRaises(unit_conversion.NotSupportedUnitError,
                           unit_conversion.convert,
                           "kg","miless", 0,
                           )
-
-    def testBadUnit2(self):
-        self.failUnlessRaises(unit_conversion.InvalidUnitError,
+        self.failUnlessRaises(unit_conversion.NotSupportedUnitError,
                           unit_conversion.convert,
-                          "Length","feet","spam", 0,
+                          "foo","spam", 0,
                           )
-    def testBadUnit3(self):
-        self.failUnlessRaises(unit_conversion.InvalidUnitError,
+        self.failUnlessRaises(unit_conversion.NotSupportedUnitError,
                           unit_conversion.convert,
-                          "Density","API","feet", 0,
+                          0,0, 0,
                           )
 
 def test_GetUnitTypes():

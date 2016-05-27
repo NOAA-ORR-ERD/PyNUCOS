@@ -336,11 +336,11 @@ def convert(unit1, unit2, value, unit_type=None):
         try:
             unit_type = all_units[unit1]
         except:
-            raise InvalidUnitError(unit1, unit_type)
+            raise NotSupportedUnitError(unit1)
         try:
             unit_type2 = all_units[unit2]
         except:
-            raise InvalidUnitError(unit2)
+            raise NotSupportedUnitError(unit2)
         if unit_type != unit_type2:
             raise UnitConversionError("Cannot convert {0} to {1}".format(unit1, unit2))
     else:
@@ -381,6 +381,14 @@ class UnitConversionError(Exception):
 
     """
     pass
+
+class NotSupportedUnitError(Exception):
+
+    def __init__(self, unit):
+        self.unit = unit
+
+    def __str__(self):
+        return "The unit: %s is not supported or not recognized"(self.unit)
 
 class InvalidUnitError(UnitConversionError):
     """
