@@ -115,9 +115,8 @@ ConvertDataUnits = {
 
     # Kinematic Viscosity in Stokes
     # NOTE: there is a more detailed way to do this, specified in:
-    # ASTM D 2161 Standard Practice for Conversion of Kinematic
-    # Viscosity to Saybolt Universal Viscosity or to Saybolt Furol
-    # Viscosity
+    # ASTM D 2161 Standard Practice for Conversion of Kinematic Viscosity to Saybolt
+    # Universal Viscosity or to Saybolt Furol Viscosity
     # for the moment, this will only handle approximation for SFS and SUS
     "Kinematic Viscosity": {"Stoke": (1.0, ["St", "stokes"]),
                             "centiStoke": (.01, ["cSt", "centistokes"]),
@@ -134,7 +133,7 @@ ConvertDataUnits = {
     # NOTE: Specific Gravity can only be defined for a given reference temperature.
     # The most common standard in the oil industry is 15C (or 60F). The
     # following is the value for the Density of water at 15C
-    # (CRC Handbook of Chemistry and Physics)
+    # ( CRC Handbook of Chemistry and Physics )
     "Density": {"gram per cubic centimeter": (1.0, ["g/cm^3", "grams per cubic centimeter"]),
                 u"specific gravity (15\xb0C)": (0.99913, ["S", "specificgravity", "Spec grav", "SG", "specificgravity(15C)"]),
                 "kilogram per cubic meter": (.001, ["kg/m^3"]),
@@ -159,29 +158,28 @@ ConvertDataUnits = {
                                "nanogram per liter": (0.000001, []),
                                },
 
-    "Angular Measure" : {"radians": (1.0, ["radians","radian", "rad"]),
-                         "degrees": (180/3.14159265359, ["degrees", "degree", "deg"])
-                         }
+    "Angular Measure": {"radians": (1.0, ["radian", "rad"]),
+                        "degrees": (3.141592653589793 / 180.0, ["degree", "deg"])
+                        }
 }
 
-'''
-Build the unit sets to allow quick lookup of type and conversion legality
-this creates something like the following:
-unit_sets = {'Length': set(['m','km','mm',...]),
-             'Area': set(['m^2','cm^2',...]),
-             ...
-             }
-'''
+
+# Build the unit sets to allow quick lookup of type and conversion legality
+# this creates something like the following:
+# unit_sets = {'Length': set(['m','km','mm',...]),
+#              'Area': set(['m^2','cm^2',...]),
+#              ...
+#              }
+
 unit_sets = {}
 for k in ConvertDataUnits.keys():
-
     unit_sets[k] = set(itertools.chain(*[y for (x, y) in ConvertDataUnits[k].values()]))
+
 del unit_sets['Concentration In Water']
 unit_sets['Oil Concentration'] = unit_sets['Length']
 
-'''
-Build the global unit list
-'''
+# Build the global unit list
+
 supported_units = set([])
 for s in unit_sets.values():
     supported_units = supported_units.union(s)
@@ -215,10 +213,10 @@ def all_unit_names():
 
 
 def dump_to_json(filename=None):
-    import sys
-    import json
-    if filename:
-        f = open(filename, 'w')
-    else:
-        f = sys.stdout
+    """
+    dumps the full unit data to JSON, for use in the Javascript version, or ...
+    """
+    import sys, json
+
+    f = open(filename, 'w') if filename else sys.stdout
     f.write(json.dumps(ConvertDataUnits, indent=2, separators=(',', ':')))

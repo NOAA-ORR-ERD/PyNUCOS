@@ -24,15 +24,16 @@ CHANGELOG:
 
 from __future__ import unicode_literals, absolute_import
 
-__version__ = "1.2.2"
+__version__ = "2.4.0"
 
 from . import unit_data
-import imp
-imp.reload(unit_data)
 
 from .unit_data import ConvertDataUnits
-from .lat_long import (LatLongConverter, Latitude, Longitude,
-                       DummyLatitude, DummyLongitude)  # Backward compatibility.
+from .lat_long import (LatLongConverter,
+                       Latitude,
+                       Longitude,
+                       DummyLatitude,
+                       DummyLongitude)  # Backward compatibility.
 
 # A few utilities
 
@@ -78,11 +79,12 @@ def FindUnitTypes():
     unit_types = {}
     for unit_type in ConvertDataUnits.keys():
         if unit_type == "Oil Concentration" or unit_type == "Concentration In Water":
-            continue  # skipping Oil Concentration, 'cause this is really length -- lots of duplicate units!
+            continue  # skipping Oil Concentration, 'cause this is really length
+                      # -- lots of duplicate units!
             # skipping Concentration in water, cause this has lots of duplicate units
         for PrimaryName, data in ConvertDataUnits[unit_type].items():
             # strip out whitespace and capitalization
-            #Pname = Simplify(PrimaryName)
+            # Pname = Simplify(PrimaryName)
             Pname = PrimaryName
             # add the primary name:
             unit_types[Pname] = unit_type
@@ -364,13 +366,29 @@ for (unittype, data) in ConvertDataUnits.items():
 
 def convert(UnitType=None, FromUnit=None, ToUnit=None, Value=None):
     """
-    Convert(FromUnit, ToUnit, Value)
+    Convert(UnitType, FromUnit, ToUnit, Value)
 
     returns a new value, in the units of ToUnit.
 
-    :param FromUnit: the unit the original value is in
-    :param ToUnit: the unit you want the value converted to
-    :param Value: the original value
+    :param UnitType=None: the type of the unit: mass, length, etc
+    :param FromUnit=None: the unit the original value is in
+    :param ToUnit=None: the unit you want the value converted to
+    :param Value=None: the original value
+
+    if UnitType is None, then it will look in the data to see if it can figure out what
+    unit type to use.
+
+    so you should be able to do:
+
+    convert(FromUnit='meter', ToUnit='feet', Value=32)
+
+    or
+
+    convert(None, 'meter', 'feet', 32)
+
+    NOTE: some odd units have overlapping names, so only the more common one is used
+          (oz is mass, not fluid oz, for instance). You can get around this by using
+          a more precise name ('fluid oz') or specify the unit type.
     """
 
     if UnitType is None:
@@ -386,7 +404,6 @@ def convert(UnitType=None, FromUnit=None, ToUnit=None, Value=None):
     return Converter.Convert(FromUnit, ToUnit, Value)
 
 Convert = convert  # so to have the old, non-PEP8 compatible name
-
 # This is used by TapInput
 
 

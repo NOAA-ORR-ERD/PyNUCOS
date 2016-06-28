@@ -12,10 +12,11 @@ can also be run with pytest:
 py.test test_unit_conversion.py
 """
 
-
-import unit_conversion
+import math
 import unittest
 import pytest
+
+import unit_conversion
 
 
 KnownValues = [
@@ -61,7 +62,7 @@ KnownValues = [
     ("volume", "bbl", "l", 1.0, 158.9873),
     ("volume", "cubicinches", "cubicfeet", 1.0, 0.00057870370),
     ("volume", "cc", "cubicyard", 1.0, 1.3079506e-6),
-    ("volume", "fluid ounce (UK)", "oz", 1.0, 0.9607594),
+    ("volume", "fluid ounce (UK)", "fluid oz", 1.0, 0.9607594),
     ("volume", "gallon (UK)", "gal", 1.0, 1.200949),
     ("volume", "cubic kilometer", "m^3", 1.0, 1e9),
     ("volume", "cubic kilometer", "ft^3", 1.0, 3.531467e10),# the google converter
@@ -131,6 +132,10 @@ KnownValues = [
     ("ConcentrationInWater", "ug/l", "ppb", 1.0, 1.0),  # calculated
     ("ConcentrationInWater", "mg/ml", "ppm", 1.0, 1000),  # calculated
     ("ConcentrationInWater", "nanogramperliter", "partpertrillion", 1.0, 1.0),  # calculated
+
+    ("Angular Measure", "degree", "radian", 180.0, math.pi),  # calculated
+    ("Angular Measure", "radians", "degrees", 2*math.pi, 360.0),  # calculated
+
      ]
 
 
@@ -289,6 +294,8 @@ def test_is_same_unit():
 
     assert unit_conversion.is_same_unit("gal/s", "gal/sec")
     assert unit_conversion.is_same_unit("gallon per second", "gal/sec")
+
+    # these should NOT be the same !
     assert not unit_conversion.is_same_unit("gallon per hour", "gal/sec")
 
     assert not unit_conversion.is_same_unit("meters", "gal/sec")
