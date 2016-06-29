@@ -9,6 +9,7 @@ it also includes a utility function for dumping the units to the console or a fi
    write_units(filename=None)
 
 """
+from __future__ import unicode_literals, absolute_import
 import itertools
 
 ConvertDataUnits = {
