@@ -205,15 +205,16 @@ for s in unit_sets.values():
 
 def write_units(filename=None):
     import sys
-    if filename:
-        f = open(filename, 'w')
-    else:
+    if filename is None:
         f = sys.stdout
+    else:
+        f = open(filename, 'w')
     f.write("NUCOS unit set:\n")
     for key, value in ConvertDataUnits.items():
-        f.write( "\n%s:\n"%key )
+        f.write("\n%s:\n" % key)
         for key2 in value:
-            f.write( "    %s\n"%key2.encode('ascii', 'ignore') )
+            f.write("    %s\n"%key2.encode('ascii', 'ignore'))
+
 
 def all_unit_names():
     """
@@ -221,18 +222,20 @@ def all_unit_names():
     """
     result = []
     for key, value in ConvertDataUnits.items():
-        result.append('\n%s:\n'%key)
+        result.append('\n%s:\n' % key)
         for key2 in value:
-            result.append("    %s\n        "%key2.encode('ascii', 'ignore') )
-            result.append( ", ".join(value[key2][1]) )
+            result.append("    %s\n        " % key2.encode('ascii', 'ignore'))
+            result.append(", ".join(value[key2][1]))
             result.append("\n")
     return "".join(result)
+
 
 def dump_to_json(filename=None):
     """
     dumps the full unit data to JSON, for use in the Javascript version, or ...
     """
-    import sys, json
+    import sys
+    import json
 
     f = open(filename, 'w') if filename else sys.stdout
     f.write(json.dumps(ConvertDataUnits, indent=2, separators=(',', ':')))

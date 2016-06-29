@@ -374,3 +374,38 @@ def test_invalid_unit_convert():
     with pytest.raises(unit_conversion.InvalidUnitTypeError):
         unit_conversion.convert("something_wrong", "feet", "meters", 1.0)
 
+    with pytest.raises(unit_conversion.InvalidUnitError):
+        unit_conversion.convert("density", "kg/m^33", "g/cm^3", 1.0)
+
+
+
+# these really jsut to get 100% coverage :-)
+def test_is_supported():
+    """not comprehensive..."""
+    assert unit_conversion.is_supported('foot')
+    assert not unit_conversion.is_supported('something random')
+
+
+def test_NotSupportedUnitError():
+    "just test the __str__..."
+    err = str(unit_conversion.NotSupportedUnitError('feeet'))
+
+    assert err == 'The unit: feeet is not supported or not recognized'
+
+
+def test_InvalidUnitError():
+    "just testing the __str__..."
+    err = str(unit_conversion.InvalidUnitError(('feet', 'volume')))
+
+    assert err == 'The unit: feet is not in the list for Unit Type: volume'
+
+
+def test_InvalidUnitTypeError():
+    "just test the __str__..."
+    err = str(unit_conversion.InvalidUnitTypeError('feeet'))
+
+    assert err == 'The unit type: feeet is not in the UnitConversion database'
+
+
+
+

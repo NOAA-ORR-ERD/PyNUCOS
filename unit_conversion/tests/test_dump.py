@@ -24,3 +24,10 @@ def test_all_unit_names():
 
     assert "Kinematic Viscosity:" in names
     assert "API degree" in names
+
+
+def test_write_units():
+    """ just makes sure it doesn't crash"""
+    unit_data.write_units()
+    # and to a file
+    unit_data.write_units("all_units.txt")

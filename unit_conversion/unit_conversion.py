@@ -23,6 +23,7 @@ CHANGELOG:
 """
 
 from __future__ import unicode_literals, absolute_import
+import warnings
 
 from .unit_data import ConvertDataUnits
 
@@ -369,58 +370,45 @@ def convert(unit1, unit2, value, unit_type=None):
 
     # the new API: no need to specify unit type
     if unit_type is None:
-        unit1 = Simplify(unit1)
-        unit2 = Simplify(unit2)
-
-        all_units = UNIT_TYPES
+        unit1, unit2 = (Simplify(s) for s in (unit1, unit2))
         try:
-            unit_type = all_units[unit1]
+            unit_type = UNIT_TYPES[unit1]
         except KeyError:
             raise NotSupportedUnitError(unit1)
         try:
-            unit_type2 = all_units[unit2]
+            unit_type2 = UNIT_TYPES[unit2]
         except KeyError:
             raise NotSupportedUnitError(unit2)
         if unit_type != unit_type2:
             raise UnitConversionError("Cannot convert {0} to {1}".format(unit1, unit2))
         unit_type = Simplify(unit_type)
-        try:
-            Converter = Converters[unit_type]
-        except KeyError:
-            raise InvalidUnitTypeError(unit_type)
-        return Converter.Convert(unit1, unit2, value)
     # the old API: specify the unit type
     else:
-        # fixme: why re-compute this every time??
-        simp_types = [Simplify(k) for k in GetUnitTypes()]
-        # ~~DEPRECATED~~
-        v = unit_type
-        unit_type = Simplify(unit1)
-        try:
-            Converter = Converters[unit_type]
-        except KeyError:
-            raise InvalidUnitTypeError(unit_type)
-        return Converter.Convert(unit2, value, v)
-        # if Simplify(unit1) in simp_types:
-        #     # This maintains compatibility with the old usage of this function
-        #     v = unit_type
-        #     unit_type = Simplify(unit1)
-        #     try:
-        #         Converter = Converters[unit_type]
-        #     except ZeroDivisionError:  # fixme except what???
-        #         raise InvalidUnitTypeError(unit_type)
-        #     return Converter.Convert(unit2, value, v)
-        #if not isinstance(unit_type, (str, unicode)):
-        #    raise InvalidUnitTypeError(unit1)
-        # ~~DEPRECATED~~
-        #if Simplify(unit_type) not in simp_types:
-        #    raise InvalidUnitTypeError(unit_type)
+        # re-defining the inputs:
+        unit_type, unit1, unit2, value = unit1, unit2, value, unit_type
+        unit_type, unit1, unit2 = (Simplify(s) for s in (unit_type, unit1, unit2))
+    try:
+        Converter = Converters[unit_type]
+    except KeyError:
+        raise InvalidUnitTypeError(unit_type)
+    return Converter.Convert(unit1, unit2, value)
 
-Convert = convert  # so to have the old, non-PEP8 compatible name
+
+# so as to have the old, non-PEP8 compatible name
 # This is used by TapInput (any more???)
+def Convert(*args, **kwargs):
+    """
+    so as to have the old, non-PEP8 compatible name
+    This is used by TapInput (any more???)
+
+    for new code, use convert()
+    """
+    warnings.warn('"Convert" is deprecated -- use "convert()"', DeprecationWarning)
+    return convert(*args, **kwargs)
 
 
-class UnitConversionError(Exception):
+# fixme: we should probably simjply get rid of these and use ValueError
+class UnitConversionError(ValueError):
     """
     Exception type for unit conversion errors
 
@@ -463,21 +451,3 @@ class InvalidUnitTypeError(UnitConversionError):
 
     def __str__(self):
         return "The unit type: %s is not in the UnitConversion database" % self.unitType
-
-
-class MismatchedUnitError(UnitConversionError):
-    """
-    Exception raised when a unit is not in the Unitconversion database
-    """
-    # fixme -- this doesn't appear to be used anywhere...
-    def __init__(self, FromUnit_FromUnitType_ToUnit_ToUnitType):
-        (FromUnit, FromUnitType, ToUnit, ToUnitType) = \
-            FromUnit_FromUnitType_ToUnit_ToUnitType
-        self.FromUnit     =  FromUnit
-        self.FromUnitType =  FromUnitType
-        self.ToUnit       =  ToUnit
-        self.ToUnitType   =  ToUnitType
-
-    def __str__(self):
-        return "The unit: %s of  type %s is not compatible with %s of type %s" % \
-               (self.FromUnit, self.FromUnitType, self.ToUnit, self.ToUnitType)
