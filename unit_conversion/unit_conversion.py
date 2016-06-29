@@ -24,27 +24,30 @@ CHANGELOG:
 
 from __future__ import unicode_literals, absolute_import
 
-__version__ = "2.4.0"
-
-from . import unit_data
-
 from .unit_data import ConvertDataUnits
 
-from .lat_long import (LatLongConverter,
-                       Latitude,
-                       Longitude,
-                       DummyLatitude,
-                       DummyLongitude)  # Backward compatibility.
+# from .lat_long import (LatLongConverter,
+#                        Latitude,
+#                        Longitude,
+#                        DummyLatitude,
+#                        DummyLongitude)  # Backward compatibility.
+
+__version__ = "2.4.0"
+__version__ = "2.4.0"
 
 
 # A few utilities
-def Simplify(String):
+def Simplify(string):
     """
-    Simplify(String)
+    Simplify(string)
 
     returns the string with the whitespace and capitalization removed
     """
-    return "".join(String.lower().split())
+    try:
+        return "".join(string.lower().split())
+    except AttributeError:
+        raise NotSupportedUnitError(string)
+
 
 def GetUnitTypes():
     """
@@ -53,6 +56,7 @@ def GetUnitTypes():
     a unit type is something like "mass", "velocity", etc.
     """
     return ConvertDataUnits.keys()
+
 
 def GetUnitNames(UnitType):
     """
@@ -64,6 +68,7 @@ def GetUnitNames(UnitType):
     """
     return ConvertDataUnits[UnitType].keys()
 
+
 def FindUnitTypes():
     """
     returns a mapping of all the unit names to the unit types
@@ -74,25 +79,29 @@ def FindUnitTypes():
     Usually not called from user code.
     """
     unit_types = {}
-    for unit_type in ConvertDataUnits.keys():
-        if unit_type == "Oil Concentration" or unit_type == "Concentration In Water":
+    for unit_type, unit_data in ConvertDataUnits.items():
+        unit_type = Simplify(unit_type)
+        if unit_type == "oilconcentration" or unit_type == "concentrationinwater":
             continue  # skipping Oil Concentration, 'cause this is really length
                       # -- lots of duplicate units!
                       # skipping Concentration in water, cause it's weird
-        for PrimaryName, data in ConvertDataUnits[unit_type].items():
+        for pname, data in unit_data.items():
             # strip out whitespace and capitalization
-            # Pname = Simplify(PrimaryName)
-            Pname = PrimaryName
+            pname = Simplify(pname)
             # add the primary name:
-            unit_types[Pname] = unit_type
+            unit_types[pname] = unit_type
             # now the synonyms:
             for n in data[1]:
-                if unit_type == "Volume" and n == 'oz':
-                    continue # skip, "oz" is only mass
+                n = Simplify(n)
+                if (unit_type, n) in [("volume", "oz"),
+                                      ("density", "s")]:
+                    continue  # skip, "oz" is only mass, "s" is only time
                 if n in unit_types:
-                    raise ValueError("Duplicate name in units table: %s"%n)
+                    raise ValueError("Duplicate name in units table: %s" % n)
                 unit_types[n] = unit_type
     return unit_types
+
+UNIT_TYPES = FindUnitTypes()
 
 
 def GetUnitAbbreviation(unit_type, unit):
@@ -120,7 +129,9 @@ def is_same_unit(unit1, unit2):
               False if one of them is not in the database.
 
     """
-    all_types = FindUnitTypes()
+    all_types = UNIT_TYPES
+    unit1 = Simplify(unit1)
+    unit2 = Simplify(unit2)
     try:
         type1 = all_types[unit1]
         type2 = all_types[unit2]
@@ -210,20 +221,21 @@ class TempConverterClass(ConverterClass):
         try:
             FromUnit = self.Synonyms[FromUnit]
         except KeyError:
-            raise InvalidUnitError( (FromUnit, self.Name) )
+            raise InvalidUnitError((FromUnit, self.Name))
         try:
             ToUnit = self.Synonyms[ToUnit]
         except KeyError:
-            raise InvalidUnitError( (ToUnit, self.Name) )
+            raise InvalidUnitError((ToUnit, self.Name))
 
         A1 = self.Convertdata[FromUnit][0]
         B1 = self.Convertdata[FromUnit][1]
         A2 = self.Convertdata[ToUnit][0]
         B2 = self.Convertdata[ToUnit][1]
 
-        to_val = ((Value + B1)*A1/A2)-B2
+        to_val = ((Value + B1) * A1 / A2) - B2
 
         return to_val
+
 
 class DensityConverterClass(ConverterClass):
     """
@@ -264,6 +276,7 @@ class DensityConverterClass(ConverterClass):
             ToVal = Value * self.Convertdata[FromUnit] / self.Convertdata[ToUnit]
         return ToVal
 
+
 class OilQuantityConverter:
     """
     class for Oil Quantity conversion -- mass to/from Volume
@@ -283,14 +296,11 @@ class OilQuantityConverter:
 
         """
         Density = convert("Density", DensityUnits, "kg/m^3", Density)
-        #print "Density in kg/m^3", Density
         Mass = convert("Mass", MassUnits, "kg", Mass)
-        #print "Mass in kg", Mass
         Volume = Mass / Density
-        #print "Volume in m^3", Volume
         Volume = convert("Volume", "m^3", VolumeUnits, Volume)
-        #print "Volume in %s"%VolumeUnits, Volume
         return Volume
+
     @classmethod
     def ToMass(self, Volume, VolUnits, Density, DensityUnits, MassUnits):
         """
@@ -321,7 +331,7 @@ for (unittype, data) in ConvertDataUnits.items():
 
 
 def is_supported(unit):
-    return unit in FindUnitTypes().keys()
+    return unit in UNIT_TYPES.keys()
 
 
 def convert(unit1, unit2, value, unit_type=None):
@@ -349,7 +359,7 @@ def convert(unit1, unit2, value, unit_type=None):
 
     such as:
 
-      convert('meter', 'feet', 32, 'length')
+      convert('volume', 'oz', 'cc', 25)
 
     :param unit_type: the type of the unit: 'mass', 'length', etc.
     :param unit1: the unit the original value is in
@@ -359,43 +369,52 @@ def convert(unit1, unit2, value, unit_type=None):
 
     # the new API: no need to specify unit type
     if unit_type is None:
-        all_units = FindUnitTypes()
-        unit_type = unit_type2 = None
+        unit1 = Simplify(unit1)
+        unit2 = Simplify(unit2)
+
+        all_units = UNIT_TYPES
         try:
             unit_type = all_units[unit1]
-        except:
+        except KeyError:
             raise NotSupportedUnitError(unit1)
         try:
             unit_type2 = all_units[unit2]
-        except:
+        except KeyError:
             raise NotSupportedUnitError(unit2)
         if unit_type != unit_type2:
             raise UnitConversionError("Cannot convert {0} to {1}".format(unit1, unit2))
+        unit_type = Simplify(unit_type)
+        try:
+            Converter = Converters[unit_type]
+        except KeyError:
+            raise InvalidUnitTypeError(unit_type)
+        return Converter.Convert(unit1, unit2, value)
     # the old API: specify the unit type
     else:
-        # fixme: why re-copute this every time??
+        # fixme: why re-compute this every time??
         simp_types = [Simplify(k) for k in GetUnitTypes()]
         # ~~DEPRECATED~~
-        if Simplify(unit1) in simp_types:
-            # This maintains compatibility with the old usage of this function
-            v = unit_type
-            unit_type = Simplify(unit1)
-            try:
-                Converter = Converters[unit_type]
-            except ZeroDivisionError:  # fixme except what???
-                raise InvalidUnitTypeError(unit_type)
-            return Converter.Convert(unit2, value, v)
-        if not isinstance(unit_type, (str, unicode)):
-            raise InvalidUnitTypeError(unit1)
-        # ~~DEPRECATED~~
-        if Simplify(unit_type) not in simp_types:
+        v = unit_type
+        unit_type = Simplify(unit1)
+        try:
+            Converter = Converters[unit_type]
+        except KeyError:
             raise InvalidUnitTypeError(unit_type)
-    unit_type = Simplify(unit_type)
-    try:
-        Converter = Converters[unit_type]
-    except:  # except what??
-        raise InvalidUnitTypeError(unit_type)
-    return Converter.Convert(unit1, unit2, value)
+        return Converter.Convert(unit2, value, v)
+        # if Simplify(unit1) in simp_types:
+        #     # This maintains compatibility with the old usage of this function
+        #     v = unit_type
+        #     unit_type = Simplify(unit1)
+        #     try:
+        #         Converter = Converters[unit_type]
+        #     except ZeroDivisionError:  # fixme except what???
+        #         raise InvalidUnitTypeError(unit_type)
+        #     return Converter.Convert(unit2, value, v)
+        #if not isinstance(unit_type, (str, unicode)):
+        #    raise InvalidUnitTypeError(unit1)
+        # ~~DEPRECATED~~
+        #if Simplify(unit_type) not in simp_types:
+        #    raise InvalidUnitTypeError(unit_type)
 
 Convert = convert  # so to have the old, non-PEP8 compatible name
 # This is used by TapInput (any more???)
@@ -411,13 +430,13 @@ class UnitConversionError(Exception):
     pass
 
 
-class NotSupportedUnitError(Exception):
+class NotSupportedUnitError(UnitConversionError):
 
     def __init__(self, unit):
         self.unit = unit
 
     def __str__(self):
-        return "The unit: %s is not supported or not recognized"(self.unit)
+        return "The unit: %s is not supported or not recognized" % (self.unit)
 
 
 class InvalidUnitError(UnitConversionError):
@@ -431,7 +450,7 @@ class InvalidUnitError(UnitConversionError):
         self.type = unit_type if unit_type else ""
 
     def __str__(self):
-        return "The unit: %s is not in the list for Unit Type: %s"%(self.unit, self.type)
+        return "The unit: %s is not in the list for Unit Type: %s" % (self.unit, self.type)
 
 
 class InvalidUnitTypeError(UnitConversionError):

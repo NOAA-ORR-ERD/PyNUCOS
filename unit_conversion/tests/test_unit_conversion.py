@@ -19,6 +19,17 @@ import pytest
 import unit_conversion
 
 
+def isclose(a, b, Epsilon=1e-5):
+    # Is this accurate enough? The input data doesn't have a lot of sig figs.
+    """
+    isclose(a,b) returns true is a and b are the same within Epsilon
+
+    """
+    if a == b:
+        return True
+    else:
+        return abs(float(a - b) / ((a + b) / 2)) <= Epsilon
+
 KnownValues = [
     # Known values from Handbook of Chemistry and Physics (HCP), except where noted
     ("length", "meters", "feet", 1, 3.2808398),
@@ -138,18 +149,27 @@ KnownValues = [
     ("Angular Measure", "radians", "degrees", 2 * math.pi, 360.0),  # calculated
                ]
 
+def test_new_api_oneshot():
+    'just to make sure basic API works!'
+    assert isclose(unit_conversion.convert('meter', 'foot', 1), 3.28083989501)
 
-def isclose(a, b, Epsilon=1e-5):
-    # Is this accurate enough? The input data doesn't have a lot of sig figs.
+    # units = unit_conversion.UNIT_TYPES.keys()
+    # units.sort()
+    # print units
+    assert isclose(unit_conversion.convert('API', 'SG', 10), 1)
+
+
+@pytest.mark.parametrize('unit_type, unit1, unit2, value, new_value', KnownValues)
+def test_new_api(unit_type, unit1, unit2, value, new_value):
     """
-    isclose(a,b) returns true is a and b are the same within Epsilon
-
+    this is a parameterized test
+    of all the known values, but with the new API
     """
-    if a == b:
-        return True
-    else:
-        return abs(float(a - b) / ((a + b) / 2)) <= Epsilon
-
+    # filter out the ones that we know are eliminated
+    if unit_conversion.Simplify(unit_type) in ['concentrationinwater', 'oilconcentration']:
+        return
+    # now do the test:
+    assert isclose(unit_conversion.convert(unit1, unit2, value), new_value)
 
 # nose generator for known values tests
 def test_known_values():
@@ -158,10 +178,6 @@ def test_known_values():
 
 
 def check_known_value(test):
-    #Type = test[0]
-    #From = test[1]
-    #To = test[2]
-    #Value = test[3]
     true = test[4]
     Calculated = unit_conversion.Convert(*test[:4])
     print("Calculated: %f, True: %f" % ((Calculated, true)))
@@ -199,20 +215,20 @@ class testOilQuantityConverterClass(unittest.TestCase):
 
     def testMassToVolume1(self):
         self.failUnless(isclose(self.OQC.ToVolume(Mass=1,
-                                                MassUnits="metricton",
-                                                Density=25,
-                                                DensityUnits="API",
-                                                VolumeUnits="bbl"),
-                              6.9626324)
+                                                  MassUnits="metricton",
+                                                  Density=25,
+                                                  DensityUnits="API",
+                                                  VolumeUnits="bbl"),
+                                6.9626324)
                         )
 
     def testMassToVolume2(self):
         self.failUnless(isclose(self.OQC.ToVolume(Mass=1,
-                                                MassUnits="metricton",
-                                                Density=0.816,
-                                                DensityUnits="SG",
-                                                VolumeUnits="bbl"),
-                              7.71481307)
+                                                  MassUnits="metricton",
+                                                  Density=0.816,
+                                                  DensityUnits="SG",
+                                                  VolumeUnits="bbl"),
+                                7.71481307)
                         )
 
     def testVolumeToMass1(self):
@@ -225,7 +241,7 @@ class testOilQuantityConverterClass(unittest.TestCase):
         print(Expected, Calculated)
         self.failUnless(isclose(Expected, Calculated))
 
-    def testVolumeToMass1(self):
+    def testVolumeToMass2(self):
         Expected = 1.0
         Calculated = self.OQC.ToMass(Volume=7.83861191,
                                      VolUnits="bbls",
@@ -234,6 +250,10 @@ class testOilQuantityConverterClass(unittest.TestCase):
                                      MassUnits="longton")
         self.failUnless(isclose(Expected, Calculated))
 
+
+
+
+# fixme: there should probably be a full set of tests for the "new" API
 class testNewConvertAPI(unittest.TestCase):
     def test_bad_convert(self):
         self.failUnlessRaises(unit_conversion.UnitConversionError,
@@ -242,13 +262,13 @@ class testNewConvertAPI(unittest.TestCase):
                               )
         self.failUnlessRaises(unit_conversion.UnitConversionError,
                               unit_conversion.convert,
-                              "kg","miles", 0,
+                              "kg", "miles", 0,
                               )
 
     def test_invalid_unit(self):
         self.failUnlessRaises(unit_conversion.InvalidUnitError,
                               unit_conversion.convert,
-                              "kg", "miles", 0, "Mass"
+                              "Mass", "kg", "miles", 0
                               )
         self.failUnlessRaises(unit_conversion.NotSupportedUnitError,
                               unit_conversion.convert,
@@ -283,12 +303,12 @@ def test_GetUnitNames():
     # note: not testing all of them
     #       either all types or all names
     names = unit_conversion.GetUnitNames('Length')
-    print(names)
+    #print(names)
     assert "meter" in names
     assert "foot" in names
     assert "feet" not in names
     names = unit_conversion.GetUnitNames('Area')
-    print(names)
+    #print(names)
     assert "square foot" in names
     assert "acre" in names
     assert "square meter" in names
@@ -308,19 +328,17 @@ def test_GetUnitAbbreviation():
 
 
 def test_FindUnitTypes():
-    # just testing that it's there an doesn't crash!
-    all_units = unit_conversion.FindUnitTypes()
-    print(all_units)
-    assert all_units['s'] == 'Time'
-    assert all_units['S'] == 'Density'
-    assert all_units['feet/s'] == 'Velocity'
-    assert all_units['m^2/s'] == 'Kinematic Viscosity'
+    # just testing that it's there and doesn't crash!
+    all_units = unit_conversion.UNIT_TYPES
+    assert all_units['s'] == 'time'
+    assert all_units['sg'] == 'density'
+    assert all_units['feet/s'] == 'velocity'
+    assert all_units['m^2/s'] == 'kinematicviscosity'
 
 
 def test_is_same_unit():
     # a few examples...not complete, but at least it's there and works for some cases
 
-    print("testing is_same_unit")
     assert unit_conversion.is_same_unit('knot', 'knots')
     assert unit_conversion.is_same_unit('knot', 'kts')
     assert not unit_conversion.is_same_unit('knot', 'm/s')
@@ -350,5 +368,9 @@ def test_invalid_unit_convert():
     with pytest.raises(unit_conversion.InvalidUnitError):
         unit_conversion.convert("temperature", "f", "feet", 1.0)
 
+    with pytest.raises(unit_conversion.InvalidUnitError):
+        unit_conversion.convert("length", "feet", "C", 1.0)
+
     with pytest.raises(unit_conversion.InvalidUnitTypeError):
         unit_conversion.convert("something_wrong", "feet", "meters", 1.0)
+
