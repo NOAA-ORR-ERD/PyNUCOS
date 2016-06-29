@@ -332,7 +332,11 @@ for (unittype, data) in ConvertDataUnits.items():
 
 
 def is_supported(unit):
-    return unit in UNIT_TYPES.keys()
+    """
+    Returns True is the unit is in teh list of supported units for the
+    API that does not require unit_type
+    """
+    return Simplify(unit) in UNIT_TYPES
 
 
 def convert(unit1, unit2, value, unit_type=None):

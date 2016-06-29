@@ -150,13 +150,19 @@ KnownValues = [
                ]
 
 def test_new_api_oneshot():
-    'just to make sure basic API works!'
+    """
+    just to make sure basic API works!
+
+    and these are a few that have caused problems...
+    """
+
     assert isclose(unit_conversion.convert('meter', 'foot', 1), 3.28083989501)
 
-    # units = unit_conversion.UNIT_TYPES.keys()
-    # units.sort()
-    # print units
     assert isclose(unit_conversion.convert('API', 'SG', 10), 1)
+
+    assert isclose(unit_conversion.convert('meter second-1', 'knot', 1), 1.94384)
+
+    assert isclose(unit_conversion.convert('m/s', 'knot', 1), 1.94384)
 
 
 @pytest.mark.parametrize('unit_type, unit1, unit2, value, new_value', KnownValues)
@@ -378,11 +384,13 @@ def test_invalid_unit_convert():
         unit_conversion.convert("density", "kg/m^33", "g/cm^3", 1.0)
 
 
-
 # these really jsut to get 100% coverage :-)
 def test_is_supported():
-    """not comprehensive..."""
+    """not comprehensive...
+    """
     assert unit_conversion.is_supported('foot')
+    assert unit_conversion.is_supported('FoOt')
+    assert unit_conversion.is_supported('meter second-1')
     assert not unit_conversion.is_supported('something random')
 
 
