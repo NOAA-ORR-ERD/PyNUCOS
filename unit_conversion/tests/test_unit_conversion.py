@@ -34,8 +34,9 @@ KnownValues = [
 
 
     # all values close to value in the "Open Water Oil Identification Job Aid"
-    # and close to values in the Unit Conversion sheet distributed with the dispersion mission planner.
-    # technical, oil concentration is a unit of length, but it's conceptually different
+    # and close to values in the Unit Conversion sheet distributed with the dispersant
+    # mission planner.
+    # Technicaly, oil concentration is a unit of length, but it's conceptually different
     #  so we treat it differently here: (i.e. using bbl/acre as a length would be really wierd)
     ("Oil Concentration", "micron", "mm", 100, .1),
     ("Oil Concentration", "in", "mm", 1.0, 25.4),
@@ -65,7 +66,7 @@ KnownValues = [
     ("volume", "fluid ounce (UK)", "fluid oz", 1.0, 0.9607594),
     ("volume", "gallon (UK)", "gal", 1.0, 1.200949),
     ("volume", "cubic kilometer", "m^3", 1.0, 1e9),
-    ("volume", "cubic kilometer", "ft^3", 1.0, 3.531467e10),# the google converter
+    ("volume", "cubic kilometer", "ft^3", 1.0, 3.531467e10),  # the google converter
 
     ("mass", "kg", "lb", 1.0, 2.2046226),
     ("Mass", "kg", "metrictons", 1.0, 0.001),
@@ -76,8 +77,8 @@ KnownValues = [
     ("mass", "ton(UK)", "ton", 1.0, 1.12),
 
     ("Time", "seconds", "minutes", 60, 1.0),
-    ("time", "days", "minutes", 1.0, 24*60),
-    ("time", "hr", "seconds", 1.0, 60*60),
+    ("time", "days", "minutes", 1.0, 24 * 60),
+    ("time", "hr", "seconds", 1.0, 60 * 60),
 
     ("Velocity", "m/s", "cm/s", 1.0, 100),
     ("Velocity", "km/h", "kts", 1.0, 0.5399568),
@@ -134,15 +135,14 @@ KnownValues = [
     ("ConcentrationInWater", "nanogramperliter", "partpertrillion", 1.0, 1.0),  # calculated
 
     ("Angular Measure", "degree", "radian", 180.0, math.pi),  # calculated
-    ("Angular Measure", "radians", "degrees", 2*math.pi, 360.0),  # calculated
+    ("Angular Measure", "radians", "degrees", 2 * math.pi, 360.0),  # calculated
+               ]
 
-     ]
 
-
-def Close(a, b, Epsilon=1e-5):
+def isclose(a, b, Epsilon=1e-5):
     # Is this accurate enough? The input data doesn't have a lot of sig figs.
     """
-    Close(a,b) returns true is a and b are the same within Epsilon
+    isclose(a,b) returns true is a and b are the same within Epsilon
 
     """
     if a == b:
@@ -158,14 +158,14 @@ def test_known_values():
 
 
 def check_known_value(test):
-        Type = test[0]
-        From = test[1]
-        To = test[2]
-        Value = test[3]
-        true = test[4]
-        Calculated = unit_conversion.Convert(*test[:4])
-        print("Calculated: %f, True: %f" % ((Calculated, true)))
-        assert(Close(Calculated, true))
+    #Type = test[0]
+    #From = test[1]
+    #To = test[2]
+    #Value = test[3]
+    true = test[4]
+    Calculated = unit_conversion.Convert(*test[:4])
+    print("Calculated: %f, True: %f" % ((Calculated, true)))
+    assert(isclose(Calculated, true))
 
 
 class testBadnames(unittest.TestCase):
@@ -198,7 +198,7 @@ class testOilQuantityConverterClass(unittest.TestCase):
     OQC = unit_conversion.OilQuantityConverter
 
     def testMassToVolume1(self):
-        self.failUnless(Close(self.OQC.ToVolume(Mass=1,
+        self.failUnless(isclose(self.OQC.ToVolume(Mass=1,
                                                 MassUnits="metricton",
                                                 Density=25,
                                                 DensityUnits="API",
@@ -207,7 +207,7 @@ class testOilQuantityConverterClass(unittest.TestCase):
                         )
 
     def testMassToVolume2(self):
-        self.failUnless(Close(self.OQC.ToVolume(Mass=1,
+        self.failUnless(isclose(self.OQC.ToVolume(Mass=1,
                                                 MassUnits="metricton",
                                                 Density=0.816,
                                                 DensityUnits="SG",
@@ -223,7 +223,7 @@ class testOilQuantityConverterClass(unittest.TestCase):
                                      DensityUnits="API",
                                      MassUnits="metricton")
         print(Expected, Calculated)
-        self.failUnless(Close(Expected, Calculated))
+        self.failUnless(isclose(Expected, Calculated))
 
     def testVolumeToMass1(self):
         Expected = 1.0
@@ -232,7 +232,40 @@ class testOilQuantityConverterClass(unittest.TestCase):
                                      Density=0.816,
                                      DensityUnits="SG",
                                      MassUnits="longton")
-        self.failUnless(Close(Expected, Calculated))
+        self.failUnless(isclose(Expected, Calculated))
+
+class testNewConvertAPI(unittest.TestCase):
+    def test_bad_convert(self):
+        self.failUnlessRaises(unit_conversion.UnitConversionError,
+                              unit_conversion.convert,
+                              "kg", "miles", 0,
+                              )
+        self.failUnlessRaises(unit_conversion.UnitConversionError,
+                              unit_conversion.convert,
+                              "kg","miles", 0,
+                              )
+
+    def test_invalid_unit(self):
+        self.failUnlessRaises(unit_conversion.InvalidUnitError,
+                              unit_conversion.convert,
+                              "kg", "miles", 0, "Mass"
+                              )
+        self.failUnlessRaises(unit_conversion.NotSupportedUnitError,
+                              unit_conversion.convert,
+                              "kgt", "miles", 0
+                              )
+        self.failUnlessRaises(unit_conversion.NotSupportedUnitError,
+                              unit_conversion.convert,
+                              "kg", "miless", 0,
+                              )
+        self.failUnlessRaises(unit_conversion.NotSupportedUnitError,
+                              unit_conversion.convert,
+                              "foo", "spam", 0,
+                              )
+        self.failUnlessRaises(unit_conversion.NotSupportedUnitError,
+                              unit_conversion.convert,
+                              0, 0, 0,
+                              )
 
 
 def test_GetUnitTypes():
@@ -316,3 +349,6 @@ def test_invalid_unit_convert():
         unit_conversion.convert("temperature", "feet", "C", 1.0)
     with pytest.raises(unit_conversion.InvalidUnitError):
         unit_conversion.convert("temperature", "f", "feet", 1.0)
+
+    with pytest.raises(unit_conversion.InvalidUnitTypeError):
+        unit_conversion.convert("something_wrong", "feet", "meters", 1.0)
