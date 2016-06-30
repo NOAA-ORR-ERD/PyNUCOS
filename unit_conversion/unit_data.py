@@ -9,21 +9,25 @@ it also includes a utility function for dumping the units to the console or a fi
    write_units(filename=None)
 
 """
+from __future__ import unicode_literals, absolute_import
+import itertools
+
 ConvertDataUnits = {
+
 # All lengths in terms of meter
 # All conversion factors from "Handbook of Chemistry and Physics" (HCP) except where noted.
 
 "Length" : {"meter"      : (1.0,["m","meters","metre"]),
             "centimeter" : (0.01,["cm", "centimeters"]),
-            "millimeter"  : (0.001,["mm","millimeters"]),
-            "micron"  : (0.000001,["microns"]),
+            "millimeter" : (0.001,["mm","millimeters"]),
+            "micron"     : (0.000001,["microns"]),
             "kilometer"  : (1000.0,["km","kilometers"]),
-            "foot"        : (0.3048,["ft", "feet"]),
-            "inch"      : (0.0254,["in","inches"]),
+            "foot"       : (0.3048,["ft", "feet"]),
+            "inch"       : (0.0254,["in","inches"]),
             "yard"       : (0.9144,[ "yrd","yards"]),
             "mile"       : (1609.344,["mi", "miles"]),
-            "nautical mile" : (1852.0,["nm","nauticalmiles"]),
-            "fathom"  : (1.8288,["fthm", "fathoms"]),
+            "nautical mile": (1852.0,["nm","nauticalmiles"]),
+            "fathom": (1.8288,["fthm", "fathoms"]),
             "latitude degree": (111120.0,["latitudedegrees"]),
             "latitude minute": (1852.0,["latitudeminutes"])
             },
@@ -119,28 +123,11 @@ ConvertDataUnits = {
                "barrel per day"  : ( 1.84013078e-06, ["bbl/day"]), # calculated from bbl/hr
                },
 
-### Kinematic Viscosity in Stokes
-##  NOTE: there is a more detailed way to do this, specified in:
-##        ASTM D 2161 Standard Practice for Conversion of Kinematic
-##        Viscosity to Saybolt Universal Viscosity or to Saybolt Furol
-##        Viscosity
-## for the moment, this will only handle approximation for SFS and SUS
-"Kinematic Viscosity" : {"Stoke": (1.0, ["St","stokes"]),
-                         "centiStoke": (.01, ["cSt","centistokes"]),
-                         "square millimeter per second": (.01, ["mm^2/s",]),
-                         "square centimeter per second": (1.0, ["cm^2/s",]),
-                         "square meter per second": (10000, ["m^2/s"],),
-                         "square inch per second": (6.4516, ["in^2/s","squareinchespersecond"]),
-                         "Saybolt Universal Second": (1/462.0, ["SSU","SUS"]),# from CRC - only good for > 100cSt
-                         "Saybolt Furol Second": (0.02116959064, ["SSF","SFS"]),# from Fuel Oil Manual: good for 724cSt
-                         #"poise" : (["P"])
-                         },
-
 ### Density in g/cc
-## NOTE: Specific Gravity can only be defined for a given reference temperature.
-##       The most common standard in the oil industry is 15C (or 60F). The
-##       following is the value for the Density of water at 15C
-##       (CRC Handbook of Chemistry and Physics)
+# NOTE: Specific Gravity can only be defined for a given reference temperature.
+#       The most common standard in the oil industry is 15C (or 60F). The
+#       following is the value for the Density of water at 15C
+#       (CRC Handbook of Chemistry and Physics)
 "Density" : {"gram per cubic centimeter"  : (1.0,["g/cm^3","grams per cubic centimeter"]),
              u"specific gravity (15\xb0C)"  : (0.99913,["S","specificgravity","Spec grav","SG","specificgravity(15C)"]),
              "kilogram per cubic meter" : (.001,["kg/m^3"]),
@@ -148,37 +135,86 @@ ConvertDataUnits = {
              "API degree"  : (1,["api"]),# this is special cased in the code.
              },
 
-### Concentration in water in PPM
-"Concentration In Water" : {"part per million"  : (1.0,["ppm","parts per million"]),
-                            "part per billion"  : (.001,["ppb", "parts per billion"]),
-                            "part per thousand" : (1000,["ppt", "parts per thousand"]),
-                            "part per trillion" : (.000001,["parts per trillion","pptr"]),
-                            "fraction (decimal)" : (1e6,["fraction", "mass per mass"]),
-                            "percent"  : (1e4,["%", "parts per hundred", "per cent"]),
-                            "kilogram per cubic meter":  (1000,["kg/m^3","kg/m3"]),
-                            "pound per cubic foot": (16018.463, ["lb/ft^3"]),
-                            "milligram per liter": (1.0, ["mg/l"]),
-                            "milligram per kilogram": (1.0, ["mg/kg"]),
-                            "milligram per milliliter": (1000, ["mg/ml"]),
-                            "microgram per liter": (0.001, ["ug/l"]),
-                            "nanogram per liter": (0.000001, []),
-                          },
+# All Time In second
+"Time": {"second": (1.0, ["s", "sec", "seconds"]),
+         "minute": (60.0, ["min", "minutes"]),
+         "hour": (3600.0, ["hr", "hours", "hrs"]),
+         "day": (86400.0, ["days"]),
+         },
 
-"Angular Measure" : {"radians" : (1.0, ["radian", "rad"]),
-                     "degrees" : (180/3.14, ["degree", "deg"])}
+# Kinematic Viscosity in Stokes
+# NOTE: there is a more detailed way to do this, specified in:
+# ASTM D 2161 Standard Practice for Conversion of Kinematic Viscosity to Saybolt
+# Universal Viscosity or to Saybolt Furol Viscosity
+# for the moment, this will only handle approximation for SFS and SUS
+"Kinematic Viscosity": {"Stoke": (1.0, ["St", "stokes"]),
+                        "centiStoke": (.01, ["cSt", "centistokes"]),
+                        "square millimeter per second": (.01, ["mm^2/s", ]),
+                        "square centimeter per second": (1.0, ["cm^2/s", ]),
+                        "square meter per second": (10000, ["m^2/s"],),
+                        "square inch per second": (6.4516, ["in^2/s", "squareinchespersecond"]),
+                        "Saybolt Universal Second": (1 / 462.0, ["SSU", "SUS"]),  # from CRC - only good for > 100cSt
+                        "Saybolt Furol Second": (0.02116959064, ["SSF", "SFS"]),  # from Fuel Oil Manual: good for 724cSt
+                        #"poise" : (["P"])
+                        },
+
+# Concentration in water in PPM
+"Concentration In Water": {"kilogram per cubic meter": (1.0, ["kg/m^3"]),
+                           "part per million": (1.0, ["ppm", "parts per million"]),
+                           "part per billion": (.001, ["ppb", "parts per billion"]),
+                           "part per thousand": (1000, ["ppt", "parts per thousand"]),
+                           "part per trillion": (.000001, ["parts per trillion", "pptr"]),
+                           "fraction (decimal)": (1e6, ["fraction", "mass per mass"]),
+                           "percent": (1e4, ["%", "parts per hundred", "per cent"]),
+                           "kilogram per cubic meter": (1000, ["kg/m^3", "kg/m3"]),
+                           "pound per cubic foot": (16018.463, ["lb/ft^3"]),
+                           "milligram per liter": (1.0, ["mg/l"]),
+                           "milligram per kilogram": (1.0, ["mg/kg"]),
+                           "milligram per milliliter": (1000, ["mg/ml"]),
+                           "microgram per liter": (0.001, ["ug/l"]),
+                           "nanogram per liter": (0.000001, []),
+                           },
+
+"Angular Measure": {"radians": (1.0, ["radian", "rad"]),
+                    "degrees": (3.141592653589793 / 180.0, ["degree", "deg"])
+                    }
+
 }
+
+
+# Build the unit sets to allow quick lookup of type and conversion legality
+# this creates something like the following:
+# unit_sets = {'Length': set(['m','km','mm',...]),
+#              'Area': set(['m^2','cm^2',...]),
+#              ...
+#              }
+
+unit_sets = {}
+for k in ConvertDataUnits.keys():
+    unit_sets[k] = set(itertools.chain(*[y for (x, y) in ConvertDataUnits[k].values()]))
+
+del unit_sets['Concentration In Water']
+unit_sets['Oil Concentration'] = unit_sets['Length']
+
+# Build the global unit list
+
+supported_units = set([])
+for s in unit_sets.values():
+    supported_units = supported_units.union(s)
+
 
 def write_units(filename=None):
     import sys
-    if filename:
-        f = open(filename, 'w')
-    else:
+    if filename is None:
         f = sys.stdout
+    else:
+        f = open(filename, 'w')
     f.write("NUCOS unit set:\n")
     for key, value in ConvertDataUnits.items():
-        f.write( "\n%s:\n"%key )
+        f.write("\n%s:\n" % key)
         for key2 in value:
-            f.write( "    %s\n"%key2.encode('ascii', 'ignore') )
+            f.write("    %s\n"%key2.encode('ascii', 'ignore'))
+
 
 def all_unit_names():
     """
@@ -186,17 +222,20 @@ def all_unit_names():
     """
     result = []
     for key, value in ConvertDataUnits.items():
-        result.append('\n%s:\n'%key)
+        result.append('\n%s:\n' % key)
         for key2 in value:
-            result.append("    %s\n        "%key2.encode('ascii', 'ignore') )
-            result.append( ", ".join(value[key2][1]) )
+            result.append("    %s\n        " % key2.encode('ascii', 'ignore'))
+            result.append(", ".join(value[key2][1]))
             result.append("\n")
     return "".join(result)
 
+
 def dump_to_json(filename=None):
-    import sys, json
-    if filename:
-        f = open(filename, 'w')
-    else:
-        f = sys.stdout
-    f.write(json.dumps(ConvertDataUnits, indent=2, separators=(',', ':') ) )
+    """
+    dumps the full unit data to JSON, for use in the Javascript version, or ...
+    """
+    import sys
+    import json
+
+    f = open(filename, 'w') if filename else sys.stdout
+    f.write(json.dumps(ConvertDataUnits, indent=2, separators=(',', ':')))
