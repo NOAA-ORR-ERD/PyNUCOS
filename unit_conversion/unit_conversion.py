@@ -27,14 +27,13 @@ import warnings
 
 from .unit_data import ConvertDataUnits
 
-# from .lat_long import (LatLongConverter,
-#                        Latitude,
-#                        Longitude,
-#                        DummyLatitude,
-#                        DummyLongitude)  # Backward compatibility.
+from .lat_long import (LatLongConverter,
+                       Latitude,
+                       Longitude,
+                       DummyLatitude,
+                       DummyLongitude)  # Backward compatibility.
 
-__version__ = "2.4.0"
-__version__ = "2.4.0"
+__version__ = "2.5.3"
 
 
 # A few utilities
