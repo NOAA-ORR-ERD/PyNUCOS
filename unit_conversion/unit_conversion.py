@@ -62,10 +62,11 @@ def GetUnitNames(UnitType):
     """
     returns a list of all the units available for a given unit type available
 
-    a unit type is something like "mass", "velocity", etc.
+    a unit type is something like "Mass", "Velocity", etc.
 
     a unit of mass would be "kilogram", "slug", etc.
     """
+    UnitType.capitalize()
     return ConvertDataUnits[UnitType].keys()
 
 
