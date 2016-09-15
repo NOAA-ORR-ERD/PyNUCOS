@@ -97,7 +97,7 @@ ConvertDataUnits = {
           "day"     : (86400.0,["days"]),
           },
 # All Velocities in meter per second
-"Velocity" : {"meter per second"  : (1.0,["m/s","meters per second","mps", "meter second-1", "meters s-1"]),
+"Velocity" : {"meter per second"  : (1.0,["m/s","meters per second","mps", "meter second-1", "meters s-1", "m s-1"]),
               "meter per minute" : (0.01666666666, ["m/min", "meters per minute"]),
               "centimeter per second"  : (.01,["cm/s"]),
               "kilometer per hour"  : (0.277777,["km/h", "km/hr"]),
