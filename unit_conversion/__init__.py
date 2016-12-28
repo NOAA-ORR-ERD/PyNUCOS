@@ -13,6 +13,6 @@ All of unit_conversion is imported here for convenience
 from __future__ import absolute_import
 
 
-__version__ = "2.5.6"
+__version__ = "2.5.5"
 
 from .unit_conversion import *
