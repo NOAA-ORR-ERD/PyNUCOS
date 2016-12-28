@@ -75,8 +75,8 @@ ConvertDataUnits = {
 
 # All Temperature units in K (multiply by, add)
 "Temperature" : {"Kelvin"  : ((1.0, 0.0),["K","degrees k","degree k","degrees kelvin","degree kelvin","deg k"]),
-                 "Celsius"  : ((1.0, 273.16),["C","degrees c","degrees celsius","deg c","centigrade"]),
-                 "Fahrenheit"  : ((0.55555555555555558, (273.16*(9. / 5.) - 32.0) ),["F","degrees f","degree f","degrees fahrenheit","deg f"]),
+                 "Celsius"  : ((1.0, 273.15),["C","degrees c","degrees celsius","deg c","centigrade"]),
+                 "Fahrenheit"  : ((0.55555555555555558, (273.15*(9. / 5.) - 32.0) ),["F","degrees f","degree f","degrees fahrenheit","deg f"]),
                  },
 
 # All Mass units in Kg (weight is taken to be mass at standard g)

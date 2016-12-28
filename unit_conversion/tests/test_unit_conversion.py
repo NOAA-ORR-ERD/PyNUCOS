@@ -123,8 +123,8 @@ KnownValues = [
 
     ("temperature", "F", "C", 32, 0),
     ("temperature", "F", "C", 212, 100),
-    ("temperature", "C", "K", 0, 273.16),
-    ("temperature", "F", "K", 32, 273.16),
+    ("temperature", "C", "K", 0, 273.15),
+    ("temperature", "F", "K", 32, 273.15),
 
     ("density", "g/cm^3", "Specific Gravity (15C)", 1, (1 / 0.99913)),
     ("density", "g/cm^3", "Specific Gravity (15C)", 0.99913, 1),
