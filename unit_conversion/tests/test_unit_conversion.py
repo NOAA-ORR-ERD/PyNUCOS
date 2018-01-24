@@ -192,20 +192,6 @@ def test_old_api(unit_type, unit1, unit2, value, new_value):
     assert isclose(unit_conversion.convert(unit_type, unit1, unit2, value), new_value)
 
 
-
-# # nose generator for known values tests
-# def test_known_values():
-#     for val in KnownValues:
-#         yield check_known_value, val
-
-
-# def check_known_value(test):
-#     true = test[4]
-#     Calculated = unit_conversion.Convert(*test[:4])
-#     print("Calculated: %f, True: %f" % ((Calculated, true)))
-#     assert(isclose(Calculated, true))
-
-
 class testBadnames(unittest.TestCase):
     def testBadType(self):
         self.failUnlessRaises(unit_conversion.InvalidUnitTypeError,
