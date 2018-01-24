@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-"""Unit conversion calculators.
+"""
+Unit conversion calculators.
 
 CHANGELOG:
   2005/07/14 CB: Initial import.
@@ -15,11 +16,15 @@ CHANGELOG:
                  .__init__ raises an exception; workaround for Pylons bug
                  http://pylonshq.com/project/pylonshq/ticket/341
   2008/02/22 CB: Added a few more units for Ian
-  2008/06/05 CB: Various changes before putting the Converter GUI on the web: new units, changed, spelling, etc.
+  2008/06/05 CB: Various changes before putting the Converter GUI on the web:
+                 new units, changed spelling, etc.
   2009/09/29 CB: Re-factored the lat-long stuff:
                  - it's not in a separate module
                  - Mike and Chris' code has been merged for less duplication
                  - Unit data moved to separate module
+  2018/01/24 CB: Added unicode exponents in unit names
+                 Added __all__
+                 Fixed concentation in water units!
 """
 
 from __future__ import unicode_literals, absolute_import
@@ -33,7 +38,34 @@ from .lat_long import (LatLongConverter,
                        DummyLatitude,
                        DummyLongitude)  # Backward compatibility.
 
-__version__ = "2.5.3"
+__all__ = ['DensityConverterClass',
+           'DummyLatitude',
+           'InvalidUnitTypeError',
+           'DummyLongitude',
+           'Latitude',
+           'ConverterClass',
+           'is_supported',
+           'Converters',
+           'GetUnitNames',
+           'NotSupportedUnitError',
+           'UNIT_TYPES',
+           'TempConverterClass',
+           'Simplify',
+           'unittype',
+           'GetUnitAbbreviation',
+           'Convert',
+           'FindUnitTypes',
+           'LatLongConverter',
+           'Longitude',
+           'ConvertDataUnits',
+           'InvalidUnitError',
+           'is_same_unit',
+           'data',
+           'GetUnitTypes',
+           'OilQuantityConverter',
+           'convert',
+           'UnitConversionError',
+           ]
 
 
 # A few utilities

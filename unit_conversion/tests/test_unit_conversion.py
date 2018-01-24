@@ -3,14 +3,12 @@
 """
 tests for unit_conversion main code
 
-designed to be run with nose:
+designed to be run with pytest
 
-nosetests test_unit_conversion.py
-
-can also be run with pytest:
-
-py.test test_unit_conversion.py
+pytest test_unit_conversion.py
 """
+
+from __future__ import unicode_literals
 
 import math
 import unittest
@@ -29,6 +27,7 @@ def isclose(a, b, Epsilon=1e-5):
         return True
     else:
         return abs(float(a - b) / ((a + b) / 2)) <= Epsilon
+
 
 KnownValues = [
     # Known values from Handbook of Chemistry and Physics (HCP), except where noted
@@ -55,7 +54,7 @@ KnownValues = [
     ("Oil Concentration", "bbl/acre", "m^3/km^2", 1.0, 39.2866),  # calculated from HCP --
     ("Oil Concentration", "bbl/acre", "bbl/sq.mile", 1.0, 640.0),  # calculated from HCP --
     ("Oil Concentration", "gal/acre", "bbl/acre", 42.0, 1.0),  # calculated from HCP --
-    ("Oil Concentration", "m^3/km^2", "liter/hectare", 1, 10.0),  # calculated from HCP --
+    ("Oil Concentration", "m\N{SUPERSCRIPT THREE}/km\N{SUPERSCRIPT TWO}", "liter/hectare", 1, 10.0),  # calculated from HCP --
 
     ("Area", "sq m", "ft^2", 10, 107.63910),
     ("Area", "Acre", "square yards", 1, 4840),
@@ -70,13 +69,13 @@ KnownValues = [
     ("Volume", "liters", "gal", 1.0, 0.26417205),
     ("Volume", "cubicmeters", "gal", 0.0037854118, 1.0),
     ("Volume", "milliongallons", "gal", 1.0, 1e6),
-    ("Volume", "liters", "ft^3", 1.0, 0.035314667),
+    ("Volume", "liters", "ft\N{SUPERSCRIPT THREE}", 1.0, 0.035314667),
     ("volume", "bbl", "l", 1.0, 158.9873),
     ("volume", "cubicinches", "cubicfeet", 1.0, 0.00057870370),
     ("volume", "cc", "cubicyard", 1.0, 1.3079506e-6),
     ("volume", "fluid ounce (UK)", "fluid oz", 1.0, 0.9607594),
     ("volume", "gallon (UK)", "gal", 1.0, 1.200949),
-    ("volume", "cubic kilometer", "m^3", 1.0, 1e9),
+    ("volume", "cubic kilometer", "m\N{SUPERSCRIPT THREE}", 1.0, 1e9),
     ("volume", "cubic kilometer", "ft^3", 1.0, 3.531467e10),  # the google converter
 
     ("mass", "kg", "lb", 1.0, 2.2046226),
@@ -137,17 +136,22 @@ KnownValues = [
 
     ("Concentration In Water", "ppb", "ppm", 1000, 1),  # calculated
     ("Concentration In Water", "fraction", "%", 1, 100),  # calculated
-    ("ConcentrationInWater", "kg/m^3", "lb/ft^3", 16.018464, 1),  # calculated
+    ("ConcentrationInWater", "lb/ft^3", "mg/l", 1, 16018.450433864),  # hand calculated
+    #("ConcentrationInWater", "mg/l", "lb/ft^3", 160184.50433864002, 1),  # hand calculated
+    #  ("ConcentrationInWater", "kg/m^3", "lb/ft^3", 16.018464, 1),  # hand calculated
+    ("concentrationinwater", "mg/l", "ppm", 1.0, 1.0),  # calculated (and kindof defined)
     ("concentrationinwater", "mg/l", "ppb", 1.0, 1000),  # calculated
     ("concentrationinwater", "mg/kg", "ppb", 1.0, 1000),  # calculated
     ("ConcentrationInWater", "ppt", "percent", 1.0, .1),  # calculated
     ("ConcentrationInWater", "ug/l", "ppb", 1.0, 1.0),  # calculated
     ("ConcentrationInWater", "mg/ml", "ppm", 1.0, 1000),  # calculated
     ("ConcentrationInWater", "nanogramperliter", "partpertrillion", 1.0, 1.0),  # calculated
+    ("ConcentrationInWater", "g/m\N{SUPERSCRIPT THREE}", "ppm", 1.0, 1.0),  # calculated
 
     ("Angular Measure", "degree", "radian", 180.0, math.pi),  # calculated
     ("Angular Measure", "radians", "degrees", 2 * math.pi, 360.0),  # calculated
-               ]
+    ]
+
 
 def test_new_api_oneshot():
     """
@@ -177,17 +181,29 @@ def test_new_api(unit_type, unit1, unit2, value, new_value):
     # now do the test:
     assert isclose(unit_conversion.convert(unit1, unit2, value), new_value)
 
-# nose generator for known values tests
-def test_known_values():
-    for val in KnownValues:
-        yield check_known_value, val
+
+@pytest.mark.parametrize('unit_type, unit1, unit2, value, new_value', KnownValues)
+def test_old_api(unit_type, unit1, unit2, value, new_value):
+    """
+    this is a parameterized test
+    of all the known values, with the old API
+    """
+    # now do the test:
+    assert isclose(unit_conversion.convert(unit_type, unit1, unit2, value), new_value)
 
 
-def check_known_value(test):
-    true = test[4]
-    Calculated = unit_conversion.Convert(*test[:4])
-    print("Calculated: %f, True: %f" % ((Calculated, true)))
-    assert(isclose(Calculated, true))
+
+# # nose generator for known values tests
+# def test_known_values():
+#     for val in KnownValues:
+#         yield check_known_value, val
+
+
+# def check_known_value(test):
+#     true = test[4]
+#     Calculated = unit_conversion.Convert(*test[:4])
+#     print("Calculated: %f, True: %f" % ((Calculated, true)))
+#     assert(isclose(Calculated, true))
 
 
 class testBadnames(unittest.TestCase):
