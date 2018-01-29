@@ -84,7 +84,7 @@ ConvertDataUnits = {
           "pound": (0.45359237, ["lb", "pounds", "lbs"]),
           "gram": (.001, ["g", "grams"]),
           "ton": (907.18474, ["tons", "uston"]),
-          "metric ton (tonne)": (1000.0, ["tonnes", "metric ton", "metric tons"]),
+          "metric ton (tonne)": (1000.0, ["tonnes", "metric ton", "metric tons", "mt"]),
           "slug": (14.5939, ["slugs"]),
           "ounce": (.028349523, ["oz", "ounces"]),
           "ton (UK)": (1016.0469, ["ukton", "long ton"]),
