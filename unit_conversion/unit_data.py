@@ -221,6 +221,7 @@ ConvertDataUnits = {
                                                ),
 
         "centipoise": (0.001, ["cP"]),
+        "milliPascal second": (0.001, ["mPa s"]),
     },
 
     # Concentration in water in PPM

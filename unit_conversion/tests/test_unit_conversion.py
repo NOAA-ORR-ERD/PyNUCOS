@@ -131,6 +131,7 @@ KnownValues = [
     ("Dynamic Viscosity", "poise", "Pa s", 1.0, 0.1),
     ("Dynamic Viscosity", "dyne s/cm^2", "Pa s", 1.0, 0.1),
     ("Dynamic Viscosity", "centipoise", "Pa s", 1.0, 0.001),
+    ("Dynamic Viscosity", "mPa s", "Pa s", 1.0, 0.001),
 
     ("temperature", "F", "C", 32, 0),
     ("temperature", "F", "C", 212, 100),
