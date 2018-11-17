@@ -8,7 +8,8 @@ from __future__ import unicode_literals
 
 __version__ = "1.4"
 
-import math, struct
+import math
+import struct
 
 
 def signbit(value):
@@ -48,6 +49,7 @@ def signbit(value):
     """
     return (doubleToRawLongBits(value) >> 63) == 1
 
+
 def doubleToRawLongBits(value):
     """
     @type  value: float
@@ -60,18 +62,23 @@ def doubleToRawLongBits(value):
     # pack double into 64 bits, then unpack as long int
     return struct.unpack(b'Q', struct.pack(b'd', value))[0]
 
-class LatLongConverter:
+
+class LatLongConverter(object):
     @classmethod
-    def ToDecDeg(self, d=0, m=0, s=0, ustring = False, max=180):
+    def ToDecDeg(self, d=0, m=0, s=0, ustring=False, max=180):
         """
         DecDegrees = ToDecDeg(d=0, m=0, s=0)
 
-        converts degrees, minutes, seconds to decimal degrees (returned as a Float).
+        converts degrees, minutes, seconds to decimal degrees
+        (returned as a Float).
         """
-        if  m < 0 or s < 0:
+        if m < 0 or s < 0:
             raise ValueError("Minutes and Seconds have to be positive")
+
         if m > 60.0 or s > 60.0:
-            raise ValueError("Minutes and Seconds have to be between -180 and 180")
+            raise ValueError("Minutes and Seconds have to be between "
+                             "-180 and 180")
+
         if abs(d) > max:
             raise ValueError("Degrees have to be between -180 and 180")
 
@@ -83,21 +90,24 @@ class LatLongConverter:
 
         deg_has_fract = bool(math.modf(d)[0])
         min_has_fract = bool(math.modf(m)[0])
+
         if deg_has_fract and (m != 0.0 or s != 0.0):
             raise ValueError("degrees cannot have fraction unless both minutes"
                              "and seconds are zero")
+
         if min_has_fract and s != 0.0:
-            raise ValueError("minutes cannot have fraction unless seconds are zero")
+            raise ValueError("minutes cannot have fraction unless seconds "
+                             "are zero")
 
         DecDegrees = Sign * (d + m/60.0 + s/3600.0)
 
         if ustring:
-            return u"%.6f\xb0"%(DecDegrees)
+            return u"%.6f\xb0" % (DecDegrees)
         else:
             return DecDegrees
 
     @classmethod
-    def ToDegMin(self, DecDegrees, ustring = False):
+    def ToDegMin(self, DecDegrees, ustring=False):
         """
         Converts from decimal (binary float) degrees to:
           Degrees, Minutes
@@ -111,18 +121,23 @@ class LatLongConverter:
             DecDegrees = abs(DecDegrees)
         else:
             Sign = 1
+
         Degrees = int(DecDegrees)
-        DecMinutes = round((DecDegrees - Degrees + 1e-14) * 60, 10)# add a tiny bit then round to avoid binary rounding issues
+
+        # add a tiny bit then round to avoid binary rounding issues
+        DecMinutes = round((DecDegrees - Degrees + 1e-14) * 60, 10)
+
         if ustring:
             if Sign == 1:
-                return u"%i\xb0 %.3f'"%(Degrees, DecMinutes)
+                return u"%i\xb0 %.3f'" % (Degrees, DecMinutes)
             else:
-                return u"-%i\xb0 %.3f'"%(Degrees, DecMinutes)
+                return u"-%i\xb0 %.3f'" % (Degrees, DecMinutes)
         else:
-            return (Sign*float(Degrees), DecMinutes) # float to preserve -0.0
+            # float to preserve -0.0
+            return (Sign*float(Degrees), DecMinutes)
 
     @classmethod
-    def ToDegMinSec(self, DecDegrees, ustring = False):
+    def ToDegMinSec(self, DecDegrees, ustring=False):
 
         """
         Converts from decimal (binary float) degrees to:
@@ -137,22 +152,27 @@ class LatLongConverter:
             DecDegrees = abs(DecDegrees)
         else:
             Sign = 1
+
         Degrees = int(DecDegrees)
-        DecMinutes = (DecDegrees - Degrees + 1e-14) * 60 # add a tiny bit to avoid rounding issues
+
+        # add a tiny bit to avoid rounding issues
+        DecMinutes = (DecDegrees - Degrees + 1e-14) * 60
 
         Minutes = int(DecMinutes)
-        Seconds = round(((DecMinutes - Minutes) * 60), 10 )
+        Seconds = round(((DecMinutes - Minutes) * 60), 10)
+
         if ustring:
             if Sign == 1:
-                return u"%i\xb0 %i' %.2f\""%(Degrees, Minutes, Seconds)
+                return u"%i\xb0 %i' %.2f\"" % (Degrees, Minutes, Seconds)
             else:
-                return u"-%i\xb0 %i' %.2f\""%(Degrees, Minutes, Seconds)
+                return u"-%i\xb0 %i' %.2f\"" % (Degrees, Minutes, Seconds)
         else:
             return (Sign * float(Degrees), Minutes, Seconds)
 
-## These are classes used in our web apps: ResponseLink, etc.
-## They provide a different interface to lat-long format conversion
-class Latitude:
+
+# These are classes used in our web apps: ResponseLink, etc.
+# They provide a different interface to lat-long format conversion
+class Latitude(object):
     """An object that can interpret a latitude in various formats.
 
        Constructor:
@@ -209,7 +229,8 @@ class Latitude:
             if deg < 0.0:
                 msg = "degrees cannot be negative if direction is specified"
                 raise ValueError(msg)
-            if   direction[0].upper() == pdir:
+
+            if direction[0].upper() == pdir:
                 pass
             elif direction[0].upper() == ndir:
                 deg = -deg
@@ -230,12 +251,14 @@ class Latitude:
         return deg, self.direction()
 
     def degrees_minutes(self):
-        deg, min = LatLongConverter.ToDegMin(abs(self.value))
-        return deg, min, self.direction()
+        deg, _min = LatLongConverter.ToDegMin(abs(self.value))
+
+        return deg, _min, self.direction()
 
     def degrees_minutes_seconds(self):
-        deg, min, sec = LatLongConverter.ToDegMinSec(abs(self.value))
-        return deg, min, sec, self.direction()
+        deg, _min, sec = LatLongConverter.ToDegMinSec(abs(self.value))
+
+        return deg, _min, sec, self.direction()
 
     def __repr__(self):
         try:
@@ -255,7 +278,7 @@ class Latitude:
         3:  degrees, minutes, seconds
         """
 
-        if   style == 1:
+        if style == 1:
             return u'''%0.2f\xb0 %s''' % self.degrees()
         elif style == 2:
             return u'''%d\xb0 %0.2f' %s''' % self.degrees_minutes()
@@ -272,6 +295,7 @@ class Latitude:
         """
         return self.format(style).replace(u"\xb0", u"&deg;")
 
+
 class Longitude(Latitude):
     """See Latitude docstring.
 
@@ -283,17 +307,23 @@ class Longitude(Latitude):
     min = -180.0
     max = 180.0
 
-class DummyLatitude:
+
+class DummyLatitude(object):
     """A pseudo-Latitude whose components are None.
        Useful in building HTML forms where the value is not required.
 
        Note: this class may be deleted if it doesn't turn out to be useful.
     """
     value = None
-    def direction(self):                return None
-    def degrees(self):                  return None, None
-    def degrees_minutes(self):          return None, None, None
-    def degrees_minutes_seconds(self):  return None, None, None, None
+
+    def direction(self): return None
+
+    def degrees(self): return None, None
+
+    def degrees_minutes(self): return None, None, None
+
+    def degrees_minutes_seconds(self): return None, None, None, None
+
 
 class DummyLongitude(DummyLatitude):
     """
@@ -302,7 +332,8 @@ class DummyLongitude(DummyLatitude):
     pass
 
 
-## The new simple API -- just methods that do what we need for ResponseLink, etc.
+# The new simple API
+# -- just methods that do what we need for ResponseLink, etc.
 DEGREES = "\xb0"     # "DEGREE SIGN"
 MINUTES = "\u2032"   # "PRIME"
 SECONDS = "\u2033"   # "DOUBLE PRIME"
@@ -317,6 +348,7 @@ FORMAT1 = "{:.2f}\N{DEGREE SIGN} {}"
 FORMAT2 = "{:.0f}\N{DEGREE SIGN} {:.2f}\N{PRIME} {}"
 FORMAT3 = "{:.0f}\N{DEGREE SIGN} {:.0f}\N{PRIME} {:.2f}\N{DOUBLE PRIME} {}"
 
+
 def reduce_base_60(f):
     """extract the base 60 fractional portion of a floating point number.
 
@@ -329,11 +361,13 @@ def reduce_base_60(f):
     fract = round(fract, 10)
     return whole, fract
 
+
 def format_latlon2(f, positive_direction, negative_direction):
     direction = positive_direction if f >= 0.0 else negative_direction
     degrees, minutes = reduce_base_60(f)
     degrees = abs(degrees)
     return FORMAT2.format(degrees, minutes, direction)
+
 
 def format_latlon3(f, positive_direction, negative_direction):
     direction = positive_direction if f >= 0.0 else negative_direction
@@ -342,18 +376,18 @@ def format_latlon3(f, positive_direction, negative_direction):
     degrees = abs(degrees)
     return FORMAT3.format(degrees, minutes, seconds, direction)
 
+
 def format_lat(f):
     return format_latlon2(f, LAT_POSITIVE_DIRECTION, LAT_NEGATIVE_DIRECTION)
+
 
 def format_lon(f):
     return format_latlon2(f, LON_POSITIVE_DIRECTION, LON_NEGATIVE_DIRECTION)
 
+
 def format_lat_dms(f):
     return format_latlon3(f, LAT_POSITIVE_DIRECTION, LAT_NEGATIVE_DIRECTION)
 
+
 def format_lon_dms(f):
     return format_latlon3(f, LON_POSITIVE_DIRECTION, LON_NEGATIVE_DIRECTION)
-
-
-
-

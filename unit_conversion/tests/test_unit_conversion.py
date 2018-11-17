@@ -30,7 +30,8 @@ def isclose(a, b, Epsilon=1e-5):
 
 
 KnownValues = [
-    # Known values from Handbook of Chemistry and Physics (HCP), except where noted
+    # Known values from Handbook of Chemistry and Physics (HCP),
+    # except where noted
     ("length", "meters", "feet", 1, 3.2808398),
     ("length", "feet", "meters", 1, .3048),
     ("length", "feet", "miles", 1, 0.000189393),
@@ -44,17 +45,20 @@ KnownValues = [
 
 
     # all values close to value in the "Open Water Oil Identification Job Aid"
-    # and close to values in the Unit Conversion sheet distributed with the dispersant
-    # mission planner.
-    # Technicaly, oil concentration is a unit of length, but it's conceptually different
-    #  so we treat it differently here: (i.e. using bbl/acre as a length would be really wierd)
+    # and close to values in the Unit Conversion sheet distributed with the
+    # dispersant mission planner.
+    # Technicaly, oil concentration is a unit of length, but it's conceptually
+    # different.
+    # So we treat it differently here: (i.e. using bbl/acre as a length
+    # would be really wierd)
     ("Oil Concentration", "micron", "mm", 100, .1),
     ("Oil Concentration", "in", "mm", 1.0, 25.4),
     ("Oil Concentration", "micron", "bbl/acre", 1.0, 0.02545396),  # calculated from HCP --
     ("Oil Concentration", "bbl/acre", "m^3/km^2", 1.0, 39.2866),  # calculated from HCP --
     ("Oil Concentration", "bbl/acre", "bbl/sq.mile", 1.0, 640.0),  # calculated from HCP --
     ("Oil Concentration", "gal/acre", "bbl/acre", 42.0, 1.0),  # calculated from HCP --
-    ("Oil Concentration", "m\N{SUPERSCRIPT THREE}/km\N{SUPERSCRIPT TWO}", "liter/hectare", 1, 10.0),  # calculated from HCP --
+    ("Oil Concentration", "m\N{SUPERSCRIPT THREE}/km\N{SUPERSCRIPT TWO}",
+     "liter/hectare", 1, 10.0),  # calculated from HCP --
 
     ("Area", "sq m", "ft^2", 10, 107.63910),
     ("Area", "Acre", "square yards", 1, 4840),
@@ -120,6 +124,14 @@ KnownValues = [
     ("Kinematic Viscosity", "SSF", "cSt", 342.0, 724.0),
     ("Kinematic Viscosity", "mm^2/s", "cSt", 1.0, 1.0),  # from ASTM report
 
+    ("Dynamic Viscosity", "kg/(m s)", "Pa s", 1.0, 1.0),
+    ("Dynamic Viscosity", "Pa s", "N s/m^2", 1.0, 1.0),
+    ("Dynamic Viscosity", "N s/m^2", "kg/(m s)", 1.0, 1.0),
+    ("Dynamic Viscosity", "g/(cm s)", "Pa s", 1.0, 0.1),
+    ("Dynamic Viscosity", "poise", "Pa s", 1.0, 0.1),
+    ("Dynamic Viscosity", "dyne s/cm^2", "Pa s", 1.0, 0.1),
+    ("Dynamic Viscosity", "centipoise", "Pa s", 1.0, 0.001),
+
     ("temperature", "F", "C", 32, 0),
     ("temperature", "F", "C", 212, 100),
     ("temperature", "C", "K", 0, 273.15),
@@ -137,8 +149,8 @@ KnownValues = [
     ("Concentration In Water", "ppb", "ppm", 1000, 1),  # calculated
     ("Concentration In Water", "fraction", "%", 1, 100),  # calculated
     ("ConcentrationInWater", "lb/ft^3", "mg/l", 1, 16018.450433864),  # hand calculated
-    #("ConcentrationInWater", "mg/l", "lb/ft^3", 160184.50433864002, 1),  # hand calculated
-    #  ("ConcentrationInWater", "kg/m^3", "lb/ft^3", 16.018464, 1),  # hand calculated
+    # ("ConcentrationInWater", "mg/l", "lb/ft^3", 160184.50433864002, 1),  # hand calculated
+    # ("ConcentrationInWater", "kg/m^3", "lb/ft^3", 16.018464, 1),  # hand calculated
     ("concentrationinwater", "mg/l", "ppm", 1.0, 1.0),  # calculated (and kindof defined)
     ("concentrationinwater", "mg/l", "ppb", 1.0, 1000),  # calculated
     ("concentrationinwater", "mg/kg", "ppb", 1.0, 1000),  # calculated
@@ -164,80 +176,79 @@ def test_new_api_oneshot():
 
     assert isclose(unit_conversion.convert('API', 'SG', 10), 1)
 
-    assert isclose(unit_conversion.convert('meter second-1', 'knot', 1), 1.94384)
+    assert isclose(unit_conversion.convert('meter second-1', 'knot', 1),
+                   1.94384)
 
     assert isclose(unit_conversion.convert('m/s', 'knot', 1), 1.94384)
 
 
-@pytest.mark.parametrize('unit_type, unit1, unit2, value, new_value', KnownValues)
+@pytest.mark.parametrize('unit_type, unit1, unit2, value, new_value',
+                         KnownValues)
 def test_new_api(unit_type, unit1, unit2, value, new_value):
     """
     this is a parameterized test
     of all the known values, but with the new API
     """
     # filter out the ones that we know are eliminated
-    if unit_conversion.Simplify(unit_type) in ['concentrationinwater', 'oilconcentration']:
+    if unit_conversion.Simplify(unit_type) in ('concentrationinwater',
+                                               'oilconcentration'):
         return
     # now do the test:
     assert isclose(unit_conversion.convert(unit1, unit2, value), new_value)
 
 
-@pytest.mark.parametrize('unit_type, unit1, unit2, value, new_value', KnownValues)
+@pytest.mark.parametrize('unit_type, unit1, unit2, value, new_value',
+                         KnownValues)
 def test_old_api(unit_type, unit1, unit2, value, new_value):
     """
     this is a parameterized test
     of all the known values, with the old API
     """
     # now do the test:
-    assert isclose(unit_conversion.convert(unit_type, unit1, unit2, value), new_value)
+    assert isclose(unit_conversion.convert(unit_type, unit1, unit2, value),
+                   new_value)
 
 
 class testBadnames(unittest.TestCase):
     def testBadType(self):
-        self.failUnlessRaises(unit_conversion.InvalidUnitTypeError,
-                              unit_conversion.Convert,
-                              "BadType", "feet", "miles", 0,
-                              )
+        self.assertRaises(unit_conversion.InvalidUnitTypeError,
+                          unit_conversion.convert,
+                          "BadType", "feet", "miles", 0)
 
     def testBadUnit1(self):
-        self.failUnlessRaises(unit_conversion.InvalidUnitError,
-                              unit_conversion.Convert,
-                              "Length", "eggs", "miles", 0,
-                              )
+        self.assertRaises(unit_conversion.InvalidUnitError,
+                          unit_conversion.convert,
+                          "Length", "eggs", "miles", 0)
 
     def testBadUnit2(self):
-        self.failUnlessRaises(unit_conversion.InvalidUnitError,
-                              unit_conversion.Convert,
-                              "Length", "feet", "spam", 0,
-                              )
+        self.assertRaises(unit_conversion.InvalidUnitError,
+                          unit_conversion.convert,
+                          "Length", "feet", "spam", 0)
 
     def testBadUnit3(self):
-        self.failUnlessRaises(unit_conversion.InvalidUnitError,
-                              unit_conversion.Convert,
-                              "Density", "API", "feet", 0,
-                              )
+        self.assertRaises(unit_conversion.InvalidUnitError,
+                          unit_conversion.convert,
+                          "Density", "API", "feet", 0)
 
 
 class testOilQuantityConverterClass(unittest.TestCase):
     OQC = unit_conversion.OilQuantityConverter
 
     def testMassToVolume1(self):
-        self.failUnless(isclose(self.OQC.ToVolume(Mass=1,
+        self.assertTrue(isclose(self.OQC.ToVolume(Mass=1,
                                                   MassUnits="metricton",
                                                   Density=25,
                                                   DensityUnits="API",
                                                   VolumeUnits="bbl"),
-                                6.9626324)
-                        )
+                                6.9626324))
 
     def testMassToVolume2(self):
-        self.failUnless(isclose(self.OQC.ToVolume(Mass=1,
+        self.assertTrue(isclose(self.OQC.ToVolume(Mass=1,
                                                   MassUnits="metricton",
                                                   Density=0.816,
                                                   DensityUnits="SG",
                                                   VolumeUnits="bbl"),
-                                7.71481307)
-                        )
+                                7.71481307))
 
     def testVolumeToMass1(self):
         Expected = 1.0
@@ -246,8 +257,9 @@ class testOilQuantityConverterClass(unittest.TestCase):
                                      Density=25,
                                      DensityUnits="API",
                                      MassUnits="metricton")
+
         print(Expected, Calculated)
-        self.failUnless(isclose(Expected, Calculated))
+        self.assertTrue(isclose(Expected, Calculated))
 
     def testVolumeToMass2(self):
         Expected = 1.0
@@ -256,49 +268,47 @@ class testOilQuantityConverterClass(unittest.TestCase):
                                      Density=0.816,
                                      DensityUnits="SG",
                                      MassUnits="longton")
-        self.failUnless(isclose(Expected, Calculated))
 
-
+        self.assertTrue(isclose(Expected, Calculated))
 
 
 # fixme: there should probably be a full set of tests for the "new" API
 class testNewConvertAPI(unittest.TestCase):
     def test_bad_convert(self):
-        self.failUnlessRaises(unit_conversion.UnitConversionError,
-                              unit_conversion.convert,
-                              "kg", "miles", 0,
-                              )
-        self.failUnlessRaises(unit_conversion.UnitConversionError,
-                              unit_conversion.convert,
-                              "kg", "miles", 0,
-                              )
+        self.assertRaises(unit_conversion.UnitConversionError,
+                          unit_conversion.convert,
+                          "kg", "miles", 0)
+
+        self.assertRaises(unit_conversion.UnitConversionError,
+                          unit_conversion.convert,
+                          "kg", "miles", 0)
 
     def test_invalid_unit(self):
-        self.failUnlessRaises(unit_conversion.InvalidUnitError,
-                              unit_conversion.convert,
-                              "Mass", "kg", "miles", 0
-                              )
-        self.failUnlessRaises(unit_conversion.NotSupportedUnitError,
-                              unit_conversion.convert,
-                              "kgt", "miles", 0
-                              )
-        self.failUnlessRaises(unit_conversion.NotSupportedUnitError,
-                              unit_conversion.convert,
-                              "kg", "miless", 0,
-                              )
-        self.failUnlessRaises(unit_conversion.NotSupportedUnitError,
-                              unit_conversion.convert,
-                              "foo", "spam", 0,
-                              )
-        self.failUnlessRaises(unit_conversion.NotSupportedUnitError,
-                              unit_conversion.convert,
-                              0, 0, 0,
-                              )
+        self.assertRaises(unit_conversion.InvalidUnitError,
+                          unit_conversion.convert,
+                          "Mass", "kg", "miles", 0)
+
+        self.assertRaises(unit_conversion.NotSupportedUnitError,
+                          unit_conversion.convert,
+                          "kgt", "miles", 0)
+
+        self.assertRaises(unit_conversion.NotSupportedUnitError,
+                          unit_conversion.convert,
+                          "kg", "miless", 0)
+
+        self.assertRaises(unit_conversion.NotSupportedUnitError,
+                          unit_conversion.convert,
+                          "foo", "spam", 0)
+
+        self.assertRaises(unit_conversion.NotSupportedUnitError,
+                          unit_conversion.convert,
+                          0, 0, 0)
 
 
 def test_GetUnitTypes():
     # note: not testing all of them
     types = unit_conversion.GetUnitTypes()
+
     assert "Length" in types
     assert "Temperature" in types
     assert "Area" in types
@@ -311,12 +321,15 @@ def test_GetUnitNames():
     # note: not testing all of them
     #       either all types or all names
     names = unit_conversion.GetUnitNames('Length')
-    #print(names)
+    # print(names)
+
     assert "meter" in names
     assert "foot" in names
     assert "feet" not in names
+
     names = unit_conversion.GetUnitNames('Area')
-    #print(names)
+    # print(names)
+
     assert "square foot" in names
     assert "acre" in names
     assert "square meter" in names
@@ -330,6 +343,7 @@ def test_GetUnitAbbreviation():
              ('Velocity', 'kilometer per hour', 'km/h'),
              ('Discharge', 'cubic foot per second', 'cfs'),
              ]
+
     for unit_type, unit, abrv in names:
         print(unit_type, unit, abrv)
         assert abrv == unit_conversion.GetUnitAbbreviation(unit_type, unit)
@@ -338,6 +352,7 @@ def test_GetUnitAbbreviation():
 def test_FindUnitTypes():
     # just testing that it's there and doesn't crash!
     all_units = unit_conversion.UNIT_TYPES
+
     assert all_units['s'] == 'time'
     assert all_units['sg'] == 'density'
     assert all_units['feet/s'] == 'velocity'
@@ -345,7 +360,8 @@ def test_FindUnitTypes():
 
 
 def test_is_same_unit():
-    # a few examples...not complete, but at least it's there and works for some cases
+    # a few examples...not complete, but at least it's there and works
+    # for some cases
 
     assert unit_conversion.is_same_unit('knot', 'knots')
     assert unit_conversion.is_same_unit('knot', 'kts')
@@ -359,7 +375,8 @@ def test_is_same_unit():
 
     assert not unit_conversion.is_same_unit("meters", "gal/sec")
 
-    assert not unit_conversion.is_same_unit("something non existant", "gal/sec")
+    assert not unit_conversion.is_same_unit("something non existant",
+                                            "gal/sec")
     assert not unit_conversion.is_same_unit("meter", "meeters")
     assert not unit_conversion.is_same_unit("non_existant", "")
 
@@ -368,11 +385,13 @@ def test_is_same_unit():
 def test_invalid_unit_convert():
     with pytest.raises(unit_conversion.InvalidUnitError):
         unit_conversion.convert("length", "flintstones", "meters", 1.0)
+
     with pytest.raises(unit_conversion.InvalidUnitError):
         unit_conversion.convert("length", "feet", "flintstones", 1.0)
 
     with pytest.raises(unit_conversion.InvalidUnitError):
         unit_conversion.convert("temperature", "feet", "C", 1.0)
+
     with pytest.raises(unit_conversion.InvalidUnitError):
         unit_conversion.convert("temperature", "f", "feet", 1.0)
 
@@ -415,7 +434,3 @@ def test_InvalidUnitTypeError():
     err = str(unit_conversion.InvalidUnitTypeError('feeet'))
 
     assert err == 'The unit type: feeet is not in the UnitConversion database'
-
-
-
-
