@@ -59,6 +59,8 @@ KnownValues = [
     ("Oil Concentration", "gal/acre", "bbl/acre", 42.0, 1.0),  # calculated from HCP --
     ("Oil Concentration", "m\N{SUPERSCRIPT THREE}/km\N{SUPERSCRIPT TWO}",
      "liter/hectare", 1, 10.0),  # calculated from HCP --
+    ("Oil Concentration", "micron", "g/m^2", 100, .1),
+
 
     ("Area", "sq m", "ft^2", 10, 107.63910),
     ("Area", "Acre", "square yards", 1, 4840),
