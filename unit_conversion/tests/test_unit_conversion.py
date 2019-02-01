@@ -274,36 +274,32 @@ class testOilQuantityConverterClass(unittest.TestCase):
 
 
 # fixme: there should probably be a full set of tests for the "new" API
-class testNewConvertAPI(unittest.TestCase):
-    def test_bad_convert(self):
-        self.assertRaises(unit_conversion.UnitConversionError,
-                          unit_conversion.convert,
-                          "kg", "miles", 0)
+class TestNewConvertAPI():
 
-        self.assertRaises(unit_conversion.UnitConversionError,
-                          unit_conversion.convert,
-                          "kg", "miles", 0)
+    def test_bad_convert(self):
+        with pytest.raises(unit_conversion.UnitConversionError):
+            unit_conversion.convert("kg", "miles", 0)
 
     def test_invalid_unit(self):
-        self.assertRaises(unit_conversion.InvalidUnitError,
-                          unit_conversion.convert,
-                          "Mass", "kg", "miles", 0)
+        with pytest.raises(unit_conversion.InvalidUnitError):
+            unit_conversion.convert("Mass", "kg", "miles", 0)
 
-        self.assertRaises(unit_conversion.NotSupportedUnitError,
-                          unit_conversion.convert,
-                          "kgt", "miles", 0)
+    @pytest.mark.parametrize('args',
+                             [("kgt", "miles", 0),
+                              ("kg", "miless", 0),
+                              ("foo", "spam", 0),
+                              (0, 0, 0),
+                              ])
+    def test_NotSupportedUnitError(self, args):
+        with pytest.raises(unit_conversion.NotSupportedUnitError):
+            unit_conversion.convert(*args)
 
-        self.assertRaises(unit_conversion.NotSupportedUnitError,
-                          unit_conversion.convert,
-                          "kg", "miless", 0)
-
-        self.assertRaises(unit_conversion.NotSupportedUnitError,
-                          unit_conversion.convert,
-                          "foo", "spam", 0)
-
-        self.assertRaises(unit_conversion.NotSupportedUnitError,
-                          unit_conversion.convert,
-                          0, 0, 0)
+    @pytest.mark.parametrize('args',
+                             [("micron", "g/m^2", 1.0),
+                              ])
+    def test_invalid_combination(self, args):
+        with pytest.raises(unit_conversion.NotSupportedUnitError):
+            unit_conversion.convert(*args)
 
 
 def test_GetUnitTypes():
