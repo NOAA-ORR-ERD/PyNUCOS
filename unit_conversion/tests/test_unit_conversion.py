@@ -64,6 +64,7 @@ KnownValues = [
     ("Oil Concentration", "micron", "g/m^2", 100.0, 95.0),
     ("Oil Concentration", "kg/m^2", "micron", .95, 1000.0),
     ("Oil Concentration", "kg/km^2", "g/m^2", 1.0, 1e-3),
+    ("Oil Concentration", "kg/m^2", "g/m^2", 1.0, 1e3),
 
 
     ("Area", "sq m", "ft^2", 10, 107.63910),
