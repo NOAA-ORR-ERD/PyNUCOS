@@ -45,6 +45,11 @@ ConvertDataUnits = {
                                                    "bbl/mile\N{SUPERSCRIPT TWO}"]),  # calculated from HCP
         "gallon per acre": (0.93539563202687404, ["gal/acre", ]),  # calculated from HCP
         "liter per hectare": (0.1, ["liter/hectare"]),  # calculated from HCP
+        # these are mass/area -- so technically different.
+        # but hard coding density of 0.95 -- so we can do it easily.
+        "gram per square meter": (1.0526315789473684, ["g/m^2", "g/m\N{SUPERSCRIPT TWO}"]),
+        "kilogram per square meter": (1052.6315789473684, ["kg/m^2", "kg/m\N{SUPERSCRIPT TWO}"]),
+        "kilogram per square kilometer": (.0010526315789473684, ["kg/km^2", "g/km\N{SUPERSCRIPT TWO}"])
     },
 
     # All Areas in terms of square meter
