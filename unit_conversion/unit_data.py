@@ -107,6 +107,8 @@ ConvertDataUnits = {
     "Mass": {"kilogram": (1.0, ["kg", "kilograms"]),
              "pound": (0.45359237, ["lb", "pounds", "lbs"]),
              "gram": (.001, ["g", "grams"]),
+             "milligram": (.000001, ["mg"]),
+             "microgram": (.000000001, ["ug", "\N{MICRO SIGN}g"]),
              "ton": (907.18474, ["tons", "uston"]),
              "metric ton (tonne)": (1000.0, ["tonnes", "metric ton",
                                              "metric tons", "mt"]),

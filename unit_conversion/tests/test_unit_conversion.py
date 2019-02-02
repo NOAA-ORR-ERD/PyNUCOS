@@ -96,6 +96,8 @@ KnownValues = [
     ("mass", "ounce", "lbs", 1.0, 0.0625),
     ("mass", "ton", "gram", 1.0, 907184.74),
     ("mass", "ton(UK)", "ton", 1.0, 1.12),
+    ("mass", "mg", "g", 1000.0, 1.0),
+    ("mass", "g", "\N{MICRO SIGN}g", 1.0, 1e6),
 
     ("Time", "seconds", "minutes", 60, 1.0),
     ("time", "days", "minutes", 1.0, 24 * 60),
