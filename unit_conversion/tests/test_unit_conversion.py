@@ -153,6 +153,8 @@ KnownValues = [
     ("density", "SG", "API", 0.9, 25.7222),
     ("density", "API", "SG", 25.7222, 0.9),
     ("density", "lbs/ft^3", "Grams per Cubic Centimeter", 1.0, 0.016018463),
+    ("density", "tonne per cubic meter", "kg/m^3", 1.0, 1000.0),
+
 
     ("Concentration In Water", "ppb", "ppm", 1000, 1),  # calculated
     ("Concentration In Water", "fraction", "%", 1, 100),  # calculated

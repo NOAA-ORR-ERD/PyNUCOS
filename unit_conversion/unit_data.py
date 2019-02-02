@@ -177,6 +177,11 @@ ConvertDataUnits = {
                                                  "specificgravity(15C)"]),
         "kilogram per cubic meter": (.001, ["kg/m^3",
                                             "kg/m\N{SUPERSCRIPT THREE}"]),
+        "tonne per cubic meter": (1.0, ["tonne/m^3",
+                                        "tonne/m\N{SUPERSCRIPT THREE}",
+                                        "t/m^3",
+                                        "t/m\N{SUPERSCRIPT THREE}"]),
+
         "pound per cubic foot": (0.016018463, ["lbs/ft^3",
                                                "lb/ft\N{SUPERSCRIPT THREE}"]),
         "API degree": (1, ["api"]),  # this is special cased in the code.
