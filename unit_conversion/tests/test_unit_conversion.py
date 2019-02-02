@@ -171,6 +171,9 @@ KnownValues = [
     ("ConcentrationInWater", "mg/ml", "ppm", 1.0, 1000),  # calculated
     ("ConcentrationInWater", "nanogramperliter", "partpertrillion", 1.0, 1.0),  # calculated
     ("ConcentrationInWater", "g/m\N{SUPERSCRIPT THREE}", "ppm", 1.0, 1.0),  # calculated
+    ("concentrationinwater", "g/l", "ppm", 1.0, 1000.0),  # calculated
+
+
 
     ("Angular Measure", "degree", "radian", 180.0, math.pi),  # calculated
     ("Angular Measure", "radians", "degrees", 2 * math.pi, 360.0),  # calculated

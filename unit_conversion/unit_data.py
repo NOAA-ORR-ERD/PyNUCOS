@@ -250,6 +250,7 @@ ConvertDataUnits = {
         "pound per cubic foot": (16.018450433864, ["lb/ft^3",
                                                    "lb/ft\N{SUPERSCRIPT THREE}"]),
         "milligram per liter": (0.001, ["mg/l"]),
+        "gram per liter": (1.0, ["g/l"]),
         "milligram per kilogram": (0.001, ["mg/kg"]),
         "milligram per milliliter": (1.0, ["mg/ml"]),
         "microgram per liter": (1e-6, ["ug/l"]),
