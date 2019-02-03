@@ -251,6 +251,7 @@ ConvertDataUnits = {
                                                    "lb/ft\N{SUPERSCRIPT THREE}"]),
         "milligram per liter": (0.001, ["mg/l"]),
         "gram per liter": (1.0, ["g/l"]),
+        "kilogram per liter": (1000.0, ["kg/l"]),
         "milligram per kilogram": (0.001, ["mg/kg"]),
         "milligram per milliliter": (1.0, ["mg/ml"]),
         "microgram per liter": (1e-6, ["ug/l"]),
@@ -265,6 +266,8 @@ ConvertDataUnits = {
 }
 
 
+#fixme -- this was already here, yes ???
+# need to check for duplicate (and correct) functionality)
 # Build the unit sets to allow quick lookup of type and conversion legality
 # this creates something like the following:
 # unit_sets = {'Length': set(['m','km','mm',...]),
@@ -277,8 +280,12 @@ for k in ConvertDataUnits.keys():
     unit_sets[k] = set(itertools.chain(*[y for (x, y)
                                          in ConvertDataUnits[k].values()]))
 
-del unit_sets['Concentration In Water']
-unit_sets['Oil Concentration'] = unit_sets['Length']
+# fixme: what is this used for?
+# if it's just for listing known units, then we should leave it in
+# del unit_sets['Concentration In Water']
+
+# not always length -- can be mass/area too.
+# unit_sets['Oil Concentration'] = unit_sets['Length']
 
 # Build the global unit list
 

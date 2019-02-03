@@ -117,10 +117,11 @@ def FindUnitTypes():
     for unit_type, unit_data in ConvertDataUnits.items():
         unit_type = Simplify(unit_type)
 
-        if unit_type in ("oilconcentration", "concentrationinwater"):
+        if unit_type in ("oilconcentration",
+                         "concentrationinwater"):
             # skipping Oil Concentration, 'cause this is really length
             # -- lots of duplicate units!
-            # skipping Concentration in water, cause it's weird
+            # skipping Concentration in water, 'cause it's weird
             continue
 
         for pname, data in unit_data.items():
@@ -133,9 +134,10 @@ def FindUnitTypes():
             for n in data[1]:
                 n = Simplify(n)
 
+                # skip duplicate units, "oz" is only mass, "s" is only time
                 if (unit_type, n) in [("volume", "oz"),
                                       ("density", "s")]:
-                    continue  # skip, "oz" is only mass, "s" is only time
+                    continue
 
                 if n in unit_types:
                     raise ValueError("Duplicate name in units table: %s" % n)
@@ -217,6 +219,12 @@ class ConverterClass:
             self.Synonyms[Pname] = Pname
 
             for synonym in data[1]:
+                # duplicate check
+                if synonym in self.Synonyms:
+                    raise ValueError("Duplicate synonym: "
+                                     "unit_type: {}, name: {}".format(TypeName,
+                                                                      synonym)
+                                     )
                 self.Synonyms[Simplify(synonym)] = Pname
 
     def Convert(self, FromUnit, ToUnit, Value):

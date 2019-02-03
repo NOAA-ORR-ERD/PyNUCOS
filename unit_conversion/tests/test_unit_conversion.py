@@ -172,7 +172,7 @@ KnownValues = [
     ("ConcentrationInWater", "nanogramperliter", "partpertrillion", 1.0, 1.0),  # calculated
     ("ConcentrationInWater", "g/m\N{SUPERSCRIPT THREE}", "ppm", 1.0, 1.0),  # calculated
     ("concentrationinwater", "g/l", "ppm", 1.0, 1000.0),  # calculated
-
+    ("concentrationinwater", "kg/l", "part per thousand", 1.0, 1000.0),  # calculated
 
 
     ("Angular Measure", "degree", "radian", 180.0, math.pi),  # calculated
@@ -222,6 +222,16 @@ def test_old_api(unit_type, unit1, unit2, value, new_value):
     # now do the test:
     assert isclose(unit_conversion.convert(unit_type, unit1, unit2, value),
                    new_value)
+
+
+def test_ConverterClass_init_dupcheck():
+    # "name1 is a duplicate -- should be caught"
+    unit_dict = {"unit_1": (1.0, ["name1", "name2"]),
+                 "unit_2": (3.141592653589793 / 180.0, ["name3", "name1"])
+                 }
+
+    with pytest.raises(ValueError):
+        unit_conversion.ConverterClass("Random Unit Type", unit_dict)
 
 
 class testBadnames(unittest.TestCase):
