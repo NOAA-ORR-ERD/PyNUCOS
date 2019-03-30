@@ -224,6 +224,23 @@ ConvertDataUnits = {
         "milliPascal second": (0.001, ["mPa s"]),
     },
 
+    # Interfacial Tension
+    # This is quantified as a force/length measurement in most cases, but a
+    # couple exceptions quantify in ergs/area.  An erg is an amount of work,
+    # not force, but the conversion is pretty straightforward.
+    "Interfacial Tension": {
+        "Newton per meter": (1.0, ["N/m"]),
+        "milliNewton per meter": (0.001, ["mN/m"]),
+        "dyne per centimeter": (0.001, ["dyne/cm"]),
+        "gram force per centimeter": (0.98066499997877, ["gf/cm"]),
+        "Poundal per inch": (5.443108492, ["pdl/in"]),
+        "Pound force per inch": (175.126837, ["lbf/in"]),
+        "erg per square centimeter": (0.001, ["erg/cm^2",
+                                              "erg/cm{SUPERSCRIPT TWO}"]),
+        "erg per square millimeter": (0.1, ["erg/mm^2",
+                                            "erg/mm{SUPERSCRIPT TWO}"]),
+    },
+
     # Concentration in water in PPM
     "Concentration In Water": {
         "kilogram per cubic meter": (1.0, ["kg/m^3",

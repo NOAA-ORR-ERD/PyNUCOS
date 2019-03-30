@@ -147,6 +147,16 @@ KnownValues = [
     ("density", "API", "SG", 25.7222, 0.9),
     ("density", "lbs/ft^3", "Grams per Cubic Centimeter", 1.0, 0.016018463),
 
+    ("Interfacial Tension", "N/m", "mN/m", 1.0, 1000.0),
+    ("Interfacial Tension", "N/m", "dyne/cm", 1.0, 1000.0),
+    ("Interfacial Tension", "N/m", "gf/cm", 1.0, 1.019716213),
+    ("Interfacial Tension", "N/m", "pdl/in", 1.0, 0.1837185500656),
+    ("Interfacial Tension", "N/m", "lbf/in", 1.0, 0.0057101470975576),
+    ("Interfacial Tension", "N/m", "erg/cm^2", 1.0, 1000.0),
+    ("Interfacial Tension", "N/m", "erg/cm{SUPERSCRIPT TWO}", 1.0, 1000.0),
+    ("Interfacial Tension", "N/m", "erg/mm^2", 1.0, 10.0),
+    ("Interfacial Tension", "N/m", "erg/mm{SUPERSCRIPT TWO}", 1.0, 10.0),
+
     ("Concentration In Water", "ppb", "ppm", 1000, 1),  # calculated
     ("Concentration In Water", "fraction", "%", 1, 100),  # calculated
     ("ConcentrationInWater", "lb/ft^3", "mg/l", 1, 16018.450433864),  # hand calculated
