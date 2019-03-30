@@ -153,9 +153,25 @@ KnownValues = [
     ("Interfacial Tension", "N/m", "pdl/in", 1.0, 0.1837185500656),
     ("Interfacial Tension", "N/m", "lbf/in", 1.0, 0.0057101470975576),
     ("Interfacial Tension", "N/m", "erg/cm^2", 1.0, 1000.0),
-    ("Interfacial Tension", "N/m", "erg/cm{SUPERSCRIPT TWO}", 1.0, 1000.0),
+    ("Interfacial Tension", "N/m", "erg/cm\N{SUPERSCRIPT TWO}", 1.0, 1000.0),
     ("Interfacial Tension", "N/m", "erg/mm^2", 1.0, 10.0),
-    ("Interfacial Tension", "N/m", "erg/mm{SUPERSCRIPT TWO}", 1.0, 10.0),
+    ("Interfacial Tension", "N/m", "erg/mm\N{SUPERSCRIPT TWO}", 1.0, 10.0),
+
+    ("Adhesion", "Pa", "kPa", 1.0, 0.001),
+    ("Adhesion", "Pa", "MPa", 1.0, 0.000001),
+    ("Adhesion", "Pa", "N/m^2", 1.0, 1.0),
+    ("Adhesion", "Pa", "bar", 1.0, 0.00001),
+    ("Adhesion", "Pa", "mbar", 1.0, 0.01),
+    ("Adhesion", "Pa", "g/cm^2", 1.0, 0.0101972),
+    ("Adhesion", "Pa", "kg/cm^2", 1.0, 0.0000101972),
+    ("Adhesion", "Pa", "dyn/cm^2", 1.0, 10.0),
+    ("Adhesion", "Pa", "psi", 1.0, 0.0001450377),
+    ("Adhesion", "Pa", "lb/in^2", 1.0, 0.0001450377),
+    ("Adhesion", "Pa", "N/m\N{SUPERSCRIPT TWO}", 1.0, 1.0),
+    ("Adhesion", "Pa", "g/cm\N{SUPERSCRIPT TWO}", 1.0, 0.0101972),
+    ("Adhesion", "Pa", "kg/cm\N{SUPERSCRIPT TWO}", 1.0, 0.0000101972),
+    ("Adhesion", "Pa", "dyn/cm\N{SUPERSCRIPT TWO}", 1.0, 10.0),
+    ("Adhesion", "Pa", "lb/in\N{SUPERSCRIPT TWO}", 1.0, 0.0001450377),
 
     ("Concentration In Water", "ppb", "ppm", 1000, 1),  # calculated
     ("Concentration In Water", "fraction", "%", 1, 100),  # calculated

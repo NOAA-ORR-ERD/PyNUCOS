@@ -236,9 +236,39 @@ ConvertDataUnits = {
         "Poundal per inch": (5.443108492, ["pdl/in"]),
         "Pound force per inch": (175.126837, ["lbf/in"]),
         "erg per square centimeter": (0.001, ["erg/cm^2",
-                                              "erg/cm{SUPERSCRIPT TWO}"]),
+                                              "erg/cm\N{SUPERSCRIPT TWO}"]),
         "erg per square millimeter": (0.1, ["erg/mm^2",
-                                            "erg/mm{SUPERSCRIPT TWO}"]),
+                                            "erg/mm\N{SUPERSCRIPT TWO}"]),
+    },
+
+    # Adhesion
+    # This is quantified as a force/area measurement in most cases.
+    # There are a lot of conversions in this category that are temperature
+    # dependent.  We will not include these for now.
+    "Adhesion": {
+        "Pascal": (1.0, ["Pa"]),
+        "kiloPascal": (1000.0, ["kPa"]),
+        "megaPascal": (1000000.0, ["MPa"]),
+        "Newton per square meter": (1.0,
+                                    ["N/m^2",
+                                     "N/m\N{SUPERSCRIPT TWO}"]),
+        "bar": (100000.0, ["bars"]),
+        "millibar": (100.0, ["mbar"]),
+        "gram force per square centimeter": (98.0665,
+                                             ["g/cm^2", "gf/cm^2",
+                                              "g/cm\N{SUPERSCRIPT TWO}",
+                                              "gf/cm\N{SUPERSCRIPT TWO}"]),
+        "kilogram force per square centimeter": (98066.5,
+                                                 ["kg/cm^2",
+                                                  "kg/cm\N{SUPERSCRIPT TWO}"]),
+        "dyne per square centimeter": (0.1,
+                                       ["dyn/cm^2",
+                                        "dyn/cm\N{SUPERSCRIPT TWO}"]),
+        "pound force per square inch": (6894.76,
+                                        ["lb/in^2", "lbf/in^2",
+                                         "psi", "pfsi",
+                                         "lb/in\N{SUPERSCRIPT TWO}",
+                                         "lbf/in\N{SUPERSCRIPT TWO}"]),
     },
 
     # Concentration in water in PPM
