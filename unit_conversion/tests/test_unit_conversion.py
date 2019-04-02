@@ -140,6 +140,8 @@ KnownValues = [
 
     ("density", "g/cm^3", "Specific Gravity (15C)", 1, (1 / 0.99913)),
     ("density", "g/cm^3", "Specific Gravity (15C)", 0.99913, 1),
+    ("density", "g/L", "kg/m^3", 1.0, 1.0),
+    ("density", "g/mL", "kg/m^3", 1.0, 1000.0),
     ("density", "Specific gravity", "gramspercubiccentimeter", 1, 0.99913),
     ("density", "SG", "API", 1.0, 10),
     ("density", "SG", "API", 2.0, -60.75),
@@ -178,12 +180,14 @@ KnownValues = [
     ("ConcentrationInWater", "lb/ft^3", "mg/l", 1, 16018.450433864),  # hand calculated
     # ("ConcentrationInWater", "mg/l", "lb/ft^3", 160184.50433864002, 1),  # hand calculated
     # ("ConcentrationInWater", "kg/m^3", "lb/ft^3", 16.018464, 1),  # hand calculated
-    ("concentrationinwater", "mg/l", "ppm", 1.0, 1.0),  # calculated (and kindof defined)
-    ("concentrationinwater", "mg/l", "ppb", 1.0, 1000),  # calculated
-    ("concentrationinwater", "mg/kg", "ppb", 1.0, 1000),  # calculated
+    ("ConcentrationInwater", "mg/l", "ppm", 1.0, 1.0),  # calculated (and kindof defined)
+    ("ConcentrationInwater", "mg/l", "ppb", 1.0, 1000),  # calculated
+    ("ConcentrationInwater", "mg/kg", "ppb", 1.0, 1000),  # calculated
     ("ConcentrationInWater", "ppt", "percent", 1.0, .1),  # calculated
     ("ConcentrationInWater", "ug/l", "ppb", 1.0, 1.0),  # calculated
+    ("ConcentrationInWater", "ug/g", "ppm", 1.0, 1.0),  # calculated
     ("ConcentrationInWater", "mg/ml", "ppm", 1.0, 1000),  # calculated
+    ("ConcentrationInWater", "mg/g", "ppt", 1.0, 1.0),  # calculated
     ("ConcentrationInWater", "nanogramperliter", "partpertrillion", 1.0, 1.0),  # calculated
     ("ConcentrationInWater", "g/m\N{SUPERSCRIPT THREE}", "ppm", 1.0, 1.0),  # calculated
 
