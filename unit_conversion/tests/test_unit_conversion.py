@@ -174,6 +174,10 @@ KnownValues = [
     ("Adhesion", "Pa", "kg/cm\N{SUPERSCRIPT TWO}", 1.0, 0.0000101972),
     ("Adhesion", "Pa", "dyn/cm\N{SUPERSCRIPT TWO}", 1.0, 10.0),
     ("Adhesion", "Pa", "lb/in\N{SUPERSCRIPT TWO}", 1.0, 0.0001450377),
+    ("Adhesion", "kg/cm^2", "kg/m^2", 1.0, 10000.0),
+    ("Adhesion", "g/cm^2", "g/m^2", 1.0, 10000.0),
+    ("Adhesion", "kg/cm^2", "g/cm^2", 1.0, 1000.0),
+    ("Adhesion", "kg/m^2", "g/m^2", 1.0, 1000.0),
 
     ("Concentration In Water", "ppb", "ppm", 1000, 1),  # calculated
     ("Concentration In Water", "fraction", "%", 1, 100),  # calculated

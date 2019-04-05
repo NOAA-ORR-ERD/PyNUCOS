@@ -212,7 +212,8 @@ ConvertDataUnits = {
     # Dynamic Viscosity
     "Dynamic Viscosity": {
         "kilogram per meter per second": (1.0, ["kg/(m s)"]),
-        "Pascal second": (1.0, ["Pa s"]),
+        "Pascal second": (1.0, ["Pa s", "Pa.s"]),
+        "milliPascal second": (0.001, ["mPa s", "mPa.s"]),
         "Newton seconds per square meter": (1.0, ["N s/m^2",
                                                   "N s/m\N{SUPERSCRIPT TWO}"
                                                   ]),
@@ -225,7 +226,6 @@ ConvertDataUnits = {
                                                ),
 
         "centipoise": (0.001, ["cP"]),
-        "milliPascal second": (0.001, ["mPa s"]),
     },
 
     # Interfacial Tension
@@ -262,9 +262,19 @@ ConvertDataUnits = {
                                              ["g/cm^2", "gf/cm^2",
                                               "g/cm\N{SUPERSCRIPT TWO}",
                                               "gf/cm\N{SUPERSCRIPT TWO}"]),
+        "gram force per square meter": (0.00980665,
+                                        ["g/m^2", "gf/m^2",
+                                         "g/m\N{SUPERSCRIPT TWO}",
+                                         "gf/m\N{SUPERSCRIPT TWO}"]),
         "kilogram force per square centimeter": (98066.5,
-                                                 ["kg/cm^2",
-                                                  "kg/cm\N{SUPERSCRIPT TWO}"]),
+                                                 ["kg/cm^2", "kgf/cm^2",
+                                                  "kg/cm\N{SUPERSCRIPT TWO}",
+                                                  "kgf/cm\N{SUPERSCRIPT TWO}"]
+                                                 ),
+        "kilogram force per square meter": (9.80665,
+                                            ["kg/m^2", "kgf/m^2",
+                                             "kg/m\N{SUPERSCRIPT TWO}",
+                                             "kgf/m\N{SUPERSCRIPT TWO}"]),
         "dyne per square centimeter": (0.1,
                                        ["dyn/cm^2",
                                         "dyn/cm\N{SUPERSCRIPT TWO}"]),
@@ -284,7 +294,7 @@ ConvertDataUnits = {
         "part per billion": (1e-6, ["ppb", "parts per billion"]),
         "part per thousand": (1.0, ["ppt", "parts per thousand"]),
         "part per trillion": (1e-9, ["parts per trillion", "pptr"]),
-        "fraction (decimal)": (1e3, ["fraction", "mass per mass"]),
+        "fraction (decimal)": (1e3, ["fraction", "mass per mass", "1"]),
         "percent": (10.0, ["%", "parts per hundred", "per cent"]),
         "pound per cubic foot": (16.018450433864, ["lb/ft^3",
                                                    "lb/ft\N{SUPERSCRIPT THREE}"]),
