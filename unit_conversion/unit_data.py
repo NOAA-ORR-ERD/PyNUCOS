@@ -164,6 +164,13 @@ ConvertDataUnits = {
         "barrel per day": (1.84013078e-06, ["bbl/day", "bbl/d"]),  # calculated from bbl/hr
     },
 
+    # All Mass Discharges in kilogram per second
+    "Mass Discharge": {
+        "kilogram per second": (1.0, ["kg/s"]),
+        "gram per second": (0.001, ["g/s"]),
+    },
+
+
     # Density in g/cc
     # NOTE: Specific Gravity can only be defined for a given
     #       reference temperature.

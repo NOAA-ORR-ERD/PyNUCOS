@@ -125,6 +125,7 @@ KnownValues = [
     ("Discharge", "bbl/hr", "cfs", 1.0, 5.614583 / 3600.),  # calculated from cfs
     ("Discharge", "cfs", "gal/sec", 1.0, 448.83117 / 60),  # calculated from gal/min
 
+    ("Mass Discharge", "kg/s", "g/s", 1.0, 1000.0),
 
     ("Kinematic Viscosity", "stokes", "cSt", 1, 100.0),
     ("Kinematic Viscosity", "cm^2/s", "m^2/s", 1, .0001),
