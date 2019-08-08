@@ -161,14 +161,14 @@ ConvertDataUnits = {
         "gallon per minute": (6.3090197000000006e-05, ["gal/min", "gpm"]),
         "gallon per second": (0.0037854118, ["gal/s", "gal/sec"]),
         "barrel per hour": (4.4163138888888885e-05, ["bbl/hr"]),
-        "barrel per day": (1.84013078e-06, ["bbl/day"]),  # calculated from bbl/hr
+        "barrel per day": (1.84013078e-06, ["bbl/day", "bbl/d"]),  # calculated from bbl/hr
     },
 
     # Density in g/cc
     # NOTE: Specific Gravity can only be defined for a given
     #       reference temperature.
     #       The most common standard in the oil industry is 15C (or 60F). The
-    #       following is the value for the Density of water at 15C
+    #       following is based on the value for the Density of water at 15C
     #       (CRC Handbook of Chemistry and Physics)
     "Density": {
         "gram per cubic centimeter": (1.0, ["g/cm^3",
