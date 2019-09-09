@@ -154,6 +154,7 @@ KnownValues = [
     ("density", "g/cm^3", "Specific Gravity (15C)", 1, (1 / 0.99913)),
     ("density", "g/cm^3", "Specific Gravity (15C)", 0.99913, 1),
     ("density", "g/L", "kg/m^3", 1.0, 1.0),
+    ("density", "kg/L", "kg/m^3", 1.0, 1000.0),
     ("density", "g/mL", "kg/m^3", 1.0, 1000.0),
     ("density", "Specific gravity", "gramspercubiccentimeter", 1, 0.99913),
     ("density", "SG", "API", 1.0, 10),
