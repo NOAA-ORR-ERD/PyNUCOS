@@ -512,8 +512,6 @@ class InvalidUnitError(UnitConversionError):
     Exception raised when a unit is not in the Unit conversion database
     """
     def __init__(self, unit_unit_type):
-        print ('unit_unit_type: {}'.format(unit_unit_type))
-
         if isinstance(unit_unit_type, (list, tuple)):
             (unit, unit_type) = unit_unit_type[:2]
 

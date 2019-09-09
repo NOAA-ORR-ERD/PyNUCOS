@@ -181,6 +181,10 @@ ConvertDataUnits = {
         "gram per cubic centimeter": (1.0, ["g/cm^3",
                                             "g/cm\N{SUPERSCRIPT THREE}",
                                             "grams per cubic centimeter"]),
+        "gram per liter": (.001, ["g/L",
+                                  "gram per litre"]),
+        "gram per milliliter": (1.0, ["g/mL",
+                                      "gram per millilitre"]),
         "specific gravity (15\xb0C)": (0.99913, ["S", "specificgravity",
                                                  "Spec grav", "SG",
                                                  "specificgravity(15C)"]),
@@ -227,7 +231,8 @@ ConvertDataUnits = {
     # Dynamic Viscosity
     "Dynamic Viscosity": {
         "kilogram per meter per second": (1.0, ["kg/(m s)"]),
-        "Pascal second": (1.0, ["Pa s"]),
+        "Pascal second": (1.0, ["Pa s", "Pa.s"]),
+        "milliPascal second": (0.001, ["mPa s", "mPa.s"]),
         "Newton seconds per square meter": (1.0, ["N s/m^2",
                                                   "N s/m\N{SUPERSCRIPT TWO}"
                                                   ]),
@@ -240,7 +245,63 @@ ConvertDataUnits = {
                                                ),
 
         "centipoise": (0.001, ["cP"]),
-        "milliPascal second": (0.001, ["mPa s"]),
+    },
+
+    # Interfacial Tension
+    # This is quantified as a force/length measurement in most cases, but a
+    # couple exceptions quantify in ergs/area.  An erg is an amount of work,
+    # not force, but the conversion is pretty straightforward.
+    "Interfacial Tension": {
+        "Newton per meter": (1.0, ["N/m"]),
+        "milliNewton per meter": (0.001, ["mN/m"]),
+        "dyne per centimeter": (0.001, ["dyne/cm"]),
+        "gram force per centimeter": (0.98066499997877, ["gf/cm"]),
+        "Poundal per inch": (5.443108492, ["pdl/in"]),
+        "Pound force per inch": (175.126837, ["lbf/in"]),
+        "erg per square centimeter": (0.001, ["erg/cm^2",
+                                              "erg/cm\N{SUPERSCRIPT TWO}"]),
+        "erg per square millimeter": (0.1, ["erg/mm^2",
+                                            "erg/mm\N{SUPERSCRIPT TWO}"]),
+    },
+
+    # Adhesion
+    # This is quantified as a force/area measurement in most cases.
+    # There are a lot of conversions in this category that are temperature
+    # dependent.  We will not include these for now.
+    "Adhesion": {
+        "Pascal": (1.0, ["Pa"]),
+        "kiloPascal": (1000.0, ["kPa"]),
+        "megaPascal": (1000000.0, ["MPa"]),
+        "Newton per square meter": (1.0,
+                                    ["N/m^2",
+                                     "N/m\N{SUPERSCRIPT TWO}"]),
+        "bar": (100000.0, ["bars"]),
+        "millibar": (100.0, ["mbar"]),
+        "gram force per square centimeter": (98.0665,
+                                             ["g/cm^2", "gf/cm^2",
+                                              "g/cm\N{SUPERSCRIPT TWO}",
+                                              "gf/cm\N{SUPERSCRIPT TWO}"]),
+        "gram force per square meter": (0.00980665,
+                                        ["g/m^2", "gf/m^2",
+                                         "g/m\N{SUPERSCRIPT TWO}",
+                                         "gf/m\N{SUPERSCRIPT TWO}"]),
+        "kilogram force per square centimeter": (98066.5,
+                                                 ["kg/cm^2", "kgf/cm^2",
+                                                  "kg/cm\N{SUPERSCRIPT TWO}",
+                                                  "kgf/cm\N{SUPERSCRIPT TWO}"]
+                                                 ),
+        "kilogram force per square meter": (9.80665,
+                                            ["kg/m^2", "kgf/m^2",
+                                             "kg/m\N{SUPERSCRIPT TWO}",
+                                             "kgf/m\N{SUPERSCRIPT TWO}"]),
+        "dyne per square centimeter": (0.1,
+                                       ["dyn/cm^2",
+                                        "dyn/cm\N{SUPERSCRIPT TWO}"]),
+        "pound force per square inch": (6894.76,
+                                        ["lb/in^2", "lbf/in^2",
+                                         "psi", "pfsi",
+                                         "lb/in\N{SUPERSCRIPT TWO}",
+                                         "lbf/in\N{SUPERSCRIPT TWO}"]),
     },
 
     # Concentration in water in PPM
@@ -252,16 +313,18 @@ ConvertDataUnits = {
         "part per billion": (1e-6, ["ppb", "parts per billion"]),
         "part per thousand": (1.0, ["ppt", "parts per thousand"]),
         "part per trillion": (1e-9, ["parts per trillion", "pptr"]),
-        "fraction (decimal)": (1e3, ["fraction", "mass per mass"]),
+        "fraction (decimal)": (1e3, ["fraction", "mass per mass", "1"]),
         "percent": (10.0, ["%", "parts per hundred", "per cent"]),
         "pound per cubic foot": (16.018450433864, ["lb/ft^3",
                                                    "lb/ft\N{SUPERSCRIPT THREE}"]),
         "milligram per liter": (0.001, ["mg/l"]),
         "gram per liter": (1.0, ["g/l"]),
         "kilogram per liter": (1000.0, ["kg/l"]),
+        "milligram per gram": (1.0, ["mg/g"]),
         "milligram per kilogram": (0.001, ["mg/kg"]),
         "milligram per milliliter": (1.0, ["mg/ml"]),
         "microgram per liter": (1e-6, ["ug/l"]),
+        "microgram per gram": (1e-3, ["ug/g"]),
         "nanogram per liter": (1e-9, ["ng/l"]),
     },
 
