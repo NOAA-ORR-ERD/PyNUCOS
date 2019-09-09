@@ -111,6 +111,9 @@ KnownValues = [
     ("Velocity", "ft/hr", "cm/s", 1.0, 0.0084666),
     ("Velocity", "ft/hr", "km/hr", 1.0, 0.0003048),
     ("Velocity", "knot", "m/s", 1.0, 0.514444),
+    ("Velocity", "km/day", "m/s", 1.0, 0.01157404166666666),
+    ("Velocity", "km/hr", "km/day", 1.0, 24.0),
+
 
     ("Discharge", "cfs", "l/s", 1.0, 28.31685),
     ("Discharge", "gal/hr", "gal/min", 60.0, 1.0),
