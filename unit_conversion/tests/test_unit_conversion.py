@@ -140,6 +140,8 @@ KnownValues = [
 
     ("density", "g/cm^3", "Specific Gravity (15C)", 1, (1 / 0.99913)),
     ("density", "g/cm^3", "Specific Gravity (15C)", 0.99913, 1),
+    ("density", "g/L", "kg/m^3", 1.0, 1.0),
+    ("density", "g/mL", "kg/m^3", 1.0, 1000.0),
     ("density", "Specific gravity", "gramspercubiccentimeter", 1, 0.99913),
     ("density", "SG", "API", 1.0, 10),
     ("density", "SG", "API", 2.0, -60.75),
@@ -147,17 +149,49 @@ KnownValues = [
     ("density", "API", "SG", 25.7222, 0.9),
     ("density", "lbs/ft^3", "Grams per Cubic Centimeter", 1.0, 0.016018463),
 
+    ("Interfacial Tension", "N/m", "mN/m", 1.0, 1000.0),
+    ("Interfacial Tension", "N/m", "dyne/cm", 1.0, 1000.0),
+    ("Interfacial Tension", "N/m", "gf/cm", 1.0, 1.019716213),
+    ("Interfacial Tension", "N/m", "pdl/in", 1.0, 0.1837185500656),
+    ("Interfacial Tension", "N/m", "lbf/in", 1.0, 0.0057101470975576),
+    ("Interfacial Tension", "N/m", "erg/cm^2", 1.0, 1000.0),
+    ("Interfacial Tension", "N/m", "erg/cm\N{SUPERSCRIPT TWO}", 1.0, 1000.0),
+    ("Interfacial Tension", "N/m", "erg/mm^2", 1.0, 10.0),
+    ("Interfacial Tension", "N/m", "erg/mm\N{SUPERSCRIPT TWO}", 1.0, 10.0),
+
+    ("Adhesion", "Pa", "kPa", 1.0, 0.001),
+    ("Adhesion", "Pa", "MPa", 1.0, 0.000001),
+    ("Adhesion", "Pa", "N/m^2", 1.0, 1.0),
+    ("Adhesion", "Pa", "bar", 1.0, 0.00001),
+    ("Adhesion", "Pa", "mbar", 1.0, 0.01),
+    ("Adhesion", "Pa", "g/cm^2", 1.0, 0.0101972),
+    ("Adhesion", "Pa", "kg/cm^2", 1.0, 0.0000101972),
+    ("Adhesion", "Pa", "dyn/cm^2", 1.0, 10.0),
+    ("Adhesion", "Pa", "psi", 1.0, 0.0001450377),
+    ("Adhesion", "Pa", "lb/in^2", 1.0, 0.0001450377),
+    ("Adhesion", "Pa", "N/m\N{SUPERSCRIPT TWO}", 1.0, 1.0),
+    ("Adhesion", "Pa", "g/cm\N{SUPERSCRIPT TWO}", 1.0, 0.0101972),
+    ("Adhesion", "Pa", "kg/cm\N{SUPERSCRIPT TWO}", 1.0, 0.0000101972),
+    ("Adhesion", "Pa", "dyn/cm\N{SUPERSCRIPT TWO}", 1.0, 10.0),
+    ("Adhesion", "Pa", "lb/in\N{SUPERSCRIPT TWO}", 1.0, 0.0001450377),
+    ("Adhesion", "kg/cm^2", "kg/m^2", 1.0, 10000.0),
+    ("Adhesion", "g/cm^2", "g/m^2", 1.0, 10000.0),
+    ("Adhesion", "kg/cm^2", "g/cm^2", 1.0, 1000.0),
+    ("Adhesion", "kg/m^2", "g/m^2", 1.0, 1000.0),
+
     ("Concentration In Water", "ppb", "ppm", 1000, 1),  # calculated
     ("Concentration In Water", "fraction", "%", 1, 100),  # calculated
     ("ConcentrationInWater", "lb/ft^3", "mg/l", 1, 16018.450433864),  # hand calculated
     # ("ConcentrationInWater", "mg/l", "lb/ft^3", 160184.50433864002, 1),  # hand calculated
     # ("ConcentrationInWater", "kg/m^3", "lb/ft^3", 16.018464, 1),  # hand calculated
-    ("concentrationinwater", "mg/l", "ppm", 1.0, 1.0),  # calculated (and kindof defined)
-    ("concentrationinwater", "mg/l", "ppb", 1.0, 1000),  # calculated
-    ("concentrationinwater", "mg/kg", "ppb", 1.0, 1000),  # calculated
+    ("ConcentrationInwater", "mg/l", "ppm", 1.0, 1.0),  # calculated (and kindof defined)
+    ("ConcentrationInwater", "mg/l", "ppb", 1.0, 1000),  # calculated
+    ("ConcentrationInwater", "mg/kg", "ppb", 1.0, 1000),  # calculated
     ("ConcentrationInWater", "ppt", "percent", 1.0, .1),  # calculated
     ("ConcentrationInWater", "ug/l", "ppb", 1.0, 1.0),  # calculated
+    ("ConcentrationInWater", "ug/g", "ppm", 1.0, 1.0),  # calculated
     ("ConcentrationInWater", "mg/ml", "ppm", 1.0, 1000),  # calculated
+    ("ConcentrationInWater", "mg/g", "ppt", 1.0, 1.0),  # calculated
     ("ConcentrationInWater", "nanogramperliter", "partpertrillion", 1.0, 1.0),  # calculated
     ("ConcentrationInWater", "g/m\N{SUPERSCRIPT THREE}", "ppm", 1.0, 1.0),  # calculated
 
