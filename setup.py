@@ -30,4 +30,7 @@ setup(
     version=get_version("unit_conversion"),
     packages=['unit_conversion',
               'unit_conversion.tests'],
+    zip_safe=False,
     )
+
+
