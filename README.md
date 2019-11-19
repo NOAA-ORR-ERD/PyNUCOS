@@ -14,6 +14,19 @@ It also includes a few utilites that are not strictly unit conversion:
   - converting latitude/longitude to/from degrees, degrees minutes seconds, etc (and formatting as unicode objects)
   - converting to/from oil mass units to/from volume units.
 
+Installing
+==========
+
+PYNUCOS is not yet on PyPi, so you need to get the source from this repo and install with the regular::
+
+  python setup.py install
+
+If you use conda, there is a conda package available on the NOAA-ORR-ERD channel::
+
+
+  conda install unit_conversion -c NOAA-ORR-ERD
+
+
 Use Cases:
 -----------
 
