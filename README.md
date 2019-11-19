@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/NOAA-ORR-ERD/PyNUCOS.svg?branch=master
+    :target: https://travis-ci.org/NOAA-ORR-ERD/PyNUCOS
+
 PyNUCOS
 =======
 
