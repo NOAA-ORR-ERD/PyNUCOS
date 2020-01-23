@@ -253,10 +253,11 @@ ConvertDataUnits = {
     # This is quantified as a force/length measurement in most cases, but a
     # couple exceptions quantify in ergs/area.  An erg is an amount of work,
     # not force, but the conversion is pretty straightforward.
+    # FIXME: remove the wierdos: like poundal per inch
     "Interfacial Tension": {
         "Newton per meter": (1.0, ["N/m"]),
         "milliNewton per meter": (0.001, ["mN/m"]),
-        "dyne per centimeter": (0.001, ["dyne/cm"]),
+        "dyne per centimeter": (0.001, ["dyne/cm", "dyn/cm"]),
         "gram force per centimeter": (0.98066499997877, ["gf/cm"]),
         "Poundal per inch": (5.443108492, ["pdl/in"]),
         "Pound force per inch": (175.126837, ["lbf/in"]),
@@ -264,12 +265,16 @@ ConvertDataUnits = {
                                               "erg/cm\N{SUPERSCRIPT TWO}"]),
         "erg per square millimeter": (0.1, ["erg/mm^2",
                                             "erg/mm\N{SUPERSCRIPT TWO}"]),
+        "joule per square meter": (1.0, ["j/m^2",
+                                         "j/m\N{SUPERSCRIPT TWO}"]),
     },
 
     # Adhesion
     # This is quantified as a force/area measurement in most cases.
     # There are a lot of conversions in this category that are temperature
     # dependent.  We will not include these for now.
+    # FIXME: This is actually the same as pressure units, and I don't think we
+    #        need it anyway -- so it should be removed.
     "Adhesion": {
         "Pascal": (1.0, ["Pa"]),
         "kiloPascal": (1000.0, ["kPa"]),
@@ -306,7 +311,28 @@ ConvertDataUnits = {
                                          "lbf/in\N{SUPERSCRIPT TWO}"]),
     },
 
-    # Concentration in water in PPM
+    # "Pressure": {
+    #     "Pascal": (1.0, ["Pa"]),
+    #     "kiloPascal": (1000.0, ["kPa"]),
+    #     "megaPascal": (1000000.0, ["MPa"]),
+    #     "Newton per square meter": (1.0,
+    #                                 ["N/m^2",
+    #                                  "N/m\N{SUPERSCRIPT TWO}"]),
+    #     "bar": (100000.0, ["bars"]),
+    #     "millibar": (100.0, ["mbar"]),
+    #     "dyne per square centimeter": (0.1,
+    #                                    ["dyn/cm^2",
+    #                                     "dyn/cm\N{SUPERSCRIPT TWO}"]),
+    #     "pound per square inch": (6894.76,
+    #                               ["lb/in^2", "lbf/in^2",
+    #                                "psi", "pfsi",
+    #                                "lb/in\N{SUPERSCRIPT TWO}",
+    #                                "lbf/in\N{SUPERSCRIPT TWO}"]),
+    # },
+
+
+    # Concentration in water (note: this is converting between mass/volume)
+    #                               and mass/mass, hence the "water" part
     "Concentration In Water": {
         "kilogram per cubic meter": (1.0, ["kg/m^3",
                                            "kg/m\N{SUPERSCRIPT THREE}"]),
@@ -329,6 +355,23 @@ ConvertDataUnits = {
         "microgram per gram": (1e-3, ["ug/g"]),
         "nanogram per liter": (1e-9, ["ng/l"]),
     },
+
+    # Concentration:
+    #  This is technically unitless -- just a fraction
+    # but people often use, e.g. g/kg, so not kinda a unit?
+    "Concentration": {
+        "fraction (decimal)": (1.0, ["fraction", "mass per mass", "1"]),
+        "part per thousand": (0.001, ["ppt", "parts per thousand"]),
+        "part per million": (1e-6, ["ppm", "parts per million"]),
+        "part per billion": (1e-9, ["ppb", "parts per billion"]),
+        "part per trillion": (1e-12, ["parts per trillion", "pptr"]),
+        "percent": (0.01, ["%", "parts per hundred", "per cent"]),
+        "gram per kilogram": (1e-3, ["g/kg"]),
+        "milligram per gram": (1e-3, ["mg/g"]),
+        "milligram per kilogram": (1e-6, ["mg/kg"]),
+        "microgram per gram": (1e-6, ["ug/g"]),
+    },
+
 
     "Angular Measure": {
         "radians": (1.0, ["radian", "rad"]),
@@ -367,6 +410,9 @@ for s in unit_sets.values():
 
 
 def write_units(filename=None):
+    """
+    fixme: why is this ASCII only?
+    """
     import sys
     if filename is None:
         f = sys.stdout
@@ -382,6 +428,8 @@ def write_units(filename=None):
 def all_unit_names():
     """
     returns a string of all unit names
+
+    fixme: why is this ASCII only???
     """
     result = []
     for key, value in ConvertDataUnits.items():

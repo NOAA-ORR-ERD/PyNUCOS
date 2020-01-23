@@ -165,6 +165,10 @@ KnownValues = [
     ("density", "tonne per cubic meter", "kg/m^3", 1.0, 1000.0),
 
 
+    # some from https://en.wikipedia.org/wiki/Surface_tension#Physical_units
+    ("Interfacial Tension", "dyn/cm", "N/m", 1.0, 0.001),
+    ("Interfacial Tension", "N/m", "dyn/cm", 1.0, 1000),
+    ("Interfacial Tension", "N/m", "J/m^2", 0.001, 0.001),
     ("Interfacial Tension", "N/m", "mN/m", 1.0, 1000.0),
     ("Interfacial Tension", "N/m", "dyne/cm", 1.0, 1000.0),
     ("Interfacial Tension", "N/m", "gf/cm", 1.0, 1.019716213),
@@ -216,7 +220,10 @@ KnownValues = [
 
     ("Angular Measure", "degree", "radian", 180.0, math.pi),  # calculated
     ("Angular Measure", "radians", "degrees", 2 * math.pi, 360.0),  # calculated
+
     ]
+
+
 
 
 def test_new_api_oneshot():
