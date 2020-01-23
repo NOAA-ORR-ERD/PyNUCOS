@@ -217,6 +217,15 @@ KnownValues = [
     ("concentrationinwater", "g/l", "ppm", 1.0, 1000.0),  # calculated
     ("concentrationinwater", "kg/l", "part per thousand", 1.0, 1000.0),  # calculated
 
+    ("Concentration", "ppb", "ppm", 1000, 1),  # calculated
+    ("Concentration", "fraction", "%", 1, 100),  # calculated
+    ("Concentration", "mg/kg", "ppb", 1.0, 1000),  # calculated
+    ("Concentration", "ppt", "percent", 1.0, .1),  # calculated
+    ("Concentration", "ug/g", "ppm", 1.0, 1.0),  # calculated
+    ("Concentration", "mg/g", "ppt", 1.0, 1.0),  # calculated
+    ("Concentration", "pptr", "1", 1.0, 1e-12),  # calculated
+    ("Concentration", "g/kg", "fraction", 1.0, 1e-3),  # calculated
+    ("Concentration", "mg/kg", "fraction", 1.0, 1e-6),  # calculated
 
     ("Angular Measure", "degree", "radian", 180.0, math.pi),  # calculated
     ("Angular Measure", "radians", "degrees", 2 * math.pi, 360.0),  # calculated
