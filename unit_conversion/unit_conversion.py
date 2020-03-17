@@ -117,12 +117,15 @@ def FindUnitTypes():
     for unit_type, unit_data in ConvertDataUnits.items():
         unit_type = Simplify(unit_type)
 
-        # skipping Oil Concentration, 'cause this is really length
-        # -- lots of duplicate units!
-        # skipping Concentration in water, 'cause it's weird
+        # - skipping Oil Concentration, 'cause this is really length
+        #   - lots of duplicate units!
+        # - skipping Concentration in water, 'cause it's weird
         #   - mass/volume and mass/mass !
+        # - skipping Mass Fraction, because there are lots of duplicate units
+        #   that conflict with Concentration & Concentration In Water.
         if unit_type in ("oilconcentration",
                          "concentrationinwater",
+                         'massfraction',
                          # "concentration",
                          ):
             continue

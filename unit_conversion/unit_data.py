@@ -202,13 +202,6 @@ ConvertDataUnits = {
         "API degree": (1, ["api"]),  # this is special cased in the code.
     },
 
-    # All Time In second
-    "Time": {"second": (1.0, ["s", "sec", "seconds"]),
-             "minute": (60.0, ["min", "minutes"]),
-             "hour": (3600.0, ["hr", "hours", "hrs"]),
-             "day": (86400.0, ["days"]),
-             },
-
     # Kinematic Viscosity in Stokes
     # NOTE: there is a more detailed way to do this, specified in:
     # ASTM D 2161 Standard Practice for Conversion of Kinematic Viscosity to
@@ -372,6 +365,18 @@ ConvertDataUnits = {
         "microgram per gram": (1e-6, ["ug/g"]),
     },
 
+    # Mass Fraction: Any unit that is a mass/mass ratio
+    'Mass Fraction': {
+        'fraction (decimal)': (1.0, ['fraction', '1', 'mass per mass']),
+        'percent': (10.0, ['%', 'parts per hundred']),
+        'part per thousand': (1000.0, ['ppt', 'parts per thousand']),
+        'part per million': (1e6, ['ppm', 'parts per million']),
+        'part per billion': (1e9, ['ppb', 'parts per billion']),
+        'part per trillion': (1e12, ['pptr', 'parts per trillion']),
+        "milligram per gram": (1000.0, ["mg/g"]),
+        "milligram per kilogram": (1e6, ["mg/kg"]),
+        "microgram per gram": (1e6, ["ug/g"]),
+    },
 
     "Angular Measure": {
         "radians": (1.0, ["radian", "rad"]),
