@@ -358,7 +358,7 @@ ConvertDataUnits = {
         'part per thousand': (1e-3, ['0/00', '\u2030', 'parts per thousand']),
         "part per million": (1e-6, ["ppm", "parts per million"]),
         "part per billion": (1e-9, ["ppb", "parts per billion"]),
-        'part per trillion': (1e-12, ['ppt', 'parts per trillion']),
+        'part per trillion': (1e-12, ['parts per trillion']),
     },
 
     # Mass Fraction: Any unit that is a mass/mass ratio.  This will be very
@@ -370,7 +370,7 @@ ConvertDataUnits = {
         'part per thousand': (1e-3, ['0/00', '\u2030', 'parts per thousand']),
         'part per million': (1e-6, ['ppm', 'parts per million']),
         'part per billion': (1e-9, ['ppb', 'parts per billion']),
-        'part per trillion': (1e-12, ['ppt', 'parts per trillion']),
+        'part per trillion': (1e-12, ['parts per trillion']),
         "gram per kilogram": (1e-3, ["g/kg"]),
         "milligram per gram": (1e-3, ["mg/g"]),
         "milligram per kilogram": (1e-6, ["mg/kg"]),
@@ -386,7 +386,7 @@ ConvertDataUnits = {
         'part per thousand': (1e-3, ['0/00', '\u2030', 'parts per thousand']),
         'part per million': (1e-6, ['ppm', 'parts per million']),
         'part per billion': (1e-9, ['ppb', 'parts per billion']),
-        'part per trillion': (1e-12, ['ppt', 'parts per trillion']),
+        'part per trillion': (1e-12, ['parts per trillion']),
         'milliliter per liter': (1e-3, ['mL/L', 'mL/dm^3']),
         'liter per cubic meter': (1e-3, ['L/m^3']),
     },

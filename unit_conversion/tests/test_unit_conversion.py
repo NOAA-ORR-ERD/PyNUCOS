@@ -221,13 +221,13 @@ KnownValues = [
     ("Concentration", "percent", "\u2030", 1.0, 10.0),  # calculated
     ("Concentration", "\u2030", "ppm", 1.0, 1000.0),  # calculated
     ("Concentration", "ppm", "ppb", 1.0, 1000.0),  # calculated
-    ("Concentration", "ppb", "ppt", 1.0, 1000.0),  # calculated
-    ("Concentration", "ppt", "1", 1.0, 1e-12),  # calculated
+    ("Concentration", "ppb", "part per trillion", 1.0, 1000.0),  # calculated
+    ("Concentration", "parts per trillion", "1", 1.0, 1e-12),  # calculated
 
     ("MassFraction", "fraction", "%", 1, 100),  # calculated
     ("MassFraction", "\u2030", "percent", 1.0, .1),  # calculated
     ("MassFraction", "ppb", "ppm", 1000, 1),  # calculated
-    ("MassFraction", "ppt", "1", 1.0, 1e-12),  # calculated
+    ("MassFraction", "parts per trillion", "1", 1.0, 1e-12),  # calculated
     ("MassFraction", "g/kg", "fraction", 1.0, 1e-3),  # calculated
     ("MassFraction", "mg/g", "0/00", 1.0, 1.0),  # calculated
     ("MassFraction", "mg/kg", "ppb", 1.0, 1000),  # calculated
@@ -237,7 +237,7 @@ KnownValues = [
     ("VolumeFraction", "fraction", "%", 1, 100),  # calculated
     ("VolumeFraction", "\u2030", "percent", 1.0, .1),  # calculated
     ("VolumeFraction", "ppb", "ppm", 1000, 1),  # calculated
-    ("VolumeFraction", "ppt", "1", 1.0, 1e-12),  # calculated
+    ("VolumeFraction", "parts per trillion", "1", 1.0, 1e-12),  # calculated
     ("VolumeFraction", "mL/L", "fraction", 1.0, 1e-3),  # calculated
     ("VolumeFraction", "L/m^3", "0/00", 1.0, 1.0),  # calculated
 
