@@ -217,32 +217,29 @@ KnownValues = [
     ("ConcentrationInWater", "g/l", "ppm", 1.0, 1000.0),  # calculated
     ("ConcentrationInWater", "kg/l", "part per thousand", 1.0, 1000.0),  # calculated
 
-    ("Concentration", "ppb", "ppm", 1000, 1),  # calculated
-    ("Concentration", "fraction", "%", 1, 100),  # calculated
-    ("Concentration", "mg/kg", "ppb", 1.0, 1000),  # calculated
-    ("Concentration", "ppt", "percent", 1.0, .1),  # calculated
-    ("Concentration", "ug/g", "ppm", 1.0, 1.0),  # calculated
-    ("Concentration", "mg/g", "ppt", 1.0, 1.0),  # calculated
-    ("Concentration", "pptr", "1", 1.0, 1e-12),  # calculated
-    ("Concentration", "g/kg", "fraction", 1.0, 1e-3),  # calculated
-    ("Concentration", "mg/kg", "fraction", 1.0, 1e-6),  # calculated
+    ("Concentration", "fraction", "%", 1.0, 100.0),  # calculated
+    ("Concentration", "percent", "\u2030", 1.0, 10.0),  # calculated
+    ("Concentration", "\u2030", "ppm", 1.0, 1000.0),  # calculated
+    ("Concentration", "ppm", "ppb", 1.0, 1000.0),  # calculated
+    ("Concentration", "ppb", "ppt", 1.0, 1000.0),  # calculated
+    ("Concentration", "ppt", "1", 1.0, 1e-12),  # calculated
 
     ("MassFraction", "fraction", "%", 1, 100),  # calculated
-    ("MassFraction", "ppt", "percent", 1.0, .1),  # calculated
+    ("MassFraction", "\u2030", "percent", 1.0, .1),  # calculated
     ("MassFraction", "ppb", "ppm", 1000, 1),  # calculated
-    ("MassFraction", "pptr", "1", 1.0, 1e-12),  # calculated
+    ("MassFraction", "ppt", "1", 1.0, 1e-12),  # calculated
     ("MassFraction", "g/kg", "fraction", 1.0, 1e-3),  # calculated
-    ("MassFraction", "mg/g", "ppt", 1.0, 1.0),  # calculated
+    ("MassFraction", "mg/g", "0/00", 1.0, 1.0),  # calculated
     ("MassFraction", "mg/kg", "ppb", 1.0, 1000),  # calculated
     ("MassFraction", "mg/kg", "fraction", 1.0, 1e-6),  # calculated
     ("MassFraction", "ug/g", "ppm", 1.0, 1.0),  # calculated
 
     ("VolumeFraction", "fraction", "%", 1, 100),  # calculated
-    ("VolumeFraction", "ppt", "percent", 1.0, .1),  # calculated
+    ("VolumeFraction", "\u2030", "percent", 1.0, .1),  # calculated
     ("VolumeFraction", "ppb", "ppm", 1000, 1),  # calculated
-    ("VolumeFraction", "pptr", "1", 1.0, 1e-12),  # calculated
+    ("VolumeFraction", "ppt", "1", 1.0, 1e-12),  # calculated
     ("VolumeFraction", "mL/L", "fraction", 1.0, 1e-3),  # calculated
-    ("VolumeFraction", "L/m^3", "ppt", 1.0, 1.0),  # calculated
+    ("VolumeFraction", "L/m^3", "0/00", 1.0, 1.0),  # calculated
 
     ("Angular Measure", "degree", "radian", 180.0, math.pi),  # calculated
     ("Angular Measure", "radians", "degrees", 2 * math.pi, 360.0),  # calculated

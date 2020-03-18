@@ -355,14 +355,10 @@ ConvertDataUnits = {
     "Concentration": {
         "fraction (decimal)": (1.0, ["fraction", "mass per mass", "1"]),
         "percent": (0.01, ["%", "parts per hundred"]),
-        "part per thousand": (0.001, ["ppt", "parts per thousand"]),
+        'part per thousand': (1e-3, ['0/00', '\u2030', 'parts per thousand']),
         "part per million": (1e-6, ["ppm", "parts per million"]),
         "part per billion": (1e-9, ["ppb", "parts per billion"]),
-        "part per trillion": (1e-12, ["parts per trillion", "pptr"]),
-        "gram per kilogram": (1e-3, ["g/kg"]),
-        "milligram per gram": (1e-3, ["mg/g"]),
-        "milligram per kilogram": (1e-6, ["mg/kg"]),
-        "microgram per gram": (1e-6, ["ug/g"]),
+        'part per trillion': (1e-12, ['ppt', 'parts per trillion']),
     },
 
     # Mass Fraction: Any unit that is a mass/mass ratio.  This will be very
@@ -371,10 +367,10 @@ ConvertDataUnits = {
     'Mass Fraction': {
         'fraction (decimal)': (1.0, ['fraction', '1', 'mass per mass']),
         'percent': (0.01, ['%', 'parts per hundred']),
-        'part per thousand': (1e-3, ['ppt', 'parts per thousand']),
+        'part per thousand': (1e-3, ['0/00', '\u2030', 'parts per thousand']),
         'part per million': (1e-6, ['ppm', 'parts per million']),
         'part per billion': (1e-9, ['ppb', 'parts per billion']),
-        'part per trillion': (1e-12, ['pptr', 'parts per trillion']),
+        'part per trillion': (1e-12, ['ppt', 'parts per trillion']),
         "gram per kilogram": (1e-3, ["g/kg"]),
         "milligram per gram": (1e-3, ["mg/g"]),
         "milligram per kilogram": (1e-6, ["mg/kg"]),
@@ -387,10 +383,10 @@ ConvertDataUnits = {
     'Volume Fraction': {
         'fraction (decimal)': (1.0, ['fraction', '1', 'mass per mass']),
         'percent': (0.01, ['%', 'parts per hundred']),
-        'part per thousand': (1e-3, ['ppt', 'parts per thousand']),
+        'part per thousand': (1e-3, ['0/00', '\u2030', 'parts per thousand']),
         'part per million': (1e-6, ['ppm', 'parts per million']),
         'part per billion': (1e-9, ['ppb', 'parts per billion']),
-        'part per trillion': (1e-12, ['pptr', 'parts per trillion']),
+        'part per trillion': (1e-12, ['ppt', 'parts per trillion']),
         'milliliter per liter': (1e-3, ['mL/L', 'mL/dm^3']),
         'liter per cubic meter': (1e-3, ['L/m^3']),
     },
