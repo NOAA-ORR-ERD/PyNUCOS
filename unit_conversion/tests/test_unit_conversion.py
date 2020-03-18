@@ -214,8 +214,8 @@ KnownValues = [
     ("ConcentrationInWater", "mg/g", "ppt", 1.0, 1.0),  # calculated
     ("ConcentrationInWater", "nanogramperliter", "partpertrillion", 1.0, 1.0),  # calculated
     ("ConcentrationInWater", "g/m\N{SUPERSCRIPT THREE}", "ppm", 1.0, 1.0),  # calculated
-    ("concentrationinwater", "g/l", "ppm", 1.0, 1000.0),  # calculated
-    ("concentrationinwater", "kg/l", "part per thousand", 1.0, 1000.0),  # calculated
+    ("ConcentrationInWater", "g/l", "ppm", 1.0, 1000.0),  # calculated
+    ("ConcentrationInWater", "kg/l", "part per thousand", 1.0, 1000.0),  # calculated
 
     ("Concentration", "ppb", "ppm", 1000, 1),  # calculated
     ("Concentration", "fraction", "%", 1, 100),  # calculated
@@ -227,12 +227,27 @@ KnownValues = [
     ("Concentration", "g/kg", "fraction", 1.0, 1e-3),  # calculated
     ("Concentration", "mg/kg", "fraction", 1.0, 1e-6),  # calculated
 
+    ("MassFraction", "fraction", "%", 1, 100),  # calculated
+    ("MassFraction", "ppt", "percent", 1.0, .1),  # calculated
+    ("MassFraction", "ppb", "ppm", 1000, 1),  # calculated
+    ("MassFraction", "pptr", "1", 1.0, 1e-12),  # calculated
+    ("MassFraction", "g/kg", "fraction", 1.0, 1e-3),  # calculated
+    ("MassFraction", "mg/g", "ppt", 1.0, 1.0),  # calculated
+    ("MassFraction", "mg/kg", "ppb", 1.0, 1000),  # calculated
+    ("MassFraction", "mg/kg", "fraction", 1.0, 1e-6),  # calculated
+    ("MassFraction", "ug/g", "ppm", 1.0, 1.0),  # calculated
+
+    ("VolumeFraction", "fraction", "%", 1, 100),  # calculated
+    ("VolumeFraction", "ppt", "percent", 1.0, .1),  # calculated
+    ("VolumeFraction", "ppb", "ppm", 1000, 1),  # calculated
+    ("VolumeFraction", "pptr", "1", 1.0, 1e-12),  # calculated
+    ("VolumeFraction", "mL/L", "fraction", 1.0, 1e-3),  # calculated
+    ("VolumeFraction", "L/m^3", "ppt", 1.0, 1.0),  # calculated
+
     ("Angular Measure", "degree", "radian", 180.0, math.pi),  # calculated
     ("Angular Measure", "radians", "degrees", 2 * math.pi, 360.0),  # calculated
 
     ]
-
-
 
 
 def test_new_api_oneshot():
@@ -260,8 +275,10 @@ def test_new_api(unit_type, unit1, unit2, value, new_value):
     of all the known values, but with the new API
     """
     # filter out the ones that we know are eliminated
-    if unit_conversion.Simplify(unit_type) in ('concentrationinwater',
-                                               'oilconcentration'):
+    if unit_conversion.Simplify(unit_type) in ('oilconcentration',
+                                               'concentrationinwater',
+                                               'massfraction',
+                                               'volumefraction'):
         return
     # now do the test:
     assert isclose(unit_conversion.convert(unit1, unit2, value), new_value)

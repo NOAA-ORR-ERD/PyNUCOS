@@ -354,28 +354,45 @@ ConvertDataUnits = {
     # but people often use, e.g. g/kg, so not kinda a unit?
     "Concentration": {
         "fraction (decimal)": (1.0, ["fraction", "mass per mass", "1"]),
+        "percent": (0.01, ["%", "parts per hundred"]),
         "part per thousand": (0.001, ["ppt", "parts per thousand"]),
         "part per million": (1e-6, ["ppm", "parts per million"]),
         "part per billion": (1e-9, ["ppb", "parts per billion"]),
         "part per trillion": (1e-12, ["parts per trillion", "pptr"]),
-        "percent": (0.01, ["%", "parts per hundred"]),
         "gram per kilogram": (1e-3, ["g/kg"]),
         "milligram per gram": (1e-3, ["mg/g"]),
         "milligram per kilogram": (1e-6, ["mg/kg"]),
         "microgram per gram": (1e-6, ["ug/g"]),
     },
 
-    # Mass Fraction: Any unit that is a mass/mass ratio
+    # Mass Fraction: Any unit that is a mass/mass ratio.  This will be very
+    # similar to Concentration, but we want the notion of a generalized mass
+    # fraction to be distinct.
     'Mass Fraction': {
         'fraction (decimal)': (1.0, ['fraction', '1', 'mass per mass']),
-        'percent': (10.0, ['%', 'parts per hundred']),
-        'part per thousand': (1000.0, ['ppt', 'parts per thousand']),
-        'part per million': (1e6, ['ppm', 'parts per million']),
-        'part per billion': (1e9, ['ppb', 'parts per billion']),
-        'part per trillion': (1e12, ['pptr', 'parts per trillion']),
-        "milligram per gram": (1000.0, ["mg/g"]),
-        "milligram per kilogram": (1e6, ["mg/kg"]),
-        "microgram per gram": (1e6, ["ug/g"]),
+        'percent': (0.01, ['%', 'parts per hundred']),
+        'part per thousand': (1e-3, ['ppt', 'parts per thousand']),
+        'part per million': (1e-6, ['ppm', 'parts per million']),
+        'part per billion': (1e-9, ['ppb', 'parts per billion']),
+        'part per trillion': (1e-12, ['pptr', 'parts per trillion']),
+        "gram per kilogram": (1e-3, ["g/kg"]),
+        "milligram per gram": (1e-3, ["mg/g"]),
+        "milligram per kilogram": (1e-6, ["mg/kg"]),
+        "microgram per gram": (1e-6, ["ug/g"]),
+    },
+
+    # Volume Fraction: Any unit that is a volume/volume ratio.  There will be
+    # a lot of overlap here with mass fraction, as some units do not allude to
+    # a specific unit (% for example).
+    'Volume Fraction': {
+        'fraction (decimal)': (1.0, ['fraction', '1', 'mass per mass']),
+        'percent': (0.01, ['%', 'parts per hundred']),
+        'part per thousand': (1e-3, ['ppt', 'parts per thousand']),
+        'part per million': (1e-6, ['ppm', 'parts per million']),
+        'part per billion': (1e-9, ['ppb', 'parts per billion']),
+        'part per trillion': (1e-12, ['pptr', 'parts per trillion']),
+        'milliliter per liter': (1e-3, ['mL/L', 'mL/dm^3']),
+        'liter per cubic meter': (1e-3, ['L/m^3']),
     },
 
     "Angular Measure": {

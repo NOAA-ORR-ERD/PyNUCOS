@@ -126,6 +126,7 @@ def FindUnitTypes():
         if unit_type in ("oilconcentration",
                          "concentrationinwater",
                          'massfraction',
+                         'volumefraction',
                          # "concentration",
                          ):
             continue
