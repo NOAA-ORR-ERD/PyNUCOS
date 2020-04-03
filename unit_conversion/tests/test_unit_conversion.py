@@ -20,6 +20,7 @@ import unit_conversion
 def isclose(a, b, Epsilon=1e-5):
     # Is this accurate enough? The input data doesn't have a lot of sig figs.
     """
+    NOTE: python 3.7+ has this built in to math.isclose()
     isclose(a,b) returns true is a and b are the same within Epsilon
 
     """
@@ -151,6 +152,12 @@ KnownValues = [
     ("temperature", "C", "K", 0, 273.15),
     ("temperature", "F", "K", 32, 273.15),
 
+    ("deltatemperature", "F", "C", 1.0, (5.0 / 9.0)),
+    ("deltatemperature", "F", "C", 0.0, 0.0),
+    ("deltatemperature", "C", "K", 12.2, 12.2),
+    ("deltatemperature", "K", "F", 10, 90.0 / 5.0),
+
+
     ("density", "g/cm^3", "Specific Gravity (15C)", 1, (1 / 0.99913)),
     ("density", "g/cm^3", "Specific Gravity (15C)", 0.99913, 1),
     ("density", "g/L", "kg/m^3", 1.0, 1.0),
@@ -275,7 +282,8 @@ def test_new_api(unit_type, unit1, unit2, value, new_value):
     if unit_conversion.Simplify(unit_type) in ('oilconcentration',
                                                'concentrationinwater',
                                                'massfraction',
-                                               'volumefraction'):
+                                               'volumefraction',
+                                               'deltatemperature'):
         return
     # now do the test:
     assert isclose(unit_conversion.convert(unit1, unit2, value), new_value)
