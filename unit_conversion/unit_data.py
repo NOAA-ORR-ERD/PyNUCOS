@@ -210,6 +210,7 @@ ConvertDataUnits = {
                                         "t/m\N{SUPERSCRIPT THREE}"]),
 
         "pound per cubic foot": (0.016018463, ["lbs/ft^3",
+                                               "lb/ft^3",
                                                "lb/ft\N{SUPERSCRIPT THREE}"]),
         "API degree": (1, ["api"]),  # this is special cased in the code.
     },
@@ -363,7 +364,6 @@ ConvertDataUnits = {
 
     # Concentration:
     #  This is technically unitless -- just a fraction
-    # but people often use, e.g. g/kg, so not kinda a unit?
     "Concentration": {
         "fraction (decimal)": (1.0, ["fraction", "mass per mass", "1"]),
         "percent": (0.01, ["%", "parts per hundred"]),
@@ -371,6 +371,13 @@ ConvertDataUnits = {
         "part per million": (1e-6, ["ppm", "parts per million"]),
         "part per billion": (1e-9, ["ppb", "parts per billion"]),
         'part per trillion': (1e-12, ['parts per trillion']),
+    },
+
+    "Dimensionless": {
+        "fraction (decimal)": (1.0, ["number", "fraction", "1"]),
+        "percent": (0.01, ["%", "parts per hundred"]),
+        'part per thousand': (1e-3, ['0/00', '\N{PER MILLE SIGN}',
+                              'parts per thousand']),
     },
 
     # Mass Fraction: Any unit that is a mass/mass ratio.  This will be very

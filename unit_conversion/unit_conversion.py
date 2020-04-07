@@ -123,12 +123,12 @@ def FindUnitTypes():
         #   - mass/volume and mass/mass !
         # - skipping Mass Fraction, because there are lots of duplicate units
         #   that conflict with Concentration & Concentration In Water.
-        if unit_type in ("oilconcentration",
-                         "concentrationinwater",
+        if unit_type in ('oilconcentration',
+                         'concentrationinwater',
                          'massfraction',
                          'volumefraction',
                          'deltatemperature',
-                         # "concentration",
+                         'dimensionless',
                          ):
             continue
 

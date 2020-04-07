@@ -225,14 +225,18 @@ KnownValues = [
     ("ConcentrationInWater", "kg/l", "part per thousand", 1.0, 1000.0),  # calculated
 
     ("Concentration", "fraction", "%", 1.0, 100.0),  # calculated
-    ("Concentration", "percent", "\u2030", 1.0, 10.0),  # calculated
+    ("Concentration", "percent", "\N{PER MILLE SIGN}", 1.0, 10.0),  # calculated
     ("Concentration", "\u2030", "ppm", 1.0, 1000.0),  # calculated
     ("Concentration", "ppm", "ppb", 1.0, 1000.0),  # calculated
     ("Concentration", "ppb", "part per trillion", 1.0, 1000.0),  # calculated
     ("Concentration", "parts per trillion", "1", 1.0, 1e-12),  # calculated
 
+    ("Dimensionless", "fraction", "%", 1.0, 100.0),  # calculated
+    ("Dimensionless", "percent", "\N{PER MILLE SIGN}", 1.0, 10.0),  # calculated
+
+
     ("MassFraction", "fraction", "%", 1, 100),  # calculated
-    ("MassFraction", "\u2030", "percent", 1.0, .1),  # calculated
+    ("MassFraction", "\N{PER MILLE SIGN}", "percent", 1.0, .1),  # calculated
     ("MassFraction", "ppb", "ppm", 1000, 1),  # calculated
     ("MassFraction", "parts per trillion", "1", 1.0, 1e-12),  # calculated
     ("MassFraction", "g/kg", "fraction", 1.0, 1e-3),  # calculated
