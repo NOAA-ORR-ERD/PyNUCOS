@@ -239,8 +239,8 @@ ConvertDataUnits = {
     # Dynamic Viscosity
     "Dynamic Viscosity": {
         "kilogram per meter per second": (1.0, ["kg/(m s)"]),
-        "Pascal second": (1.0, ["Pa s", "Pa.s"]),
-        "milliPascal second": (0.001, ["mPa s", "mPa.s"]),
+        "Pascal second": (1.0, ["Pa s"]),
+        "milliPascal second": (0.001, ["mPa s"]),
         "Newton seconds per square meter": (1.0, ["N s/m^2",
                                                   "N s/m\N{SUPERSCRIPT TWO}"
                                                   ]),

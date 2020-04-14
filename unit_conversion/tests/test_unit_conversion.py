@@ -105,6 +105,8 @@ KnownValues = [
     ("time", "hr", "seconds", 1.0, 60 * 60),
 
     ("Velocity", "m/s", "cm/s", 1.0, 100),
+    ("Velocity", "m s-1", "cm/s", 1.0, 100),
+    ("Velocity", "m.s-1", "cm/s", 1.0, 100),
     ("Velocity", "km/h", "kts", 1.0, 0.5399568),
     ("Velocity", "mph", "ft/s", 1.0, 1.4666666),
     ("Velocity", "ft/min", "mph", 1.0, 0.01136363),

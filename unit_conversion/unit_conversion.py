@@ -40,9 +40,9 @@ from .lat_long import (LatLongConverter,
 
 
 __all__ = ['DensityConverterClass',
-           'DummyLatitude',
+           #'DummyLatitude',
            'InvalidUnitTypeError',
-           'DummyLongitude',
+           # 'DummyLongitude',
            'Latitude',
            'ConverterClass',
            'is_supported',
@@ -77,7 +77,7 @@ def Simplify(string):
     returns the string with the whitespace and capitalization removed
     """
     try:
-        return "".join(string.lower().split())
+        return "".join(string.lower().split()).replace(".", "")
     except AttributeError:
         raise NotSupportedUnitError(string)
 
@@ -408,7 +408,7 @@ for (unittype, data) in ConvertDataUnits.items():
 
 def is_supported(unit):
     """
-    Returns True is the unit is in teh list of supported units for the
+    Returns True is the unit is in the list of supported units for the
     API that does not require unit_type
     """
     return Simplify(unit) in UNIT_TYPES
