@@ -21,10 +21,10 @@ PYNUCOS is not yet on PyPi, so you need to get the source from this repo and ins
 
   python setup.py install
 
-If you use conda, there is a conda package available on the NOAA-ORR-ERD channel::
+If you use conda, there is a conda package available conda-forge::
 
 
-  conda install unit_conversion -c NOAA-ORR-ERD
+  conda install pynucos -c conda-forge
 
 
 Use Cases:
