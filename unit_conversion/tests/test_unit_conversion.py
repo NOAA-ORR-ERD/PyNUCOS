@@ -257,6 +257,10 @@ KnownValues = [
     ("Angular Measure", "degree", "radian", 180.0, math.pi),  # calculated
     ("Angular Measure", "radians", "degrees", 2 * math.pi, 360.0),  # calculated
 
+    ("Angular Velocity", "1/s", "rad/s", 1.0, 1.0),  # definition
+    ("Angular Velocity", "hz", "1/s", 5, 5 * 2 * math.pi),  # calculated
+    ("Angular Velocity", "rpm", "1/s", 1, 2 * math.pi / 60),  # calculated
+
     ]
 
 

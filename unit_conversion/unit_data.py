@@ -413,7 +413,13 @@ ConvertDataUnits = {
     "Angular Measure": {
         "radians": (1.0, ["radian", "rad"]),
         "degrees": (3.141592653589793 / 180.0, ["degree", "deg"])
-    }
+    },
+
+    "Angular Velocity": {
+        "rad/s": (1.0, ["1/s", "radians/sec"]),
+        "hertz": (2 * 3.141592653589793, ["hz", "cycles/sec"]),
+        "rpm": (3.141592653589793 / 30, ["rotations per minute"])
+    },
 
 }
 
