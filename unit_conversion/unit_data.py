@@ -104,14 +104,15 @@ ConvertDataUnits = {
     },
 
     # All Temperature units in K (C)
-    #.  This for temperature differences, where you don't want to reset the zero point
-    "DeltaTemperature": {
+    # This for temperature differences, where you don't want to reset the
+    # zero point
+    "Delta Temperature": {
         "Kelvin": (1.0, ["K", "degrees k", "degree k", "degrees kelvin",
-                                "degree kelvin", "deg k"]),
-        "Celsius": (1.0, ["C", "degrees c", "degrees celsius",
-                                    "deg c", "centigrade"]),
-        "Fahrenheit": ((5.0 / 9.0), ["F", "degrees f", "degree f", "degrees fahrenheit",
-                        "deg f"]),
+                         "degree kelvin", "deg k"]),
+        "Celsius": (1.0, ["C", "degrees c", "degrees celsius", "deg c",
+                          "centigrade"]),
+        "Fahrenheit": ((5.0 / 9.0), ["F", "degrees f", "degree f", "deg f",
+                                     "degrees fahrenheit"]),
     },
 
 
