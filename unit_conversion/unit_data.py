@@ -259,7 +259,7 @@ ConvertDataUnits = {
     # This is quantified as a force/length measurement in most cases, but a
     # couple exceptions quantify in ergs/area.  An erg is an amount of work,
     # not force, but the conversion is pretty straightforward.
-    # FIXME: remove the wierdos: like poundal per inch
+    # FIXME: remove the weirdos: like poundal per inch
     "Interfacial Tension": {
         "Newton per meter": (1.0, ["N/m"]),
         "milliNewton per meter": (0.001, ["mN/m"]),
