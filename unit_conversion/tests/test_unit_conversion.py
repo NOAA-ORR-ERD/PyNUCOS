@@ -42,6 +42,7 @@ KnownValues = [
     ("length", "Latitude Minutes", "NauticalMiles", 1.0, 1.0),
     ("Length", "LatitudeDegrees", "NauticalMiles", 1.0, 60),
     ("Length", "micron", "mm", 100, .1),
+    ("Length", "\N{MICRO SIGN}m", "m", 1, 1e-6),
     ("Length", "km", "yard", 1, 1093.6133),
 
 
@@ -51,8 +52,9 @@ KnownValues = [
     # Technicaly, oil concentration is a unit of length, but it's conceptually
     # different.
     # So we treat it differently here: (i.e. using bbl/acre as a length
-    # would be really wierd)
+    # would be really weird)
     ("Oil Concentration", "micron", "mm", 100, .1),
+    ("Oil Concentration", "µm", "mm", 1, 1e-3),
     ("Oil Concentration", "in", "mm", 1.0, 25.4),
     ("Oil Concentration", "micron", "bbl/acre", 1.0, 0.02545396),  # calculated from HCP --
     ("Oil Concentration", "bbl/acre", "m^3/km^2", 1.0, 39.2866),  # calculated from HCP --
@@ -180,7 +182,6 @@ KnownValues = [
     ("Interfacial Tension", "N/m", "J/m^2", 0.001, 0.001),
     ("Interfacial Tension", "N/m", "mN/m", 1.0, 1000.0),
     ("Interfacial Tension", "N/m", "dyne/cm", 1.0, 1000.0),
-    ("Interfacial Tension", "N/m", "gf/cm", 1.0, 1.019716213),
     ("Interfacial Tension", "N/m", "pdl/in", 1.0, 0.1837185500656),
     ("Interfacial Tension", "N/m", "lbf/in", 1.0, 0.0057101470975576),
     ("Interfacial Tension", "N/m", "erg/cm^2", 1.0, 1000.0),
@@ -218,6 +219,7 @@ KnownValues = [
     ("ConcentrationInwater", "mg/kg", "ppb", 1.0, 1000),  # calculated
     ("ConcentrationInWater", "ppt", "percent", 1.0, .1),  # calculated
     ("ConcentrationInWater", "ug/l", "ppb", 1.0, 1.0),  # calculated
+    ("ConcentrationInWater", "\N{MICRO SIGN}g/l", "ppb", 1.0, 1.0),  # calculated
     ("ConcentrationInWater", "ug/g", "ppm", 1.0, 1.0),  # calculated
     ("ConcentrationInWater", "mg/ml", "ppm", 1.0, 1000),  # calculated
     ("ConcentrationInWater", "mg/g", "ppt", 1.0, 1.0),  # calculated
