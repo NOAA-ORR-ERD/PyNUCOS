@@ -309,7 +309,7 @@ ConvertDataUnits = {
         "gram per cubic meter": (1e-3, ["g/m^3", "g/m\N{SUPERSCRIPT THREE}"]),
         "part per million": (1e-3, ["ppm", "parts per million"]),
         "part per billion": (1e-6, ["ppb", "parts per billion"]),
-        "part per thousand": (1.0, ["ppt", "parts per thousand"]),
+        "part per thousand": (1.0, [ '\u2030', '0/00', 'ppt', 'parts per thousand']),
         "part per trillion": (1e-9, ["pptr", "parts per trillion"]),
         "fraction (decimal)": (1e3, ["fraction", "mass per mass", "1"]),
         "percent": (10.0, ["%", "parts per hundred"]),
@@ -332,7 +332,7 @@ ConvertDataUnits = {
     "Concentration": {
         "fraction (decimal)": (1.0, ["fraction", "mass per mass", "1"]),
         "percent": (0.01, ["%", "parts per hundred"]),
-        'part per thousand': (1e-3, ['0/00', '\u2030', 'parts per thousand']),
+        'part per thousand': (1e-3, [ '\u2030', '0/00', 'parts per thousand']),
         "part per million": (1e-6, ["ppm", "parts per million"]),
         "part per billion": (1e-9, ["ppb", "parts per billion"]),
         'part per trillion': (1e-12, ['parts per trillion']),
@@ -341,8 +341,7 @@ ConvertDataUnits = {
     "Dimensionless": {
         "fraction (decimal)": (1.0, ["number", "fraction", "1"]),
         "percent": (0.01, ["%", "parts per hundred"]),
-        'part per thousand': (1e-3, ['0/00', '\N{PER MILLE SIGN}',
-                              'parts per thousand']),
+        'part per thousand': (1e-3, ['\u2030', '0/00', 'ppt', 'parts per thousand']),
     },
 
     # Mass Fraction: Any unit that is a mass/mass ratio.  This will be very
@@ -351,7 +350,7 @@ ConvertDataUnits = {
     'Mass Fraction': {
         'fraction (decimal)': (1.0, ['fraction', '1', 'mass per mass']),
         'percent': (0.01, ['%', 'parts per hundred']),
-        'part per thousand': (1e-3, ['0/00', '\u2030', 'parts per thousand']),
+        'part per thousand': (1e-3, ['\u2030', '0/00', 'ppt', 'parts per thousand']),
         'part per million': (1e-6, ['ppm', 'parts per million']),
         'part per billion': (1e-9, ['ppb', 'parts per billion']),
         'part per trillion': (1e-12, ['parts per trillion']),
@@ -367,12 +366,12 @@ ConvertDataUnits = {
     'Volume Fraction': {
         'fraction (decimal)': (1.0, ['fraction', '1', 'mass per mass']),
         'percent': (0.01, ['%', 'parts per hundred']),
-        'part per thousand': (1e-3, ['0/00', '\u2030', 'parts per thousand']),
+        'part per thousand': (1e-3, ['\u2030', '0/00', 'ppt', 'parts per thousand']),
         'part per million': (1e-6, ['ppm', 'parts per million']),
         'part per billion': (1e-9, ['ppb', 'parts per billion']),
         'part per trillion': (1e-12, ['parts per trillion']),
-        'milliliter per liter': (1e-3, ['mL/L', 'mL/dm^3']),
-        'liter per cubic meter': (1e-3, ['L/m^3']),
+        'milliliter per liter': (1e-3, ['ml/l', 'mL/L', 'mL/dm^3']),
+        'liter per cubic meter': (1e-3, ['l/m^3', 'L/m^3']),
     },
 
     "Angular Measure": {
