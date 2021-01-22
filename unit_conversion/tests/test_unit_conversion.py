@@ -455,10 +455,10 @@ def test_GetUnitNames():
 
 def test_GetUnitAbbreviation():
     names = [('Length', 'meter', 'm'),
-             ('Volume', 'cubic meter', 'm^3'),
+             ('Volume', 'cubic meter', 'm³'),
              ('Time', 'second', 's'),
              ('Velocity', 'kilometer per hour', 'km/h'),
-             ('Discharge', 'cubic foot per second', 'cfs'),
+             ('Discharge', 'cubic foot per second', 'ft³/s'),
              ]
 
     for unit_type, unit, abrv in names:

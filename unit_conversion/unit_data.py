@@ -38,61 +38,53 @@ ConvertDataUnits = {
     # micron is the base unit
     "Oil Concentration": {
         "micron": (1.0, ["\N{MICRO SIGN}m", "microns", "micrometer"]),
-        "cubic meter per square kilometer": (1.0, ["m^3/km^2", "m\N{SUPERSCRIPT THREE}/km\N{SUPERSCRIPT TWO}"]),
+        "cubic meter per square kilometer": (1.0, ["m\N{SUPERSCRIPT THREE}/km\N{SUPERSCRIPT TWO}", "m^3/km^2"]),
         "millimeter": (1000., ["mm", "millimeters"]),
         "inch": (25400., ["in", "inches"]),
         "barrel per acre": (39.2866176, ["bbl/acre"]),  # calculated from HCP
-        "barrel per square mile": (0.06138533995, ["bbl/sq.mile",
-                                                   "bbl/mile\N{SUPERSCRIPT TWO}"]),  # calculated from HCP
+        "barrel per square mile": (0.06138533995, ["bbl/mile\N{SUPERSCRIPT TWO}",
+                                                   "bbl/sq.mile"]),  # calculated from HCP
         "gallon per acre": (0.93539563202687404, ["gal/acre", ]),  # calculated from HCP
         "liter per hectare": (0.1, ["liter/hectare", "l/hectare"]),  # calculated from HCP
-        "liter per square meter": (1000.0, ["l/m^2",
-                                            "l/m\N{SUPERSCRIPT TWO}"]),
+        "liter per square meter": (1000.0, ["l/m\N{SUPERSCRIPT TWO}", "l/m^2"]),
         # these are mass/area -- so technically different.
         # but hard coding density of 0.95 -- so we can do it easily.
-        "gram per square meter": (1.0526315789473684, ["g/m^2", "g/m\N{SUPERSCRIPT TWO}"]),
-        "kilogram per square meter": (1052.6315789473684, ["kg/m^2", "kg/m\N{SUPERSCRIPT TWO}"]),
-        "kilogram per square kilometer": (.0010526315789473684, ["kg/km^2",
-                                                                 "g/km\N{SUPERSCRIPT TWO}"]),
+        "gram per square meter": (1.0526315789473684, ["g/m\N{SUPERSCRIPT TWO}", "g/m^2"]),
+        "kilogram per square meter": (1052.6315789473684, ["kg/m\N{SUPERSCRIPT TWO}", "kg/m^2"]),
+        "kilogram per square kilometer": (.0010526315789473684, ["g/km\N{SUPERSCRIPT TWO}", "kg/km^2" ]),
     },
 
     # All Areas in terms of square meter
     "Area": {
-        "square meter": (1.0, ["m^2", "m\N{SUPERSCRIPT TWO}", "sq m"]),
-        "square centimeter": (.0001, ["cm^2", "cm\N{SUPERSCRIPT TWO}", "sq cm"]),
-        "square kilometer": (1e6, ["km^2", "km\N{SUPERSCRIPT TWO}", "sq km"]),
+        "square meter": (1.0, ["m\N{SUPERSCRIPT TWO}", "m^2", "sq m"]),
+        "square centimeter": (.0001, ["cm\N{SUPERSCRIPT TWO}", "cm^2", "sq cm"]),
+        "square kilometer": (1e6, ["km\N{SUPERSCRIPT TWO}", "km^2", "sq km"]),
         "acre": (4046.8564, ["ac", "acres"]),
         "square mile": (2589988.1, ["sq miles"]),
         "square nautical mile": (3429904, ["nm\N{SUPERSCRIPT TWO}",
                                            "sq nm", "nm^2"]),
         "square yard": (0.83612736, ["yd\N{SUPERSCRIPT TWO}",
                                      "sq yards", "square yards"]),
-        "square foot": (0.09290304, ["ft^2", "ft\N{SUPERSCRIPT TWO}",
+        "square foot": (0.09290304, ["ft\N{SUPERSCRIPT TWO}", "ft^2",
                                      "sq foot", "square feet"]),
-        "square inch": (0.00064516, ["in^2", "in\N{SUPERSCRIPT TWO}",
+        "square inch": (0.00064516, ["in\N{SUPERSCRIPT TWO}", "in^2",
                                      "sq inch", "square inches"]),
         "hectare": (10000.0, ["hectares", "ha"]),
     },
 
     # All volumes in terms of cubic meter
     "Volume": {
-        "cubic meter": (1.0, ["m^3", "cu m", "cubic meters",
-                              "m\N{SUPERSCRIPT THREE}"]),
-        "cubic kilometer": (1e9, ["km^3", "cu km", "cubic kilometers",
-                                  "km\N{SUPERSCRIPT THREE}"]),
-        "cubic centimeter": (1e-6, ["cm^3", "cu cm", "cc",
-                                    "cm\N{SUPERSCRIPT THREE}"]),
+        "cubic meter": (1.0, ["m\N{SUPERSCRIPT THREE}", "m^3", "cu m", "cubic meters"]),
+        "cubic kilometer": (1e9, ["km\N{SUPERSCRIPT THREE}", "km^3", "cu km", "cubic kilometers"]),
+        "cubic centimeter": (1e-6, ["cm\N{SUPERSCRIPT THREE}", "cm^3", "cu cm", "cc"]),
         "barrel (petroleum)": (.1589873, ["bbl", "barrels", "barrel", "bbls"]),
         "liter": (1e-3, ["l", "liters"]),
         "gallon": (0.0037854118, ["gal", "gallons", "usgal"]),
         "gallon (UK)": (0.004546090, ["ukgal", "gallons(uk)"]),
         "million US gallon": (3785.4118, ["milliongallons", "milgal"]),
-        "cubic foot": (0.028316847, ["ft^3", "cu feet", "cubicfeet",
-                                     "ft\N{SUPERSCRIPT THREE}"]),
-        "cubic inch": (16.387064e-6, ["in^3", "cu inch", "cubicinches",
-                                      "in\N{SUPERSCRIPT THREE}"]),
-        "cubic yard": (.76455486, ["yd^3", "cu yard", "cubicyards",
-                                   "yd\N{SUPERSCRIPT THREE}"]),
+        "cubic foot": (0.028316847, ["ft\N{SUPERSCRIPT THREE}", "ft^3", "cu feet", "cubicfeet"]),
+        "cubic inch": (16.387064e-6, ["in\N{SUPERSCRIPT THREE}", "in^3", "cu inch", "cubicinches"]),
+        "cubic yard": (.76455486, ["yd\N{SUPERSCRIPT THREE}", "yd^3", "cu yard", "cubicyards"]),
         "fluid ounce": (2.9573530e-5, ["oz", "ounces(fluid)", "fluid oz"]),
         "fluid ounce (UK)": (2.841306e-5, ["ukoz", "fluid oz(uk)"]),
     },
@@ -164,18 +156,13 @@ ConvertDataUnits = {
 
     # All Discharges in cubic meter per second
     "Discharge": {
-        "cubic meter per second": (1.0, ["m^3/s", "cu m/s", "cms",
-                                         "m\N{SUPERSCRIPT THREE}/s"]),
-        "cubic meter per min": (1.0 / 60., ["m^3/min",
-                                            "m\N{SUPERSCRIPT THREE}/min"]),
-        "cubic meter per hour": (1.0 / 3600.0, ["m^3/hr",
-                                                "m\N{SUPERSCRIPT THREE}/hr"]),
+        "cubic meter per second": (1.0, ["m\N{SUPERSCRIPT THREE}/s", "m^3/s", "cu m/s", "cms"]),
+        "cubic meter per min": (1.0 / 60., ["m\N{SUPERSCRIPT THREE}/min", "m^3/min"]),
+        "cubic meter per hour": (1.0 / 3600.0, ["m\N{SUPERSCRIPT THREE}/hr", "m^3/hr"]),
         "liter per second": (0.001, ["l/s", "lps"]),
         "liter per minute": (0.001 / 60, ["l/min", ]),
-        "cubic foot per second": (.02831685, ["cfs", "cu feet/s", "feet^3/s",
-                                              "ft\N{SUPERSCRIPT THREE}/s"]),
-        "cubic foot per minute": (0.00047194744, ["ft^3/min",
-                                                  "ft\N{SUPERSCRIPT THREE}/min"]),  # calculated from cm^3/s
+        "cubic foot per second": (.02831685, ["ft\N{SUPERSCRIPT THREE}/s", "cfs", "cu feet/s", "feet^3/s"]),
+        "cubic foot per minute": (0.00047194744, ["ft\N{SUPERSCRIPT THREE}/min", "ft^3/min"]),  # calculated from cm^3/s
         "gallon per day": (4.3812636805555563e-08, ["gal/day"]),  # calculated from gal/hr
         "gallon per hour": (1.0515032833333335e-06, ["gal/hr"]),
         "gallon per minute": (6.3090197000000006e-05, ["gal/min", "gpm"]),
@@ -198,9 +185,7 @@ ConvertDataUnits = {
     #       following is based on the value for the Density of water at 15C
     #       (CRC Handbook of Chemistry and Physics)
     "Density": {
-        "gram per cubic centimeter": (1.0, ["g/cm^3",
-                                            "g/cm\N{SUPERSCRIPT THREE}",
-                                            "grams per cubic centimeter"]),
+        "gram per cubic centimeter": (1.0, ["g/cm\N{SUPERSCRIPT THREE}", "g/cm^3", "grams per cubic centimeter"]),
         "gram per liter": (.001, ["g/L", "gram per litre"]),
         "kilogram per liter": (1.0, ["kg/L", "kilogram per litre"]),
         "gram per milliliter": (1.0, ["g/mL",
@@ -208,18 +193,11 @@ ConvertDataUnits = {
         "specific gravity (15\xb0C)": (0.99913, ["S", "specificgravity",
                                                  "Spec grav", "SG",
                                                  "specificgravity(15C)"]),
-        "kilogram per cubic meter": (.001, ["kg/m^3",
-                                            "kg/m\N{SUPERSCRIPT THREE}"]),
-        "tonne per cubic meter": (1.0, ["tonne/m^3",
-                                        "tonne/m\N{SUPERSCRIPT THREE}",
-                                        "t/m^3",
-                                        "t/m\N{SUPERSCRIPT THREE}"]),
-
-        "pound per cubic foot": (0.016018463, ["lbs/ft^3",
-                                               "lb/ft^3",
-                                               "lb/ft\N{SUPERSCRIPT THREE}"]),
-        "pound per gallon": (0.11982643, ["lbs/gal",
-                                          "lb/gal"]),
+        "kilogram per cubic meter": (.001, ["kg/m\N{SUPERSCRIPT THREE}", "kg/m^3"]),
+        "tonne per cubic meter": (1.0, ["tonne/m\N{SUPERSCRIPT THREE}", "tonne/m^3",
+                                        "t/m^3", "t/m\N{SUPERSCRIPT THREE}"]),
+        "pound per cubic foot": (0.016018463, ["lb/ft\N{SUPERSCRIPT THREE}", "lbs/ft^3", "lb/ft^3"]),
+        "pound per gallon": (0.11982643, ["lbs/gal", "lb/gal"]),
         "API degree": (1, ["api"]),  # this is special cased in the code.
     },
 
@@ -231,15 +209,11 @@ ConvertDataUnits = {
     "Kinematic Viscosity": {
         "Stoke": (1.0, ["St", "stokes"]),
         "centiStoke": (.01, ["cSt", "centistokes"]),
-        "square millimeter per second": (.01, ["mm\N{SUPERSCRIPT TWO}/s",
-                                               "mm^2/s"]),
+        "square millimeter per second": (.01, ["mm\N{SUPERSCRIPT TWO}/s", "mm^2/s"]),
         "square centimeter per second": (1.0, ["cm\N{SUPERSCRIPT TWO}/s",
                                                "cm^2/s"]),
-        "square meter per second": (10000, ["m\N{SUPERSCRIPT TWO}/s",
-                                            "m^2/s"]),
-        "square inch per second": (6.4516, ["in\N{SUPERSCRIPT TWO}/s",
-                                            "in^2/s",
-                                            "squareinchespersecond"]),
+        "square meter per second": (10000, ["m\N{SUPERSCRIPT TWO}/s", "m^2/s"]),
+        "square inch per second": (6.4516, ["in\N{SUPERSCRIPT TWO}/s", "in^2/s", "squareinchespersecond"]),
         # from CRC - only good for > 100cSt
         "Saybolt Universal Second": (1 / 462.0, ["SSU", "SUS"]),
         # from Fuel Oil Manual: good for 724cSt
@@ -257,10 +231,9 @@ ConvertDataUnits = {
 
         "gram per centimeter per second": (0.1, ["g/(cm s)"]),
         "poise": (0.1, ["p"]),
-        "dyne seconds per square centimeter": (0.1,
-                                               ["dyne s/cm\N{SUPERSCRIPT TWO}",
-                                                "dyne s/cm^2",
-                                                ]
+        "dyne seconds per square centimeter": (0.1, ["dyne s/cm\N{SUPERSCRIPT TWO}",
+                                                     "dyne s/cm^2",
+                                                     ]
                                                ),
 
         "centipoise": (0.001, ["cP"]),
@@ -277,41 +250,28 @@ ConvertDataUnits = {
         "dyne per centimeter": (0.001, ["dyne/cm", "dyn/cm"]),
         "Poundal per inch": (5.443108492, ["pdl/in"]),
         "Pound force per inch": (175.126837, ["lbf/in"]),
-        "erg per square centimeter": (0.001, ["erg/cm^2",
-                                              "erg/cm\N{SUPERSCRIPT TWO}"]),
-        "erg per square millimeter": (0.1, ["erg/mm^2",
-                                            "erg/mm\N{SUPERSCRIPT TWO}"]),
-        "joule per square meter": (1.0, ["j/m^2",
-                                         "j/m\N{SUPERSCRIPT TWO}"]),
+        "erg per square centimeter": (0.001, ["erg/cm\N{SUPERSCRIPT TWO}", "erg/cm^2"]),
+        "erg per square millimeter": (0.1, ["erg/mm\N{SUPERSCRIPT TWO}", "erg/mm^2"]),
+        "joule per square meter": (1.0, ["j/m\N{SUPERSCRIPT TWO}", "j/m^2"]),
     },
 
     "Pressure": {
         "Pascal": (1.0, ["Pa"]),
         "kiloPascal": (1000.0, ["kPa"]),
         "megaPascal": (1000000.0, ["MPa"]),
-        "Newton per square meter": (1.0,
-                                    ["N/m\N{SUPERSCRIPT TWO}",
-                                     "N/m^2",
-                                     ]),
+        "Newton per square meter": (1.0, ["N/m\N{SUPERSCRIPT TWO}", "N/m^2"]),
         "bar": (100000.0, ["bars"]),
         "millibar": (100.0, ["mbar"]),
-        "dyne per square centimeter": (0.1,
-                                       ["dyn/cm\N{SUPERSCRIPT TWO}",
-                                        "dyn/cm^2",
-                                        ]),
-        "pound per square inch": (6894.76,
-                                  ["lb/in\N{SUPERSCRIPT TWO}",
-                                   "lb/in^2", "psi",
-                                   ]),
+        "dyne per square centimeter": (0.1, ["dyn/cm\N{SUPERSCRIPT TWO}", "dyn/cm^2"]),
+        "pound per square inch": (6894.76, ["lb/in\N{SUPERSCRIPT TWO}", "lb/in^2", "psi"]),
     },
 
 
     # Concentration in water (note: this is converting between mass/volume)
     #                               and mass/mass, hence the "water" part
     "Concentration In Water": {
-        "kilogram per cubic meter": (1.0, ["kg/m^3",
-                                           "kg/m\N{SUPERSCRIPT THREE}"]),
-        "gram per cubic meter": (1e-3, ["g/m^3", "g/m\N{SUPERSCRIPT THREE}"]),
+        "kilogram per cubic meter": (1.0, ["kg/m\N{SUPERSCRIPT THREE}", "kg/m^3"]),
+        "gram per cubic meter": (1e-3, ["g/m\N{SUPERSCRIPT THREE}", "g/m^3"]),
         "part per million": (1e-3, ["ppm", "parts per million"]),
         "part per billion": (1e-6, ["ppb", "parts per billion"]),
         "part per thousand": (1.0, [ '\u2030', '0/00', 'ppt', 'parts per thousand']),
