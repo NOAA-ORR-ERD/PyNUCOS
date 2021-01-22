@@ -12,19 +12,22 @@ from __future__ import (unicode_literals,
                         absolute_import
                         )
 
-from pathlib import Path
+import os
 from unit_conversion import unit_data
+
+# for py2 compatibility
+from io import open
 
 
 def test_write_unit_data_file():
     """
     technically not a test, but a way to get the file re-written automatically
     """
-    project_dir = Path(__file__).parent.parent.parent
+    project_dir = os.path.split(__file__)[0]
+    project_dir = os.path.split(project_dir)[0]
+    project_dir = os.path.split(project_dir)[0]
 
-    print(project_dir)
-
-    with open(project_dir / "NUCOS_unit_list.rst", 'w') as outfile:
+    with open(os.path.join(project_dir, "NUCOS_unit_list.rst"), 'w', encoding="utf-8") as outfile:
 
         outfile.write(
 """
