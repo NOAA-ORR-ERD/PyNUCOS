@@ -434,15 +434,13 @@ def write_units(filename=None):
 
 def all_unit_names():
     """
-    returns a string of all unit names
-
-    fixme: why is this ASCII only???
+    returns a string of all unit names, grouped by unit type
     """
     result = []
     for key, value in ConvertDataUnits.items():
         result.append('\n%s:\n' % key)
         for key2 in value:
-            result.append("    %s\n        " % key2.encode('ascii', 'ignore'))
+            result.append("    %s\n        " % key2)
             result.append(", ".join(value[key2][1]))
             result.append("\n")
     return "".join(result)
