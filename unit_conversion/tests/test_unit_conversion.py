@@ -50,10 +50,11 @@ KnownValues = [
     # all values close to value in the "Open Water Oil Identification Job Aid"
     # and close to values in the Unit Conversion sheet distributed with the
     # dispersant mission planner.
-    # Technicaly, oil concentration is a unit of length, but it's conceptually
+    # Technically, oil concentration is a unit of length, but it's conceptually
     # different.
     # So we treat it differently here: (i.e. using bbl/acre as a length
     # would be really weird)
+    # Also: we've now got units of mass/area as well -- which is not a length
     ("Oil Concentration", "micron", "mm", 100, .1),
     ("Oil Concentration", "µm", "mm", 1, 1e-3),
     ("Oil Concentration", "in", "mm", 1.0, 25.4),
@@ -62,14 +63,15 @@ KnownValues = [
     ("Oil Concentration", "bbl/acre", "bbl/sq.mile", 1.0, 640.0),  # calculated from HCP --
     ("Oil Concentration", "gal/acre", "bbl/acre", 42.0, 1.0),  # calculated from HCP --
     ("Oil Concentration", "m\N{SUPERSCRIPT THREE}/km\N{SUPERSCRIPT TWO}",
-     "liter/hectare", 1, 10.0),  # calculated from HCP --
+                          "liter/hectare", 1, 10.0),  # calculated from HCP --
+    ("Oil Concentration", "l/m\N{SUPERSCRIPT TWO}",
+                          "liter/hectare", 1, 10000.0),  # calculated from HCP --
 
-    # These are mass/area -- using an assumed denstiy of 0.95
+    # These are mass/area -- using an assumed density of 0.95
     ("Oil Concentration", "micron", "g/m^2", 100.0, 95.0),
     ("Oil Concentration", "kg/m^2", "micron", .95, 1000.0),
     ("Oil Concentration", "kg/km^2", "g/m^2", 1.0, 1e-3),
     ("Oil Concentration", "kg/m^2", "g/m^2", 1.0, 1e3),
-
 
     ("Area", "sq m", "ft^2", 10, 107.63910),
     ("Area", "Acre", "square yards", 1, 4840),
@@ -176,7 +178,7 @@ KnownValues = [
     ("density", "lbs/ft^3", "Grams per Cubic Centimeter", 1.0, 0.016018463),
     ("density", "tonne per cubic meter", "kg/m^3", 1.0, 1000.0),
     ("density",  "kg/m^3", "pound per gallon", 1.0, 0.0083454),
-    ("density",  "lb/gal", "g/cm³", 1.0, 0.119826),
+    ("density",  "lb/gal", "g/cm³", 1.0, 0.119826427),
 
 
     # some from https://en.wikipedia.org/wiki/Surface_tension#Physical_units
