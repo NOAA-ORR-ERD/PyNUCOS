@@ -175,6 +175,8 @@ KnownValues = [
     ("density", "API", "SG", 25.7222, 0.9),
     ("density", "lbs/ft^3", "Grams per Cubic Centimeter", 1.0, 0.016018463),
     ("density", "tonne per cubic meter", "kg/m^3", 1.0, 1000.0),
+    ("density",  "kg/m^3", "pound per gallon", 1.0, 0.0083454),
+    ("density",  "lb/gal", "g/cm³", 1.0, 0.119826),
 
 
     # some from https://en.wikipedia.org/wiki/Surface_tension#Physical_units

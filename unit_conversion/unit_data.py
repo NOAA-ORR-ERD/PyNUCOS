@@ -215,6 +215,8 @@ ConvertDataUnits = {
         "pound per cubic foot": (0.016018463, ["lbs/ft^3",
                                                "lb/ft^3",
                                                "lb/ft\N{SUPERSCRIPT THREE}"]),
+        "pound per gallon": (0.11982643, ["lbs/gal",
+                                          "lb/gal"]),
         "API degree": (1, ["api"]),  # this is special cased in the code.
     },
 
