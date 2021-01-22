@@ -397,18 +397,35 @@ def write_units(filename=None):
             f.write("    %s\n" % key2.encode('ascii', 'ignore'))
 
 
-def all_unit_names():
+def all_unit_names(format="str"):
     """
     returns a string of all unit names, grouped by unit type
+
+    :param format="str": format for output -- default is plain python str
+                         other option: "rst" for restuctured text
     """
-    result = []
-    for key, value in ConvertDataUnits.items():
-        result.append('\n%s:\n' % key)
-        for key2 in value:
-            result.append("    %s\n        " % key2)
-            result.append(", ".join(value[key2][1]))
-            result.append("\n")
-    return "".join(result)
+    if format == "str":
+        result = []
+        for key, value in ConvertDataUnits.items():
+            result.append('\n%s:\n' % key)
+            for key2 in value:
+                result.append("    %s\n        " % key2)
+                result.append(", ".join(value[key2][1]))
+                result.append("\n")
+        return "".join(result)
+    elif format == "rst":
+        result = []
+        for unit_type, value in ConvertDataUnits.items():
+            result.append('\n%s:\n' % unit_type)
+            result.append('-' * (len(unit_type) + 1) + '\n\n')
+            for unit in value:
+                result.append("%s\n" % unit)
+                result.append('.' * len(unit) + '\n\n    ')
+                result.append(", ".join(value[unit][1]))
+                result.append("\n\n")
+        return "".join(result)
+    else:
+        raise ValueError('only supported formats are "str" and "rst"')
 
 
 def dump_to_json(filename=None):
