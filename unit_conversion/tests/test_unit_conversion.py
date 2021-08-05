@@ -9,27 +9,36 @@ designed to be run with pytest
 pytest test_unit_conversion.py
 """
 
-from __future__ import unicode_literals
-
 import math
 import unittest
 import pytest
 
 import unit_conversion
 
+try:
+    from math import isclose
+except ImportError:
+    print("nucos > 2.11 only works with Python > 3.7")
+    raise
 
-def isclose(a, b, Epsilon=1e-5):
-    # Is this accurate enough? The input data doesn't have a lot of sig figs.
-    """
-    NOTE: python 3.7+ has this built in to math.isclose()
-    isclose(a,b) returns true is a and b are the same within Epsilon
+    # turns out this is has a major bug!
+    # if a or b is zero, it always returns 2.0 !!!
+    # using math.isclose now, that that's no longer an issue
 
-    """
-    if a == b:
-        return True
-    else:
-        return abs(float(a - b) / ((a + b) / 2)) <= Epsilon
+    # def isclose(a, b, Epsilon=1e-5):
+    #     # Is this accurate enough? The input data doesn't have a lot of sig figs.
+    #     """
+    #     NOTE: python 3.7+ has this built in to math.isclose()
+    #     isclose(a,b) returns true is a and b are the same within Epsilon
 
+    #     """
+    #     if a == b:
+    #         return True
+    #     else:
+    #         return abs(float(a - b) / ((a + b) / 2)) <= Epsilon
+
+RELTOL = 1e-5
+ABSTOL = 1e-5
 
 KnownValues = [
     # Known values from Handbook of Chemistry and Physics (HCP),
@@ -282,14 +291,16 @@ def test_new_api_oneshot():
     and these are a few that have caused problems...
     """
 
-    assert isclose(unit_conversion.convert('meter', 'foot', 1), 3.28083989501)
+    assert isclose(unit_conversion.convert('meter', 'foot', 1),
+                   3.28083989501, rel_tol=RELTOL)
 
-    assert isclose(unit_conversion.convert('API', 'SG', 10), 1)
+    assert isclose(unit_conversion.convert('API', 'SG', 10),
+                   1, rel_tol=RELTOL)
 
     assert isclose(unit_conversion.convert('meter second-1', 'knot', 1),
-                   1.94384)
+                   1.94384, rel_tol=RELTOL)
 
-    assert isclose(unit_conversion.convert('m/s', 'knot', 1), 1.94384)
+    assert isclose(unit_conversion.convert('m/s', 'knot', 1), 1.94384, rel_tol=RELTOL)
 
 
 @pytest.mark.parametrize('unit_type, unit1, unit2, value, new_value',
@@ -307,7 +318,8 @@ def test_new_api(unit_type, unit1, unit2, value, new_value):
                                                'deltatemperature'):
         return
     # now do the test:
-    assert isclose(unit_conversion.convert(unit1, unit2, value), new_value)
+    assert isclose(unit_conversion.convert(unit1, unit2, value),
+                   new_value, rel_tol=RELTOL)
 
 
 @pytest.mark.parametrize('unit_type, unit1, unit2, value, new_value',
@@ -319,7 +331,7 @@ def test_old_api(unit_type, unit1, unit2, value, new_value):
     """
     # now do the test:
     assert isclose(unit_conversion.convert(unit_type, unit1, unit2, value),
-                   new_value)
+                   new_value, rel_tol=RELTOL)
 
 
 def test_ConverterClass_init_dupcheck():
@@ -333,45 +345,43 @@ def test_ConverterClass_init_dupcheck():
 
 
 class testBadnames(unittest.TestCase):
-    def testBadType(self):
-        self.assertRaises(unit_conversion.InvalidUnitTypeError,
-                          unit_conversion.convert,
-                          "BadType", "feet", "miles", 0)
+
+    def test_bad_type_name(self):
+        with pytest.raises(unit_conversion.InvalidUnitTypeError):
+            unit_conversion.convert("BadType", "feet", "miles", 0)
 
     def testBadUnit1(self):
-        self.assertRaises(unit_conversion.InvalidUnitError,
-                          unit_conversion.convert,
-                          "Length", "eggs", "miles", 0)
+        with pytest.raises(unit_conversion.InvalidUnitError):
+            unit_conversion.convert("Length", "eggs", "miles", 0)
 
     def testBadUnit2(self):
-        self.assertRaises(unit_conversion.InvalidUnitError,
-                          unit_conversion.convert,
-                          "Length", "feet", "spam", 0)
+        with pytest.raises(unit_conversion.InvalidUnitError):
+            unit_conversion.convert("Length", "feet", "spam", 0)
 
     def testBadUnit3(self):
-        self.assertRaises(unit_conversion.InvalidUnitError,
-                          unit_conversion.convert,
-                          "Density", "API", "feet", 0)
+        with pytest.raises(unit_conversion.InvalidUnitError):
+            unit_conversion.convert("Density", "API", "feet", 0)
 
 
 class testOilQuantityConverterClass(unittest.TestCase):
     OQC = unit_conversion.OilQuantityConverter
 
     def testMassToVolume1(self):
-        self.assertTrue(isclose(self.OQC.ToVolume(Mass=1,
-                                                  MassUnits="metricton",
-                                                  Density=25,
-                                                  DensityUnits="API",
-                                                  VolumeUnits="bbl"),
-                                6.9626324))
+        assert isclose(self.OQC.ToVolume(Mass=1,
+                                         MassUnits="metricton",
+                                         Density=25,
+                                         DensityUnits="API",
+                                         VolumeUnits="bbl"),
+                       6.9626324,
+                       rel_tol=RELTOL)
 
     def testMassToVolume2(self):
-        self.assertTrue(isclose(self.OQC.ToVolume(Mass=1,
-                                                  MassUnits="metricton",
-                                                  Density=0.816,
-                                                  DensityUnits="SG",
-                                                  VolumeUnits="bbl"),
-                                7.71481307))
+        assert isclose(self.OQC.ToVolume(Mass=1,
+                                         MassUnits="metricton",
+                                         Density=0.816,
+                                         DensityUnits="SG",
+                                         VolumeUnits="bbl"),
+                       7.71481307, rel_tol=RELTOL)
 
     def testVolumeToMass1(self):
         Expected = 1.0
@@ -382,7 +392,7 @@ class testOilQuantityConverterClass(unittest.TestCase):
                                      MassUnits="metricton")
 
         print(Expected, Calculated)
-        self.assertTrue(isclose(Expected, Calculated))
+        assert isclose(Expected, Calculated, rel_tol=RELTOL)
 
     def testVolumeToMass2(self):
         Expected = 1.0
@@ -392,7 +402,7 @@ class testOilQuantityConverterClass(unittest.TestCase):
                                      DensityUnits="SG",
                                      MassUnits="longton")
 
-        self.assertTrue(isclose(Expected, Calculated))
+        assert isclose(Expected, Calculated, rel_tol=RELTOL)
 
 
 # fixme: there should probably be a full set of tests for the "new" API

@@ -12,7 +12,7 @@ All of unit_conversion is imported here for convenience
 
 from __future__ import division, absolute_import, unicode_literals
 
-__version__ = "2.10.1"
+__version__ = "2.11.0"
 
 from .unit_conversion import *
 
