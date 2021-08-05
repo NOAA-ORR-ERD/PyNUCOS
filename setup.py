@@ -30,6 +30,13 @@ setup(
     version=get_version("unit_conversion"),
     packages=['unit_conversion',
               'unit_conversion.tests'],
+    classifiers=["Development Status :: 5 - Production/Stable",
+                 "Intended Audience :: Developers",
+                 "Intended Audience :: Science/Research",
+                 "License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
+                 "Programming Language :: Python :: 3 :: Only",
+                 "Topic :: Scientific/Engineering",
+                 ],
     zip_safe=False,
     )
 
