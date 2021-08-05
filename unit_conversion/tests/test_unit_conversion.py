@@ -10,10 +10,6 @@ pytest test_unit_conversion.py
 """
 
 import math
-import unittest
-import pytest
-
-import unit_conversion
 
 try:
     from math import isclose
@@ -21,24 +17,11 @@ except ImportError:
     print("nucos > 2.11 only works with Python > 3.7")
     raise
 
-    # turns out this is has a major bug!
-    # if a or b is zero, it always returns 2.0 !!!
-    # using math.isclose now, that that's no longer an issue
-
-    # def isclose(a, b, Epsilon=1e-5):
-    #     # Is this accurate enough? The input data doesn't have a lot of sig figs.
-    #     """
-    #     NOTE: python 3.7+ has this built in to math.isclose()
-    #     isclose(a,b) returns true is a and b are the same within Epsilon
-
-    #     """
-    #     if a == b:
-    #         return True
-    #     else:
-    #         return abs(float(a - b) / ((a + b) / 2)) <= Epsilon
+import pytest
+import unit_conversion
 
 RELTOL = 1e-5
-ABSTOL = 1e-5
+ABSTOL = 1e-5  # not used, but maybe some day?
 
 KnownValues = [
     # Known values from Handbook of Chemistry and Physics (HCP),
@@ -343,27 +326,25 @@ def test_ConverterClass_init_dupcheck():
     with pytest.raises(ValueError):
         unit_conversion.ConverterClass("Random Unit Type", unit_dict)
 
+# bad unit names
+def test_bad_type_name():
+    with pytest.raises(unit_conversion.InvalidUnitTypeError):
+        unit_conversion.convert("BadType", "feet", "miles", 0)
 
-class testBadnames(unittest.TestCase):
+def testBadUnit1():
+    with pytest.raises(unit_conversion.InvalidUnitError):
+        unit_conversion.convert("Length", "eggs", "miles", 0)
 
-    def test_bad_type_name(self):
-        with pytest.raises(unit_conversion.InvalidUnitTypeError):
-            unit_conversion.convert("BadType", "feet", "miles", 0)
+def testBadUnit2():
+    with pytest.raises(unit_conversion.InvalidUnitError):
+        unit_conversion.convert("Length", "feet", "spam", 0)
 
-    def testBadUnit1(self):
-        with pytest.raises(unit_conversion.InvalidUnitError):
-            unit_conversion.convert("Length", "eggs", "miles", 0)
-
-    def testBadUnit2(self):
-        with pytest.raises(unit_conversion.InvalidUnitError):
-            unit_conversion.convert("Length", "feet", "spam", 0)
-
-    def testBadUnit3(self):
-        with pytest.raises(unit_conversion.InvalidUnitError):
-            unit_conversion.convert("Density", "API", "feet", 0)
+def testBadUnit3():
+    with pytest.raises(unit_conversion.InvalidUnitError):
+        unit_conversion.convert("Density", "API", "feet", 0)
 
 
-class testOilQuantityConverterClass(unittest.TestCase):
+class testOilQuantityConverterClass:
     OQC = unit_conversion.OilQuantityConverter
 
     def testMassToVolume1(self):
