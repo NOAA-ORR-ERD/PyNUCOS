@@ -157,12 +157,12 @@ KnownValues = [
     ("deltatemperature", "K", "F", 10, 90.0 / 5.0),
 
 
-    ("density", "g/cm^3", "Specific Gravity (15C)", 1, (1 / 0.99913)),
-    ("density", "g/cm^3", "Specific Gravity (15C)", 0.99913, 1),
+    ("density", "g/cm^3", "Specific Gravity (15C)", 1, (1 / 0.999016)),
+    ("density", "g/cm^3", "Specific Gravity (15C)", 0.999016, 1),
     ("density", "g/L", "kg/m^3", 1.0, 1.0),
     ("density", "kg/L", "kg/m^3", 1.0, 1000.0),
     ("density", "g/mL", "kg/m^3", 1.0, 1000.0),
-    ("density", "Specific gravity", "gramspercubiccentimeter", 1, 0.99913),
+    ("density", "Specific gravity", "gramspercubiccentimeter", 1, 0.999016),
     ("density", "SG", "API", 1.0, 10),
     ("density", "SG", "API", 2.0, -60.75),
     ("density", "SG", "API", 0.9, 25.7222),

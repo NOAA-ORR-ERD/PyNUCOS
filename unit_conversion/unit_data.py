@@ -190,8 +190,8 @@ ConvertDataUnits = {
         "kilogram per liter": (1.0, ["kg/L", "kilogram per litre"]),
         "gram per milliliter": (1.0, ["g/mL",
                                       "gram per millilitre"]),
-        # "specific gravity (15\xb0C)": (.999016, ["S", "specificgravity",  # ASTM D1250
-        "specific gravity (15\xb0C)": (0.99913, ["S", "specificgravity",
+        "specific gravity (15\xb0C)": (.999016, ["S", "specificgravity",  # ASTM D1250
+        # "specific gravity (15\xb0C)": (0.99913, ["S", "specificgravity",
                                                  "Spec grav", "SG",
                                                  "specificgravity(15C)"]),
         "kilogram per cubic meter": (.001, ["kg/m\N{SUPERSCRIPT THREE}", "kg/m^3"]),
