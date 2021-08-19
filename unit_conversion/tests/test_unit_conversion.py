@@ -77,6 +77,7 @@ KnownValues = [
 
     ("Volume", "liters", "gal", 1.0, 0.26417205),
     ("Volume", "cubicmeters", "gal", 0.0037854118, 1.0),
+    ("Volume", "ml", "cc", 1.0, 1.0),
     ("Volume", "milliongallons", "gal", 1.0, 1e6),
     ("Volume", "liters", "ft\N{SUPERSCRIPT THREE}", 1.0, 0.035314667),
     ("volume", "bbl", "l", 1.0, 158.9873),

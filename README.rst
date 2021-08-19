@@ -1,6 +1,6 @@
-
+#######
 PyNUCOS
-=======
+#######
 
 Python NOAA Unit Converter for Oil Spills
 
@@ -26,15 +26,61 @@ If you use conda, there is a conda package available conda-forge::
 
 
 Use Cases:
------------
+==========
 
-This code is used in the NOAA Oil Spill modeling tools, and as the core lib for a desktop unit conversion application:
+There are many unit conversion codes out there, but none that easily support the strange units used in Oil Spill Response (and the petroleum industry in general), such as API Gravity and conversion of amount of oil from mass to volume.
+
+This code is used as the core lib for a desktop unit conversion application:
+
+https://github.com/NOAA-ORR-ERD/wxNUCOS
+
+It is available as an installable binary from:
 
 http://response.restoration.noaa.gov/oil-and-chemical-spills/oil-spills/response-tools/nucos-unit-converter-spill-responders.html
+
+The code is also used in the NOAA Oil Spill modeling tools:
+
+https://response.restoration.noaa.gov/oil-and-chemical-spills/oil-spills/response-tools/gnome-suite-oil-spill-modeling.html
+
+Available on gitHub here:
+
+https://github.com/NOAA-ORR-ERD
+
+Javascript Version
+------------------
 
 There is also a Javascript version available for use in Browser Client-side applications:
 
 https://github.com/NOAA-ORR-ERD/NUCOS
+
+Usage
+=====
+
+Most of the primary functionality is available with a single function::
+
+  In [7]: from unit_conversion import convert
+
+  In [8]: convert('gal', 'liter', 1.0)
+  Out[8]: 3.7854118
+
+  In [9]: convert('oz', 'ml', 1.0)
+  ---------------------------------------------------------------------------
+  UnitConversionError                       Traceback (most recent call last)
+  <ipython-input-9-86edffc0a76a> in <module>
+  ----> 1 convert('oz', 'ml', 1.0)
+
+  ~/Hazmat/ERD-PythonPackages/PyNUCOS/unit_conversion/unit_conversion.py in convert(unit1, unit2, value, unit_type)
+      464
+      465         if unit_type != unit_type2:
+  --> 466             raise UnitConversionError("Cannot convert {0} to {1}"
+      467                                       .format(unit1, unit2))
+      468
+
+  UnitConversionError: Cannot convert oz to ml
+
+  In [10]: convert('volume', 'oz', 'ml', 1.0)
+  Out[10]: 29.57353
+
 
 
 

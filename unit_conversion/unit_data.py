@@ -77,6 +77,7 @@ ConvertDataUnits = {
         "cubic meter": (1.0, ["m\N{SUPERSCRIPT THREE}", "m^3", "cu m", "cubic meters"]),
         "cubic kilometer": (1e9, ["km\N{SUPERSCRIPT THREE}", "km^3", "cu km", "cubic kilometers"]),
         "cubic centimeter": (1e-6, ["cm\N{SUPERSCRIPT THREE}", "cm^3", "cu cm", "cc"]),
+        "milliliter": (1e-6, ["ml", "milliters"]),
         "barrel (petroleum)": (.1589873, ["bbl", "barrels", "barrel", "bbls"]),
         "liter": (1e-3, ["l", "liters"]),
         "gallon": (0.0037854118, ["gal", "gallons", "usgal"]),

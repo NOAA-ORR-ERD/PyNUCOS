@@ -222,6 +222,11 @@ cubic centimeter
 
     cm³, cm^3, cu cm, cc
 
+milliliter
+..........
+
+    ml, milliters
+
 barrel (petroleum)
 ..................
 
