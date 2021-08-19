@@ -324,6 +324,7 @@ ConvertDataUnits = {
         "milligram per gram": (1e-3, ["mg/g"]),
         "milligram per kilogram": (1e-6, ["mg/kg"]),
         "microgram per gram": (1e-6, ["\N{MICRO SIGN}g/g", "ug/g"]),
+        "nanogram per gram": (1e-9, ["ng/g", "nanogram per gram"]),
     },
 
     # Volume Fraction: Any unit that is a volume/volume ratio.  There will be

@@ -956,6 +956,11 @@ microgram per gram
 
     µg/g, ug/g
 
+nanogram per gram
+.................
+
+    ng/g, nanogram per gram
+
 
 Volume Fraction:
 ----------------

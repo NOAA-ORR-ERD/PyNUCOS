@@ -247,6 +247,8 @@ KnownValues = [
     ("MassFraction", "mg/kg", "ppb", 1.0, 1000),  # calculated
     ("MassFraction", "mg/kg", "fraction", 1.0, 1e-6),  # calculated
     ("MassFraction", "ug/g", "ppm", 1.0, 1.0),  # calculated
+    ("MassFraction", "ng/g", "fraction", 1.0, 1e-9),  # calculated
+    ("MassFraction", "ng/g", "ppb", 1.0, 1.0),  # calculated
 
     ("VolumeFraction", "fraction", "%", 1, 100),  # calculated
     ("VolumeFraction", "\u2030", "percent", 1.0, .1),  # calculated

@@ -8,8 +8,8 @@ This repo provides a python package for doing physical unit conversion. It inclu
 
 It also includes many common units for general use.
 
-It also includes a few utilites that are not strictly unit conversion:
-  - converting latitude/longitude to/from degrees, degrees minutes seconds, etc (and formatting as unicode objects)
+It also includes a few utilities that are not strictly unit conversion:
+  - converting latitude/longitude to/from degrees, degrees minutes seconds, etc (and formatting as Unicode objects)
   - converting to/from oil mass units to/from volume units.
 
 Installing
