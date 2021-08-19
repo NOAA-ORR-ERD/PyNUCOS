@@ -65,6 +65,24 @@ def doubleToRawLongBits(value):
 
 
 class LatLongConverter(object):
+    """
+    Conversion for different forms of latitude and longitude coordinates.
+
+    Decimal Degrees; Degrees, decimal minutes; degrees, minutes, seconds
+
+    class methods available:
+
+    ``ToDecDeg(self, d=0, m=0, s=0, ustring=False, max=180)``
+
+    ``ToDegMin(self, DecDegrees, ustring=False)``
+
+    ``ToDegMinSec(self, DecDegrees, ustring=False)``
+
+    if ``ustring`` is Ture, the result will be a string,
+    formatted nicely with Unicode.
+
+    """
+
     @classmethod
     def ToDecDeg(self, d=0, m=0, s=0, ustring=False, max=180):
         """

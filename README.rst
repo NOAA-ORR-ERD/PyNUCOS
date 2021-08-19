@@ -67,6 +67,8 @@ Most of the primary functionality is available with a single function::
   In [8]: convert('gal', 'liter', 1.0)
   Out[8]: 3.7854118
 
+However, some unit names can have different meanings, e.g. fluid ounce and weight ounce, so can not be converted::
+
   In [9]: convert('oz', 'ml', 1.0)
   ---------------------------------------------------------------------------
   UnitConversionError                       Traceback (most recent call last)
@@ -82,10 +84,93 @@ Most of the primary functionality is available with a single function::
 
   UnitConversionError: Cannot convert oz to ml
 
+To be more clearly specified, the unit type can be passed as the first argument::
+
   In [10]: convert('volume', 'oz', 'ml', 1.0)
   Out[10]: 29.57353
 
+  In [16]: convert('mass', 'oz', 'gram', 1.0)
+  Out[16]: 28.349523
 
+Latitude Longitude Conversion
+-----------------------------
+
+::
+
+  In [24]: from unit_conversion import LatLongConverter
+
+  In [25]: LatLongConverter.ToDecDeg(-45, 34, 12)
+  Out[25]: -45.57
+
+  In [26]: LatLongConverter.ToDecDeg(-45, 34, 12, ustring=True)
+  Out[26]: '-45.570000°'
+
+  In [27]: LatLongConverter.ToDegMin(-45.57)
+  Out[27]: (-45.0, 34.2)
+
+  In [28]: LatLongConverter.ToDegMin(-45.57, ustring=True)
+  Out[28]: "-45° 34.200'"
+
+  In [29]: LatLongConverter.ToDegMinSec(-45.57)
+  Out[29]: (-45.0, 34, 12.0)
+
+  In [30]: LatLongConverter.ToDegMinSec(-45.57, ustring=True)
+  Out[30]: '-45° 34\' 12.00"'
+
+Unit names
+----------
+
+Unit names are simple strings, and there are a lot of synomyms, both in ascii and Unicode formats.
+
+The full list of units and names is in the `NUCOS_unit_list.rst` file.
+
+You can programmatically access the unit types, unit names, etc, via::
+
+  In [46]: unit_conversion.GetUnitTypes()
+  Out[46]:
+  ['Length',
+   'Oil Concentration',
+   'Area',
+   'Volume',
+   'Temperature',
+   'Delta Temperature',
+   'Mass',
+   'Time',
+   'Velocity',
+   'Discharge',
+   'Mass Discharge',
+   'Density',
+   'Kinematic Viscosity',
+   'Dynamic Viscosity',
+   'Interfacial Tension',
+   'Pressure',
+   'Concentration In Water',
+   'Concentration',
+   'Dimensionless',
+   'Mass Fraction',
+   'Volume Fraction',
+   'Angular Measure',
+   'Angular Velocity']
+
+  In [47]: unit_conversion.GetUnitNames('Volume')
+  Out[47]:
+  ['cubic meter',
+   'cubic kilometer',
+   'cubic centimeter',
+   'milliliter',
+   'barrel (petroleum)',
+   'liter',
+   'gallon',
+   'gallon (UK)',
+   'million US gallon',
+   'cubic foot',
+   'cubic inch',
+   'cubic yard',
+   'fluid ounce',
+   'fluid ounce (UK)']
+
+  In [48]: unit_conversion.GetUnitAbbreviation('Volume', 'cubic centimeter')
+  Out[48]: 'cm³'
 
 
 
