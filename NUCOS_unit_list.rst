@@ -959,7 +959,7 @@ microgram per gram
 nanogram per gram
 .................
 
-    ng/g, nanogram per gram
+    ng/g, nanograms per gram
 
 
 Volume Fraction:
