@@ -8,10 +8,14 @@ This repo provides a python package for doing physical unit conversion. It inclu
 
 It also includes many common units for general use.
 
-It also includes a few utilities that are not strictly unit conversion:
-  - converting latitude/longitude to/from degrees, degrees minutes seconds, etc (and formatting as Unicode objects)
-    NOTE: lat-long parasing and formatting is also available in the `lat-long parser project <https://github.com/NOAA-ORR-ERD/lat_lon_parser>`_ 
-  - converting to/from oil mass units to/from volume units.
+There are also a few utilities that are not strictly unit conversion:
+
+- converting latitude/longitude to/from degrees, degrees minutes seconds, etc (and formatting as Unicode objects)
+    
+NOTE: lat-long parsing and formatting is also available in the `lat-long parser project <https://github.com/NOAA-ORR-ERD/lat_lon_parser>`_ 
+
+- converting to/from oil mass units to/from volume units.
+
 
 Installing
 ==========
@@ -94,6 +98,10 @@ To be more clearly specified, the unit type can be passed as the first argument:
 
 Latitude Longitude Conversion
 -----------------------------
+
+There are functions for converting latitude and longitude to/from various formats.
+
+Pass ``ustring=True`` to get a Unicode formatted string version.
 
 ::
 
