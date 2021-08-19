@@ -10,6 +10,7 @@ It also includes many common units for general use.
 
 It also includes a few utilities that are not strictly unit conversion:
   - converting latitude/longitude to/from degrees, degrees minutes seconds, etc (and formatting as Unicode objects)
+    NOTE: lat-long parasing and formatting is also available in the `lat-long parser project <https://github.com/NOAA-ORR-ERD/lat_lon_parser>`_ 
   - converting to/from oil mass units to/from volume units.
 
 Installing
@@ -18,9 +19,12 @@ Installing
 PYNUCOS is not yet on PyPi, so you need to get the source from this repo and install with the regular::
 
   python setup.py install
+  
+or::
+
+  pip isntall ./
 
 If you use conda, there is a conda package available conda-forge::
-
 
   conda install pynucos -c conda-forge
 
@@ -35,6 +39,7 @@ http://response.restoration.noaa.gov/oil-and-chemical-spills/oil-spills/response
 There is also a Javascript version available for use in Browser Client-side applications:
 
 https://github.com/NOAA-ORR-ERD/NUCOS
+
 
 
 
