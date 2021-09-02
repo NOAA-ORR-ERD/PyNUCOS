@@ -9,7 +9,7 @@ from __future__ import unicode_literals
 
 import pytest
 
-import unit_conversion.lat_long as ll
+import nucos.lat_long as ll
 
 
 @pytest.mark.parametrize(("number", "text"),

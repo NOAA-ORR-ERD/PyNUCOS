@@ -18,7 +18,7 @@ except ImportError:
     raise
 
 import pytest
-import unit_conversion
+from nucos import unit_conversion
 
 RELTOL = 1e-5
 ABSTOL = 1e-5  # not used, but maybe some day?

@@ -5,9 +5,6 @@
 Assorted utilities for manipulating latitude and longitude values
 
 """
-from __future__ import unicode_literals
-
-__version__ = "1.4"
 
 import math
 import struct

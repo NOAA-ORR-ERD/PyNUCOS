@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
-from unit_conversion import lat_long
+from nucos import lat_long
 import unittest
+
 
 class testSignBit(unittest.TestCase):
     
