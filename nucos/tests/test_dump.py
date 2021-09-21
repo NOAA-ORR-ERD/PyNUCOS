@@ -13,10 +13,7 @@ from __future__ import (unicode_literals,
                         )
 
 import os
-from unit_conversion import unit_data
-
-# for py2 compatibility
-from io import open
+from nucos import unit_data
 
 
 def test_write_unit_data_file():

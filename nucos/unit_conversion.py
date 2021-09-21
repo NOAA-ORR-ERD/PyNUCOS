@@ -25,25 +25,30 @@ CHANGELOG:
                  - Unit data moved to separate module
   2018/01/24 CB: Added unicode exponents in unit names
                  Added __all__
-                 Fixed concentation in water units!
+                 Fixed concentration in water units!
 """
 
-from __future__ import unicode_literals, absolute_import
 import warnings
 
 from .unit_data import ConvertDataUnits
 
+from nucos import lat_long
+
 from .lat_long import (LatLongConverter,
                        Latitude,
                        Longitude,
-                       DummyLatitude,
-                       DummyLongitude)  # Backward compatibility.
-
+                       format_lat,
+                       format_lon,
+                       format_lat_d,
+                       format_lon_d,
+                       format_lat_dm,
+                       format_lon_dm,
+                       format_lat_dms,
+                       format_lon_dms,
+                       )
 
 __all__ = ['DensityConverterClass',
-           #'DummyLatitude',
            'InvalidUnitTypeError',
-           # 'DummyLongitude',
            'Latitude',
            'ConverterClass',
            'is_supported',
@@ -53,20 +58,23 @@ __all__ = ['DensityConverterClass',
            'UNIT_TYPES',
            'TempConverterClass',
            'Simplify',
-           'unittype',
            'GetUnitAbbreviation',
            'Convert',
            'FindUnitTypes',
+           'lat_long',
            'LatLongConverter',
            'Longitude',
            'ConvertDataUnits',
            'InvalidUnitError',
            'is_same_unit',
-           'data',
            'GetUnitTypes',
            'OilQuantityConverter',
            'convert',
            'UnitConversionError',
+           'format_lat',
+           'format_lon',
+           'format_lat_dms',
+           'format_lon_dms',
            ]
 
 
