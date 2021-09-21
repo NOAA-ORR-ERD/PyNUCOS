@@ -9,6 +9,8 @@ This API is deprecated -- please use the nucos package instead.
 
 import warnings
 
+from nucos import __version__
+
 from nucos.unit_conversion import *
 
 from nucos import lat_long
