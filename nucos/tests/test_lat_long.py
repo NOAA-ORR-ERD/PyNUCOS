@@ -2,6 +2,7 @@
 
 from nucos import lat_long
 import unittest
+import pytest
 
 
 class testSignBit(unittest.TestCase):
@@ -195,17 +196,17 @@ class testLongitude(unittest.TestCase):
     L = lat_long.Longitude
 
     def testTooBig(self):
-        self.assertRaises(ValueError , self.L, deg=185)
+        self.assertRaises(ValueError, self.L, deg=185)
 
     def testTooNeg(self):
-        self.assertRaises(ValueError , self.L, deg=-185)
+        self.assertRaises(ValueError, self.L, deg=-185)
 
     def testSignAndDir(self):
-        self.assertRaises(ValueError , self.L, deg=-45, direction="W")
+        self.assertRaises(ValueError, self.L, deg=-45, direction="W")
 
     def testDirW(self):
         self.assertEqual(self.L(deg=45, direction="W").value, -45.0)
-        
+
     def testDirE(self):
         self.assertEqual(self.L(deg=45.5, direction="E").value, 45.5)
 
@@ -249,12 +250,35 @@ class testLongitude(unittest.TestCase):
     def testDirectionSmall(self):
         self.assertEqual(self.L(deg=-.00000000000001).direction(), 'West')
 
-    
+
+# tests the format* functions -- used by ResponseLink
+
+@pytest.mark.parametrize(("number", "text"),
+                         [(28.2186111111, "28\xb0 13.12\u2032 North"),  # from incident 6652
+                          (-0.1, "0\xb0 6.00\u2032 South")
+                         ])
+def test_format_lat(number, text):
+    assert lat_long.format_lat(number) == text
 
 
+@pytest.mark.parametrize(("number", "text"),
+                         [(-92.6244444444, "92\xb0 37.47\u2032 West"),  # from incident 6652
+                         ])
+def test_format_lon(number, text):
+    assert lat_long.format_lon(number) == text
 
 
+## degrees, minutes, seconds formatting:
+@pytest.mark.parametrize(("number", "text"),
+                         [(28.2186111111, "28\xb0 13\u2032 7.00\u2033 North"), #from incident 6652
+                          (-0.1, "0\xb0 6\u2032 0.00\u2033 South")
+                         ])
+def test_format_lat_dms(number, text):
+    assert lat_long.format_lat_dms(number) == text
 
-if __name__ == "__main__":
-    unittest.main()
+@pytest.mark.parametrize(("number", "text"),
+                         [(-92.6244444444, "92\xb0 37\u2032 28.00\u2033 West"), #from incident 6652
+                         ])
+def test_format_lon_dms(number, text):
+    assert lat_long.format_lon_dms(number) == text
 

@@ -378,6 +378,11 @@ def reduce_base_60(f):
     return whole, fract
 
 
+def format_latlon1(f, positive_direction, negative_direction):
+    direction = positive_direction if f >= 0.0 else negative_direction
+    return FORMAT1.format(degrees, direction)
+
+
 def format_latlon2(f, positive_direction, negative_direction):
     direction = positive_direction if f >= 0.0 else negative_direction
     degrees, minutes = reduce_base_60(f)
@@ -393,17 +398,77 @@ def format_latlon3(f, positive_direction, negative_direction):
     return FORMAT3.format(degrees, minutes, seconds, direction)
 
 
-def format_lat(f):
-    return format_latlon2(f, LAT_POSITIVE_DIRECTION, LAT_NEGATIVE_DIRECTION)
+def format_lat_d(degrees):
+    return format_latlon1(degrees, LAT_POSITIVE_DIRECTION, LAT_NEGATIVE_DIRECTION)
 
 
-def format_lon(f):
-    return format_latlon2(f, LON_POSITIVE_DIRECTION, LON_NEGATIVE_DIRECTION)
+def format_lat_dm(degrees):
+    """
+    Format a floating point number as latitude in
+    degrees, decimal minutes format.
+
+    "North" and "South" added as appropriate
+
+    example::
+      In [3]: nucos.format_lat(-33.2)
+      Out[3]: '33° 12.00′ South'
+
+    :param degrees: degrees of latitude -- negative is South
+    :type degrees: float
+
+    :returns: string version of latitude
+    """
+
+    return format_latlon2(degrees, LAT_POSITIVE_DIRECTION, LAT_NEGATIVE_DIRECTION)
 
 
 def format_lat_dms(f):
     return format_latlon3(f, LAT_POSITIVE_DIRECTION, LAT_NEGATIVE_DIRECTION)
 
 
+def format_lon_d(degrees):
+    """
+    Format a floating point number as longitude in
+    decimal degrees format.
+
+    "East" and "West" added as appropriate
+
+    example::
+      In [4]: nucos.format_lon(-33.2)
+      Out[4]: '33.2° West'
+
+    :param degrees: degrees of longitude -- negative is South
+    :type degrees: float
+
+    :returns: string version of longitude
+    """
+
+    return format_latlon2(degrees, LON_POSITIVE_DIRECTION, LON_NEGATIVE_DIRECTION)
+
+
+def format_lon_dm(degrees):
+    """
+    Format a floating point number as longitude in
+    degrees, decimal minutes format.
+
+    "East" and "West" added as appropriate
+
+    example::
+      In [4]: nucos.format_lon(-33.2)
+      Out[4]: '33° 12.00′ West'
+
+    :param degrees: degrees of longitude -- negative is South
+    :type degrees: float
+
+    :returns: string version of longitude
+    """
+
+    return format_latlon2(degrees, LON_POSITIVE_DIRECTION, LON_NEGATIVE_DIRECTION)
+
+
 def format_lon_dms(f):
     return format_latlon3(f, LON_POSITIVE_DIRECTION, LON_NEGATIVE_DIRECTION)
+
+
+format_lat = format_lat_dm
+format_lon = format_lon_dm

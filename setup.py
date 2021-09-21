@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 
 """
-This setup is suitable for "python setup.py develop" from setuptools.
+This setup is using the new "declarative" format for setuptools.
+
+All configuration is in setup.cfg
 """
 
-import os
 from setuptools import setup
 
 setup()
-
-
