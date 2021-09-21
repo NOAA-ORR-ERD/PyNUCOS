@@ -20,17 +20,31 @@ NOTE: lat-long parsing and formatting is also available in the `lat-long parser 
 Installing
 ==========
 
-PYNUCOS is not yet on PyPi, so you need to get the source from this repo and install with the regular::
+As of version 3, PyNUCOS is on PyPi and conda  forge, and of course, can be installed from source.
+
+**From PyPi:** ::
+
+    pip install pynucos
+
+**From conda-forge:** ::
+
+    conda install pynucos -c conda-forge
+
+(the ``-c conda-forge`` is optional if you've already got the conda-forge channel)
+
+**From Source:**
+
+Get the source from gitHub::
+
+  https://github.com/NOAA-ORR-ERD/PyNUCOS
+
+Then the usual::
 
   python setup.py install
   
 or::
 
-  pip isntall ./
-
-If you use conda, there is a conda package available conda-forge::
-
-  conda install pynucos -c conda-forge
+  pip install ./
 
 
 Use Cases:
@@ -54,19 +68,21 @@ Available on gitHub here:
 
 https://github.com/NOAA-ORR-ERD
 
+
 Javascript Version
 ------------------
 
-There is also a Javascript version available for use in Browser Client-side applications:
+There is also a Javascript version available for use in browser Client-side applications:
 
-https://github.com/NOAA-ORR-ERD/NUCOS
+https://github.com/NOAA-ORR-ERD/jsNUCOS
+
 
 Usage
 =====
 
 Most of the primary functionality is available with a single function::
 
-  In [7]: from unit_conversion import convert
+  In [7]: from nucos import convert
 
   In [8]: convert('gal', 'liter', 1.0)
   Out[8]: 3.7854118
@@ -79,7 +95,7 @@ However, some unit names can have different meanings, e.g. fluid ounce and weigh
   <ipython-input-9-86edffc0a76a> in <module>
   ----> 1 convert('oz', 'ml', 1.0)
 
-  ~/Hazmat/ERD-PythonPackages/PyNUCOS/unit_conversion/unit_conversion.py in convert(unit1, unit2, value, unit_type)
+  ~/Hazmat/ERD-PythonPackages/PyNUCOS/nucos/unit_conversion.py in convert(unit1, unit2, value, unit_type)
       464
       465         if unit_type != unit_type2:
   --> 466             raise UnitConversionError("Cannot convert {0} to {1}"
@@ -96,6 +112,7 @@ To be more clearly specified, the unit type can be passed as the first argument:
   In [16]: convert('mass', 'oz', 'gram', 1.0)
   Out[16]: 28.349523
 
+
 Latitude Longitude Conversion
 -----------------------------
 
@@ -105,7 +122,7 @@ Pass ``ustring=True`` to get a Unicode formatted string version.
 
 ::
 
-  In [24]: from unit_conversion import LatLongConverter
+  In [24]: from nucos import LatLongConverter
 
   In [25]: LatLongConverter.ToDecDeg(-45, 34, 12)
   Out[25]: -45.57
@@ -125,16 +142,17 @@ Pass ``ustring=True`` to get a Unicode formatted string version.
   In [30]: LatLongConverter.ToDegMinSec(-45.57, ustring=True)
   Out[30]: '-45° 34\' 12.00"'
 
+
 Unit names
 ----------
 
-Unit names are simple strings, and there are a lot of synomyms, both in ascii and Unicode formats.
+Unit names are simple strings, and there are a lot of synonyms, both in ascii and Unicode formats.
 
 The full list of units and names is in the `NUCOS_unit_list.rst` file.
 
 You can programmatically access the unit types, unit names, etc, via::
 
-  In [46]: unit_conversion.GetUnitTypes()
+  In [46]: nucos.GetUnitTypes()
   Out[46]:
   ['Length',
    'Oil Concentration',
@@ -160,7 +178,7 @@ You can programmatically access the unit types, unit names, etc, via::
    'Angular Measure',
    'Angular Velocity']
 
-  In [47]: unit_conversion.GetUnitNames('Volume')
+  In [47]: nucos.GetUnitNames('Volume')
   Out[47]:
   ['cubic meter',
    'cubic kilometer',
@@ -177,8 +195,18 @@ You can programmatically access the unit types, unit names, etc, via::
    'fluid ounce',
    'fluid ounce (UK)']
 
-  In [48]: unit_conversion.GetUnitAbbreviation('Volume', 'cubic centimeter')
+  In [48]: nucos.GetUnitAbbreviation('Volume', 'cubic centimeter')
   Out[48]: 'cm³'
+
+
+Release History
+===============
+
+Version 3.0
+-----------
+
+The first release on PyPi -- major change in this release is the top-level package name is now ``nucos`` -- it used to be ``unit_conversion``. The ``unit_conversion`` nae is still there, but should raise a ``DeprecationWarning``
+
 
 
 
