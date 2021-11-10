@@ -400,7 +400,7 @@ Velocity:
 meter per second
 ................
 
-    m/s, meters per second, mps, meter second-1, meters s-1, m s-1, meter/sec
+    m/s, meters per second, mps, meter second-1, meters s-1, m s-1, meter/sec, meter/second
 
 centimeter per second
 .....................

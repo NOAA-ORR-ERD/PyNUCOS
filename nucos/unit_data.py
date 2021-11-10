@@ -138,7 +138,7 @@ ConvertDataUnits = {
     # All Velocities in meter per second
     "Velocity": {"meter per second": (1.0, ["m/s", "meters per second", "mps",
                                             "meter second-1", "meters s-1",
-                                            "m s-1", "meter/sec"]),
+                                            "m s-1", "meter/sec", "meter/second"]),
                  "centimeter per second": (.01, ["cm/s"]),
                  "meter per minute": (0.01666666666, ["m/min",
                                                       "meters per minute"]),
