@@ -286,8 +286,14 @@ def test_new_api_oneshot():
     assert isclose(unit_conversion.convert('meter second-1', 'knot', 1),
                    1.94384, rel_tol=RELTOL)
 
-    assert isclose(unit_conversion.convert('m/s', 'knot', 1), 1.94384, rel_tol=RELTOL)
+    assert isclose(unit_conversion.convert('m/s', 'knot', 1),
+                   1.94384, rel_tol=RELTOL)
 
+    assert isclose(unit_conversion.convert('g/kg', 'ppm', 1),
+                   1000, rel_tol=RELTOL)
+
+    assert isclose(unit_conversion.convert('ml/l', '%', 1),
+                   0.1, rel_tol=RELTOL)
 
 @pytest.mark.parametrize('unit_type, unit1, unit2, value, new_value',
                          KnownValues)
@@ -303,7 +309,6 @@ def test_new_api(unit_type, unit1, unit2, value, new_value):
                                                'volumefraction',
                                                'deltatemperature'):
         return
-    # now do the test:
     assert isclose(unit_conversion.convert(unit1, unit2, value),
                    new_value, rel_tol=RELTOL)
 
@@ -407,7 +412,7 @@ class TestNewConvertAPI():
                               (0, 0, 0),
                               ])
     def test_NotSupportedUnitError(self, args):
-        with pytest.raises(unit_conversion.NotSupportedUnitError):
+        with pytest.raises(unit_conversion.UnitConversionError):
             unit_conversion.convert(*args)
 
     @pytest.mark.parametrize('args',

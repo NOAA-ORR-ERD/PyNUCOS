@@ -338,8 +338,8 @@ ConvertDataUnits = {
         'part per million': (1e-6, ['ppm', 'parts per million']),
         'part per billion': (1e-9, ['ppb', 'parts per billion']),
         'part per trillion': (1e-12, ['parts per trillion']),
-        'milliliter per liter': (1e-3, ['ml/l', 'mL/L', 'mL/dm^3']),
-        'liter per cubic meter': (1e-3, ['l/m^3', 'L/m^3']),
+        'milliliter per liter': (1e-3, ['ml/l', 'mL/dm^3']),
+        'liter per cubic meter': (1e-3, ['l/m^3']),
     },
 
     "Angular Measure": {

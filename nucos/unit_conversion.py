@@ -121,6 +121,13 @@ def FindUnitTypes():
 
     Usually not called from user code.
     """
+
+    # compute units that are unique to Mass and Volume Fraction
+    mf = ConvertDataUnits["Mass Fraction"]
+    vf = ConvertDataUnits["Volume Fraction"]
+    # not_to_skip = {Simplify(u) for u in mf.keys() ^ vf.keys()}
+    to_skip = {Simplify(u) for u in mf.keys() & vf.keys()}
+
     unit_types = {}
 
     for unit_type, unit_data in ConvertDataUnits.items():
@@ -134,8 +141,8 @@ def FindUnitTypes():
         #   that conflict with Concentration & Concentration In Water.
         if unit_type in ('oilconcentration',
                          'concentrationinwater',
-                         'massfraction',
-                         'volumefraction',
+                         #'massfraction',
+                         #'volumefraction',
                          'deltatemperature',
                          'dimensionless',
                          ):
@@ -145,9 +152,14 @@ def FindUnitTypes():
             # strip out whitespace and capitalization
             pname = Simplify(pname)
 
-            # add the primary name:
-            unit_types[pname] = unit_type
+            if (unit_type in {'massfraction', 'volumefraction'}
+                    and pname in to_skip):
+                continue
 
+            # add the primary name:
+            if pname in unit_types:
+                raise ValueError(f"Duplicate primary name in units table: {pname}")
+            unit_types[pname] = unit_type
             # now the synonyms:
             for n in data[1]:
                 n = Simplify(n)
@@ -157,6 +169,7 @@ def FindUnitTypes():
                                       ("density", "s")]:
                     continue
 
+                print(f"Adding: {unit_type}: {n}")
                 if n in unit_types:
                     raise ValueError("Duplicate name in units table: %s" % n)
 
@@ -166,6 +179,10 @@ def FindUnitTypes():
 
 
 UNIT_TYPES = FindUnitTypes()
+
+print("************")
+print(UNIT_TYPES['g/kg'])
+print(UNIT_TYPES['ml/l'])
 
 
 def GetUnitAbbreviation(unit_type, unit):
@@ -465,14 +482,14 @@ def convert(unit1, unit2, value, unit_type=None):
         except KeyError:
             raise NotSupportedUnitError(unit1)
 
-        try:
-            unit_type2 = UNIT_TYPES[unit2]
-        except KeyError:
-            raise NotSupportedUnitError(unit2)
+        # try:
+        #     unit_type2 = UNIT_TYPES[unit2]
+        # except KeyError:
+        #     raise NotSupportedUnitError(unit2)
 
-        if unit_type != unit_type2:
-            raise UnitConversionError("Cannot convert {0} to {1}"
-                                      .format(unit1, unit2))
+        # if unit_type != unit_type2:
+        #     raise UnitConversionError("Cannot convert {0} to {1}"
+        #                               .format(unit1, unit2))
 
         unit_type = Simplify(unit_type)
     else:

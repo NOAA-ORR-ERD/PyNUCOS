@@ -1003,12 +1003,12 @@ part per trillion
 milliliter per liter
 ....................
 
-    ml/l, mL/L, mL/dm^3
+    ml/l, mL/dm^3
 
 liter per cubic meter
 .....................
 
-    l/m^3, L/m^3
+    l/m^3
 
 
 Angular Measure:
