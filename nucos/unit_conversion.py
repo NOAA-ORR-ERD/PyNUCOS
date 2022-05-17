@@ -169,7 +169,7 @@ def FindUnitTypes():
                                       ("density", "s")]:
                     continue
 
-                print(f"Adding: {unit_type}: {n}")
+                print(f"Adding: {unit_type}: {n}".encode("utf-8"))
                 if n in unit_types:
                     raise ValueError("Duplicate name in units table: %s" % n)
 
