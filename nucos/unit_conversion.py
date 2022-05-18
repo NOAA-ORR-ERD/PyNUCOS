@@ -168,8 +168,10 @@ def FindUnitTypes():
                 if (unit_type, n) in [("volume", "oz"),
                                       ("density", "s")]:
                     continue
-
-                print(f"Adding: {unit_type}: {n}".encode("utf-8"))
+                try:
+                    print(f"Adding: {unit_type}: {n}")
+                except UnicodeEncodeError:
+                    print(f"Adding: {unit_type}: {n}".encode("utf-8"))
                 if n in unit_types:
                     raise ValueError("Duplicate name in units table: %s" % n)
 
