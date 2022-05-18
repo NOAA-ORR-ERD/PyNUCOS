@@ -47,6 +47,9 @@ from .lat_long import (LatLongConverter,
                        format_lon_dms,
                        )
 
+# reset this to get some more print statements on import
+DEBUG = False
+
 __all__ = ['DensityConverterClass',
            'InvalidUnitTypeError',
            'Latitude',
@@ -168,10 +171,11 @@ def FindUnitTypes():
                 if (unit_type, n) in [("volume", "oz"),
                                       ("density", "s")]:
                     continue
-                try:
-                    print(f"Adding: {unit_type}: {n}")
-                except UnicodeEncodeError:
-                    print(f"Adding: {unit_type}: {n}".encode("utf-8"))
+                if DEBUG:
+                    try:
+                        print(f"Adding: {unit_type}: {n}")
+                    except UnicodeEncodeError:
+                        print(f"Adding: {unit_type}: {n}".encode("utf-8"))
                 if n in unit_types:
                     raise ValueError("Duplicate name in units table: %s" % n)
 
@@ -181,10 +185,6 @@ def FindUnitTypes():
 
 
 UNIT_TYPES = FindUnitTypes()
-
-print("************")
-print(UNIT_TYPES['g/kg'])
-print(UNIT_TYPES['ml/l'])
 
 
 def GetUnitAbbreviation(unit_type, unit):
