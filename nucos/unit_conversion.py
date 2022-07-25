@@ -111,16 +111,18 @@ def GetUnitNames(UnitType):
 
     a unit of mass would be "kilogram", "slug", etc.
     """
-    UnitType.capitalize()
-    return list(ConvertDataUnits[UnitType].keys())
+    return list(ConvertDataUnits[UnitType.capitalize()].keys())
+
 
 
 def FindUnitTypes():
     """
-    returns a mapping of all the unit names to the unit types
+    Returns a mapping of all the unit names to the unit types
 
-    raises an exception if there is more than one option -- this will check
+    Raises an exception if there is more than one option -- this will check
     the unit database for duplicated names
+
+    Primarily used to do conversions without apecifying the unit types
 
     Usually not called from user code.
     """
@@ -184,7 +186,71 @@ def FindUnitTypes():
     return unit_types
 
 
+def FindAllUnitNames():
+    """
+    returns a mapping of all the valid unit names to unit type
+
+    Usually not called from user code.
+    """
+
+    # # compute units that are unique to Mass and Volume Fraction
+    # mf = ConvertDataUnits["Mass Fraction"]
+    # vf = ConvertDataUnits["Volume Fraction"]
+    # # not_to_skip = {Simplify(u) for u in mf.keys() ^ vf.keys()}
+    # to_skip = {Simplify(u) for u in mf.keys() & vf.keys()}
+
+    unit_names = {}
+
+    for unit_type, unit_data in ConvertDataUnits.items():
+        unit_type = Simplify(unit_type)
+
+        # # - skipping Oil Concentration, 'cause this is really length
+        # #   - lots of duplicate units!
+        # # - skipping Concentration in water, 'cause it's weird
+        # #   - mass/volume and mass/mass !
+        # # - skipping Mass Fraction, because there are lots of duplicate units
+        # #   that conflict with Concentration & Concentration In Water.
+        # if unit_type in ('oilconcentration',
+        #                  'concentrationinwater',
+        #                  #'massfraction',
+        #                  #'volumefraction',
+        #                  'deltatemperature',
+        #                  'dimensionless',
+        #                  ):
+        #     continue
+
+        for pname, data in unit_data.items():
+            # if (unit_type in {'massfraction', 'volumefraction'}
+            #         and pname in to_skip):
+            #     continue
+
+            # add the primary name:
+            unit_names.setdefault(unit_type, [pname])
+            # now the synonyms:
+            unit_names[unit_type].extend(data[1])
+
+    return unit_names
+
+
 UNIT_TYPES = FindUnitTypes()
+UNIT_NAMES = FindAllUnitNames()
+
+
+def is_supported_unit(unit_type, unit):
+    """
+    checks if a unit name is supported for the given unit type
+    """
+    unit_type = Simplify(unit_type)
+    converter = Converters[unit_type]
+    return Simplify(unit) in converter.Synonyms
+
+
+def get_supported_names(unit_type):
+    """
+    returns the list of all supported unit names for a unit_type in standard
+    form
+    """
+    return UNIT_NAMES[Simplify(unit_type)]
 
 
 def GetUnitAbbreviation(unit_type, unit):
@@ -518,7 +584,7 @@ def Convert(*args, **kwargs):
 
     for new code, use convert()
     """
-    warnings.warn('"Convert" is deprecated -- use "convert()"',
+    warnings.warn('"Convert()" is deprecated -- use "convert()"',
                   DeprecationWarning)
 
     return convert(*args, **kwargs)

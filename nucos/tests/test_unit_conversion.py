@@ -552,3 +552,52 @@ def test_InvalidUnitTypeError():
     err = str(unit_conversion.InvalidUnitTypeError('feeet'))
 
     assert err == 'The unit type: feeet is not in the UnitConversion database'
+
+
+class Test_FindAllUnitNames():
+
+    UNIT_NAMES = unit_conversion.FindAllUnitNames()
+
+    def test_length(self):
+        names = self.UNIT_NAMES['length']
+
+        assert "meter" in names
+        assert "nauticalmiles" in names
+
+        assert "metter" not in names
+
+    def test_dynamic_viscosity(self):
+        names = self.UNIT_NAMES['dynamicviscosity']
+
+        print(names)
+        assert 'kg/(m s)' in names
+        assert 'cP' in names
+
+    def test_get_supported_names(unit_type):
+        """
+        not the least bit comprehensive, but at shows dict is built
+        """
+        names = unit_conversion.get_supported_names('Volume')
+        names2 = unit_conversion.get_supported_names('volume')
+
+        assert names == names2
+        assert 'oz' in names
+        assert 'meter' not in names
+
+
+@pytest.mark.parametrize(("unit_type", "unit"),[('Length', 'meter'),
+                                                ('length', 'cM'),
+                                                ('oil Concentration', 'micron'),
+                                                ])
+def test_is_supported_unit(unit_type, unit):
+    assert unit_conversion.is_supported_unit(unit_type, unit)
+
+
+@pytest.mark.parametrize(("unit_type", "unit"),[('Length', 'metter'),
+                                                ('length', 'mcM'),
+                                                ('oil Concentration', 'sheen'),
+                                                ])
+def test_is_supported_unit_not(unit_type, unit):
+    assert not unit_conversion.is_supported_unit(unit_type, unit)
+
+
