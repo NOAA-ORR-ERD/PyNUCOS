@@ -111,7 +111,7 @@ def GetUnitNames(UnitType):
 
     a unit of mass would be "kilogram", "slug", etc.
     """
-    return list(ConvertDataUnits[UnitType.capitalize()].keys())
+    return list(ConvertDataUnits[UnitType.title()].keys())
 
 
 

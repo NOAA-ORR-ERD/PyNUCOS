@@ -435,7 +435,7 @@ def test_GetUnitTypes():
     assert "Volume" in types
 
 
-def test_GetUnitNames():
+def test_GetUnitNames_length():
     # note: not testing all of them
     #       either all types or all names
     names = unit_conversion.GetUnitNames('Length')
@@ -445,6 +445,7 @@ def test_GetUnitNames():
     assert "foot" in names
     assert "feet" not in names
 
+def test_GetUnitNames_area():
     names = unit_conversion.GetUnitNames('Area')
     # print(names)
 
@@ -452,6 +453,14 @@ def test_GetUnitNames():
     assert "acre" in names
     assert "square meter" in names
     assert "feet" not in names
+
+
+def test_GetUnitNames_kin_vis():
+    names = unit_conversion.GetUnitNames('Kinematic Viscosity')
+    print(names)
+
+    assert 'Stoke' in names
+    assert 'square centimeter per second' in names
 
 
 def test_GetUnitAbbreviation():
