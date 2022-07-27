@@ -19,6 +19,7 @@ except ImportError:
 
 import pytest
 from nucos import unit_conversion
+from nucos.unit_data import ConvertDataUnits
 
 RELTOL = 1e-5
 ABSTOL = 1e-5  # not used, but maybe some day?
@@ -461,6 +462,16 @@ def test_GetUnitNames_kin_vis():
 
     assert 'Stoke' in names
     assert 'square centimeter per second' in names
+
+
+def test_proper_unit_type_names():
+    """
+    all unit types should be title cased
+
+    This is assumed elsewhere in the code
+    """
+    for key in ConvertDataUnits.keys():
+        assert key == key.title(), f"{key} is not title cased"
 
 
 def test_GetUnitAbbreviation():
