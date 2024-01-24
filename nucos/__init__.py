@@ -10,7 +10,7 @@ All of unit_conversion is imported here for convenience
 
 """
 
-__version__ = "3.1.2"
+__version__ = "3.1.3"
 
 
 from .unit_conversion import (UnitConversionError,

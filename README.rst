@@ -227,5 +227,82 @@ Version 3.0
 The first release on PyPi -- major change in this release is the top-level package name is now ``nucos`` -- it used to be ``unit_conversion``. The ``unit_conversion`` name is still there, but should raise a ``DeprecationWarning``
 
 
+Contributing
+============
+
+If you have any suggestions for improvements, bug fixes, etc, please post an issue on GitHub:
+
+``https://github.com/NOAA-ORR-ERD/PyNUCOS``
+
+Or better yet, make a Pull Request.
+
+Development Notes
+-----------------
+
+Testing
+.......
+
+there is a fairly comprehensive set of tests in:
+
+``nucos/tests``
+
+they can be run with pytest -- either directly:
+
+``pytest nucos/tests``
+
+or on the installed package:
+
+``pytest --pyargs nucos``
+
+
+New units / unit names
+......................
+
+Any additional units should be added to:
+
+``nucos/unit_data.py``
+
+It's a big nested dict with units, conversion factors and synonyms all there.
+Hopefully, it's self describing :-)
+
+Please add a test if you add a new unit.
+
+Be sure to run the tests after making any changes --
+that will catch errors in the format, duplicate names, etc.
+
+Releasing
+.........
+
+Minor changes can be done directly in the main branch.
+
+Checklist for a new release:
+
+* Make sure the tests all pass, of course
+
+* make sure the version is properly set: in ``nucos/__init__.py``
+
+* Make sure that ``NUCOS_unit_list.rst`` has been updated -- it should happen when the tests are run.
+
+* Push to GitHub
+
+* Make a release on GitHub -- follow the tag convention already there.
+
+* Increment the `__version__` in the main branch after making the release.
+
+* Push to PyPi:
+  - ``conda install twine build``
+  - ``python -m build``
+  - ``twine upload dist/*``
+
+NOTE: At this point, only Chris Barker has permissions on PyPi to do this -- so either ask him to do it, or ask him for permissions.
+
+* Check conda-forge for a build: conda-forge should detect that a release was made on GitHub, and then build a new package -- you can check the progress here:
+
+``https://github.com/conda-forge/pynucos-feedstock``
+
+ChrisBarker-NOAA and JamesMakela-NOAA have permissions on the feedstock.
+
+
+
 
 
