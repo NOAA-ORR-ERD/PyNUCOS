@@ -10,17 +10,17 @@ It also includes many common units for general use.
 
 There are also a few utilities that are not strictly unit conversion:
 
-- converting latitude/longitude to/from degrees, degrees minutes seconds, etc (and formatting as Unicode objects)
+- Converting latitude/longitude to/from degrees, degrees minutes seconds, etc (and formatting as Unicode objects)
     
 NOTE: lat-long parsing and formatting is also available in the `lat-long parser project <https://github.com/NOAA-ORR-ERD/lat_lon_parser>`_ 
 
-- converting to/from oil mass units to/from volume units.
+- converting to/from oil mass units to/from volume units: e.g. tons to barrels.
 
 
 Installing
 ==========
 
-As of version 3, PyNUCOS is on PyPi and conda  forge, and of course, can be installed from source.
+As of version 3, PyNUCOS is on PyPi and conda-forge, and of course, can be installed from source.
 
 **From PyPi:** ::
 
@@ -39,10 +39,6 @@ Get the source from gitHub::
   https://github.com/NOAA-ORR-ERD/PyNUCOS
 
 Then the usual::
-
-  python setup.py install
-  
-or::
 
   pip install ./
 
@@ -202,10 +198,33 @@ You can programmatically access the unit types, unit names, etc, via::
 Release History
 ===============
 
+Version 3.1.2
+-------------
+
+Added some more synonyms for meter per second.
+
+Version 3.1.1
+-------------
+
+
+Fixed a bug with GetUnitNames() and capitalization.
+
+Version 3.1.0
+-------------
+
+Added code to get valid unit names for a given unit_type
+
+
+Version 3.1.0
+-------------
+
+Added code to get valid unit names for a given unit_type
+
+
 Version 3.0
 -----------
 
-The first release on PyPi -- major change in this release is the top-level package name is now ``nucos`` -- it used to be ``unit_conversion``. The ``unit_conversion`` nae is still there, but should raise a ``DeprecationWarning``
+The first release on PyPi -- major change in this release is the top-level package name is now ``nucos`` -- it used to be ``unit_conversion``. The ``unit_conversion`` name is still there, but should raise a ``DeprecationWarning``
 
 
 

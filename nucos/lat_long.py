@@ -75,8 +75,8 @@ class LatLongConverter(object):
 
     ``ToDegMinSec(self, DecDegrees, ustring=False)``
 
-    if ``ustring`` is Ture, the result will be a string,
-    formatted nicely with Unicode.
+    if ``ustring`` is True, the result will be a string,
+    formatted nicely with Unicode, rather than numbers.
 
     """
 

@@ -116,7 +116,7 @@ ConvertDataUnits = {
 
     # All Mass units in Kg (weight is taken to be mass at standard g)
     "Mass": {"kilogram": (1.0, ["kg", "kilograms"]),
-             "pound": (0.45359237, ["lb", "pounds", "lbs"]),
+             "pound": (0.45359237, ["lb", "pounds", "lbs"]), # not technically mass, but ...
              "gram": (.001, ["g", "grams"]),
              "milligram": (.000001, ["mg"]),
              "microgram": (.000000001, ["\N{MICRO SIGN}g", "ug"]),
@@ -136,9 +136,13 @@ ConvertDataUnits = {
              },
 
     # All Velocities in meter per second
-    "Velocity": {"meter per second": (1.0, ["m/s", "meters per second", "mps",
-                                            "meter second-1", "meters s-1",
-                                            "m s-1", "meter/sec", "meter/second"]),
+    "Velocity": {"meter per second": (1.0, ["m/s", "meter/sec", "meter/second",
+                                            "meters per second",
+                                            "mps",
+                                            "meter sec-1", "meter second-1", "meter seconds-1",
+                                            "meters sec-1", "meters second-1", "meters seconds-1",
+                                            "m s-1",
+                                            ]),
                  "centimeter per second": (.01, ["cm/s"]),
                  "meter per minute": (0.01666666666, ["m/min",
                                                       "meters per minute"]),
@@ -386,18 +390,21 @@ for s in unit_sets.values():
 
 def write_units(filename=None):
     """
-    fixme: why is this ASCII only?
+    write all the units out to a file.
+
+    :param filename=None: filename to write to. If None, it will write to stdout.
+
     """
     import sys
     if filename is None:
         f = sys.stdout
     else:
-        f = open(filename, 'w')
+        f = open(filename, 'w', encoding="utf-8")
     f.write("NUCOS unit set:\n")
     for key, value in ConvertDataUnits.items():
         f.write("\n%s:\n" % key)
         for key2 in value:
-            f.write("    %s\n" % key2.encode('ascii', 'ignore'))
+            f.write("    %s\n" % key2)
 
 
 def all_unit_names(format="str"):
