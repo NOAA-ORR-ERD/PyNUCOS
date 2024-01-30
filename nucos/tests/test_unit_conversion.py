@@ -613,11 +613,55 @@ def test_is_supported_unit(unit_type, unit):
     assert unit_conversion.is_supported_unit(unit_type, unit)
 
 
-@pytest.mark.parametrize(("unit_type", "unit"),[('Length', 'metter'),
-                                                ('length', 'mcM'),
-                                                ('oil Concentration', 'sheen'),
-                                                ])
+@pytest.mark.parametrize(("unit_type", "unit"), [('Length', 'metter'),
+                                                 ('length', 'mcM'),
+                                                 ('oil Concentration', 'sheen'),
+                                                 ])
 def test_is_supported_unit_not(unit_type, unit):
     assert not unit_conversion.is_supported_unit(unit_type, unit)
+
+
+@pytest.mark.parametrize(("unit", "primary_name"), [('kg', 'kilogram'),
+                                                    ('us ton', 'ton'),
+                                                    ('oz', 'ounce'),
+                                                    ('fluid oz', 'fluid ounce'),
+                                                    ("ukgal", "gallon (UK)"),
+                                                    ])
+def test_get_primary_name_there(unit, primary_name):
+    pn = unit_conversion.get_primary_name(unit)
+    assert pn == primary_name
+
+
+@pytest.mark.parametrize(("unit"), [('kgss',),
+                                    ('us tonage',),
+                                    ])
+def test_get_primary_name_not_there(unit):
+    with pytest.raises(unit_conversion.NotSupportedUnitError):
+        pn = unit_conversion.get_primary_name(unit)
+        assert pn == 'nothing'
+
+
+@pytest.mark.parametrize(("unit", "unit_type", "primary_name"),
+                         [('kg', 'mass', 'kilogram'),
+                          ('oz', 'mass', 'ounce'),
+                          ('oz', 'volume', 'fluid ounce'),
+                          ])
+def test_get_primary_name_specify_unit_type(unit, unit_type, primary_name):
+    pn = unit_conversion.get_primary_name(unit, unit_type=unit_type)
+    assert pn == primary_name
+
+
+@pytest.mark.parametrize(('unit', 'abbv'),
+                         [('kilogram', 'kg'),
+                          ('barrel (petroleum)', "bbl"),
+                          ('milligram', 'mg'),
+                          ('microgram', 'µg'),
+                          ('ton (UK)', "ukton"),
+                          ])
+def test_get_abbreviation(unit, abbv):
+    assert unit_conversion.get_abbreviation(unit) == abbv
+
+
+
 
 

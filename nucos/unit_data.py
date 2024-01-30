@@ -121,7 +121,7 @@ ConvertDataUnits = {
              "milligram": (.000001, ["mg"]),
              "microgram": (.000000001, ["\N{MICRO SIGN}g", "ug"]),
              "ton": (907.18474, ["tons", "uston"]),
-             "metric ton (tonne)": (1000.0, ["tonnes", "metric ton",
+             "metric ton (tonne)": (1000.0, ["tonne", "tonnes", "metric ton",
                                              "metric tons", "mt"]),
              "slug": (14.5939, ["slugs"]),
              "ounce": (.028349523, ["oz", "ounces"]),

@@ -80,7 +80,6 @@ __all__ = ['DensityConverterClass',
            'format_lon_dms',
            ]
 
-
 # A few utilities
 def Simplify(string):
     """
@@ -88,6 +87,11 @@ def Simplify(string):
 
     returns the string with the whitespace and capitalization removed
     """
+    # This should perhaps be made smarter -- but what to do with whitespace?
+    # "m / s" -- "m/s"
+    # "meters-1" "meter s-1"
+
+
     try:
         return "".join(string.lower().split()).replace(".", "")
     except AttributeError:
@@ -122,7 +126,7 @@ def FindUnitTypes():
     Raises an exception if there is more than one option -- this will check
     the unit database for duplicated names
 
-    Primarily used to do conversions without apecifying the unit types
+    Primarily used to do conversions without specifying the unit types
 
     Usually not called from user code.
     """
@@ -234,6 +238,7 @@ def FindAllUnitNames():
 
 UNIT_TYPES = FindUnitTypes()
 UNIT_NAMES = FindAllUnitNames()
+PRETTY_UNIT_TYPES = {Simplify(unit_type): unit_type for unit_type in ConvertDataUnits.keys()}
 
 
 def is_supported_unit(unit_type, unit):
@@ -247,10 +252,46 @@ def is_supported_unit(unit_type, unit):
 
 def get_supported_names(unit_type):
     """
-    returns the list of all supported unit names for a unit_type in standard
-    form
+    Returns the list of all supported unit names for a unit_type
     """
     return UNIT_NAMES[Simplify(unit_type)]
+
+
+def get_primary_name(unit, unit_type=None):
+    """
+    Returns the primary name for a given unit.
+
+    This is usually the spelled out version, e.g.
+    kilogram
+    """
+    unit = Simplify(unit)
+    if unit_type is None:
+        unit_type = UNIT_TYPES[unit]
+    else:
+        unit_type = Simplify(unit_type)
+    return Converters[unit_type].GetPrimaryName(unit)
+
+
+def get_abbreviation(unit, unit_type=None):
+    """
+    return the standard abbreviated form for a given unit
+
+    :param unit: name of the unit
+    :type unit: str
+
+    :param unit=None: Unit type -- helpful if the unit naem confilicts,
+                      e.g. oz: weight or volume?
+    :type unit: str
+    """
+    unit = Simplify(unit)
+    if unit_type is None:
+        unit_type = UNIT_TYPES[unit]
+    else:
+        unit_type = Simplify(unit_type)
+
+    unit_type = PRETTY_UNIT_TYPES[unit_type]
+    unit = get_primary_name(unit, unit_type)
+    return ConvertDataUnits[unit_type][unit][1][0]
 
 
 def GetUnitAbbreviation(unit_type, unit):
@@ -313,10 +354,12 @@ class ConverterClass:
 
         self.Synonyms = {}
         self.Convertdata = {}
+        self.PrettyNames = {}
 
         for PrimaryName, data in UnitsDict.items():
             # strip out whitespace and capitalization
             Pname = Simplify(PrimaryName)
+            self.PrettyNames[Pname] = PrimaryName
 
             self.Convertdata[Pname] = data[0]
             self.Synonyms[Pname] = Pname
@@ -354,6 +397,9 @@ class ConverterClass:
             raise InvalidUnitError((ToUnit, self.Name))
 
         return Value * self.Convertdata[FromUnit] / self.Convertdata[ToUnit]
+
+    def GetPrimaryName(self, unit):
+        return self.PrettyNames[self.Synonyms[Simplify(unit)]]
 
 
 # the special case classes:

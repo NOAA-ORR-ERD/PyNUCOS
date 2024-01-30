@@ -290,7 +290,7 @@ Checklist for a new release:
 * Increment the `__version__` in the main branch after making the release.
 
 * Push to PyPi:
-  - ``conda install twine build``
+  - ``conda install twine build`` (you can pip install those, too)
   - ``python -m build``
   - ``twine upload dist/*``
 
