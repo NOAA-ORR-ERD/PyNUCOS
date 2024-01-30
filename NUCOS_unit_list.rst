@@ -352,7 +352,7 @@ ton
 metric ton (tonne)
 ..................
 
-    tonnes, metric ton, metric tons, mt
+    tonne, tonnes, metric ton, metric tons, mt
 
 slug
 ....

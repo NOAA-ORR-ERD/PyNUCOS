@@ -8,6 +8,10 @@ This repo provides a python package for doing physical unit conversion. It inclu
 
 It also includes many common units for general use.
 
+NOTE: NUCOS does NOT *properly* manage physical quantities -- rather it is helpful for working with units in the sloppy way humans often do. For example "pounds" is considered a unit of mass and can be converted, e.g. into kilograms -- this IS NOT PYSICALLY correct, but it is useful.
+
+It also handles "units" that are strictly dimensionless -- like mass fraction: e.g. g/kg. This is useful as you can convert to other dimensionless "units" like percent. But it does make the distinction between, e.g. mass fraction and volume fraction, so you can't convert between g/kb and ml/l, for example.
+
 There are also a few utilities that are not strictly unit conversion:
 
 - Converting latitude/longitude to/from degrees, degrees minutes seconds, etc (and formatting as Unicode objects)
@@ -146,57 +150,82 @@ Unit names are simple strings, and there are a lot of synonyms, both in ascii an
 
 The full list of units and names is in the `NUCOS_unit_list.rst` file.
 
-You can programmatically access the unit types, unit names, etc, via::
+You can programmatically access the unit types, unit names, etc,
+via assorted utility functions::
 
-  In [46]: nucos.GetUnitTypes()
-  Out[46]:
-  ['Length',
-   'Oil Concentration',
-   'Area',
-   'Volume',
-   'Temperature',
-   'Delta Temperature',
-   'Mass',
-   'Time',
-   'Velocity',
-   'Discharge',
-   'Mass Discharge',
-   'Density',
-   'Kinematic Viscosity',
-   'Dynamic Viscosity',
-   'Interfacial Tension',
-   'Pressure',
-   'Concentration In Water',
-   'Concentration',
-   'Dimensionless',
-   'Mass Fraction',
-   'Volume Fraction',
-   'Angular Measure',
-   'Angular Velocity']
+    # get the names for a given unit type
+    nucos.get_supported_names('mass')
+    Out[15]:
+    ['kilogram',
+     'kg',
+     'kilograms',
+     'lb',
+     'pounds',
+     'lbs',
+     'g',
+     'grams',
+     'mg',
+     'µg',
+     'ug',
+     'tons',
+     'uston',
+     'tonne',
+     'tonnes',
+     'metric ton',
+     'metric tons',
+     'mt',
+     'slugs',
+     'oz',
+     'ounces',
+     'ukton',
+     'long ton']
 
-  In [47]: nucos.GetUnitNames('Volume')
-  Out[47]:
-  ['cubic meter',
-   'cubic kilometer',
-   'cubic centimeter',
-   'milliliter',
-   'barrel (petroleum)',
-   'liter',
-   'gallon',
-   'gallon (UK)',
-   'million US gallon',
-   'cubic foot',
-   'cubic inch',
-   'cubic yard',
-   'fluid ounce',
-   'fluid ounce (UK)']
+    # all the available types
+    In [3]: nucos.get_unit_types()
+    Out[3]:
+    ['Length',
+     'Oil Concentration',
+     'Area',
+     'Volume',
+     'Temperature',
+     'Delta Temperature',
+     'Mass',
+     'Time',
+     'Velocity',
+     'Discharge',
+     'Mass Discharge',
+     'Density',
+     'Kinematic Viscosity',
+     'Dynamic Viscosity',
+     'Interfacial Tension',
+     'Pressure',
+     'Concentration In Water',
+     'Concentration',
+     'Dimensionless',
+     'Mass Fraction',
+     'Volume Fraction',
+     'Angular Measure',
+     'Angular Velocity']
 
-  In [48]: nucos.GetUnitAbbreviation('Volume', 'cubic centimeter')
-  Out[48]: 'cm³'
+
+    # Get the primary (spelled out) name for a unit
+    In [5]: nucos.get_primary_name('mg')
+    Out[5]: 'milligram'
+
+    # Get the abbreviation (short form) for a unit:
+    In [7]: nucos.get_abbreviation('microgram')
+    Out[7]: 'µg'
+
 
 
 Release History
 ===============
+
+Version 3.2.0
+-------------
+
+Added a couple utilities for working with the names.
+
 
 Version 3.1.2
 -------------

@@ -10,7 +10,7 @@ All of unit_conversion is imported here for convenience
 
 """
 
-__version__ = "3.1.3"
+__version__ = "3.2.0"
 
 
 from .unit_conversion import (UnitConversionError,
@@ -21,11 +21,14 @@ from .unit_conversion import (UnitConversionError,
                               is_supported,
                               is_supported_unit,
                               get_supported_names,
+                              get_unit_types,
+                              get_primary_name,
+                              get_abbreviation,
                               # not sure these should be used externally
                               # FindUnitTypes,
                               # GetUnitTypes,
-                              GetUnitNames,
-                              GetUnitAbbreviation,
+                              # GetUnitNames,
+                              # GetUnitAbbreviation,
                               # ConverterClass,
                               # Converters,
                               # UNIT_TYPES,
@@ -50,6 +53,4 @@ from .lat_long import (LatLongConverter,
 
 # this should probably not be exposed
 from .unit_data import ConvertDataUnits
-
-from nucos import lat_long
 

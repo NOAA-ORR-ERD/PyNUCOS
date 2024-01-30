@@ -107,6 +107,10 @@ def GetUnitTypes():
     return list(ConvertDataUnits.keys())
 
 
+def get_unit_types():
+    return list(PRETTY_UNIT_TYPES.values())
+
+
 def GetUnitNames(UnitType):
     """
     returns a list of all the units available for a given unit type available
