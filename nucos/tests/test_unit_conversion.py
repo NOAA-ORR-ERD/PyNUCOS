@@ -583,6 +583,7 @@ class Test_FindAllUnitNames():
 
         assert "meter" in names
         assert "nauticalmiles" in names
+        assert "kilometer" in names # primary name
 
         assert "metter" not in names
 
@@ -590,19 +591,26 @@ class Test_FindAllUnitNames():
         names = self.UNIT_NAMES['dynamicviscosity']
 
         print(names)
+        "Pascal second" in names # primary name
         assert 'kg/(m s)' in names
         assert 'cP' in names
 
-    def test_get_supported_names(unit_type):
-        """
-        not the least bit comprehensive, but at shows dict is built
-        """
-        names = unit_conversion.get_supported_names('Volume')
-        names2 = unit_conversion.get_supported_names('volume')
 
-        assert names == names2
-        assert 'oz' in names
-        assert 'meter' not in names
+def test_get_supported_names():
+    """
+    not the least bit comprehensive, but at shows dict is built
+    """
+    names = unit_conversion.get_supported_names('Volume')
+    names2 = unit_conversion.get_supported_names('volume')
+
+    assert names == names2
+    assert 'oz' in names
+    assert 'meter' not in names
+    assert "cubic meter" in names
+
+    names = unit_conversion.get_supported_names('Concentration')
+    assert 'parts per thousand' in names
+    assert 'part per thousand' in names
 
 
 @pytest.mark.parametrize(("unit_type", "unit"),[('Length', 'meter'),

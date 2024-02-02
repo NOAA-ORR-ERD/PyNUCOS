@@ -8,6 +8,8 @@ a data module, plus a module for lat-lon conversion.
 
 All of unit_conversion is imported here for convenience
 
+NOTE: the names in here are the public API.
+
 """
 
 __version__ = "3.2.1"

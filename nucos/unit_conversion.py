@@ -200,43 +200,17 @@ def FindAllUnitNames():
 
     Usually not called from user code.
     """
-
-    # # compute units that are unique to Mass and Volume Fraction
-    # mf = ConvertDataUnits["Mass Fraction"]
-    # vf = ConvertDataUnits["Volume Fraction"]
-    # # not_to_skip = {Simplify(u) for u in mf.keys() ^ vf.keys()}
-    # to_skip = {Simplify(u) for u in mf.keys() & vf.keys()}
-
     unit_names = {}
 
     for unit_type, unit_data in ConvertDataUnits.items():
         unit_type = Simplify(unit_type)
 
-        # # - skipping Oil Concentration, 'cause this is really length
-        # #   - lots of duplicate units!
-        # # - skipping Concentration in water, 'cause it's weird
-        # #   - mass/volume and mass/mass !
-        # # - skipping Mass Fraction, because there are lots of duplicate units
-        # #   that conflict with Concentration & Concentration In Water.
-        # if unit_type in ('oilconcentration',
-        #                  'concentrationinwater',
-        #                  #'massfraction',
-        #                  #'volumefraction',
-        #                  'deltatemperature',
-        #                  'dimensionless',
-        #                  ):
-        #     continue
-
         for pname, data in unit_data.items():
-            # if (unit_type in {'massfraction', 'volumefraction'}
-            #         and pname in to_skip):
-            #     continue
-
             # add the primary name:
-            unit_names.setdefault(unit_type, [pname])
+            print("adding:", pname)
+            unit_names.setdefault(unit_type, []).append(pname)
             # now the synonyms:
             unit_names[unit_type].extend(data[1])
-
     return unit_names
 
 
