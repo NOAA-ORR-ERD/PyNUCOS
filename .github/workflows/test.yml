@@ -23,3 +23,7 @@ jobs:
           pip install pytest
           pip install ./
           pytest --pyargs nucos
+      - name: Check for Debug prints
+        run:  python check_for_prints.py
+
+

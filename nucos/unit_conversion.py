@@ -207,7 +207,8 @@ def FindAllUnitNames():
 
         for pname, data in unit_data.items():
             # add the primary name:
-            print("adding:", pname)
+            if DEBUG:
+                print("adding:", pname)
             unit_names.setdefault(unit_type, []).append(pname)
             # now the synonyms:
             unit_names[unit_type].extend(data[1])

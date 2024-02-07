@@ -13,6 +13,9 @@ or a file:
 from __future__ import unicode_literals, absolute_import
 import itertools
 
+
+print("a debug print -- jsut to test")
+
 ConvertDataUnits = {
     # All lengths in terms of meter
     # All conversion factors from "Handbook of Chemistry and Physics" (HCP)
@@ -141,7 +144,7 @@ ConvertDataUnits = {
                                             "mps",
                                             "meter sec-1", "meter second-1", "meter seconds-1",
                                             "meters sec-1", "meters second-1", "meters seconds-1",
-                                            "m s-1",
+                                            "m s-1", "meter s-1", "meters s-1",
                                             ]),
                  "centimeter per second": (.01, ["cm/s"]),
                  "meter per minute": (0.01666666666, ["m/min",

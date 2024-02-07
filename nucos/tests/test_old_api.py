@@ -6,7 +6,11 @@ These just happen to be the ones used on ResponseLink :-)
 
 import nucos
 from math import isclose
-import unit_conversion
+
+import pytest
+
+with pytest.warns(DeprecationWarning):
+    import unit_conversion
 
 def test_version():
     assert unit_conversion.__version__ == nucos.__version__
