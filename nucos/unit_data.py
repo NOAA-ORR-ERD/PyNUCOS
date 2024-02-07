@@ -14,8 +14,6 @@ from __future__ import unicode_literals, absolute_import
 import itertools
 
 
-print("a debug print -- jsut to test")
-
 ConvertDataUnits = {
     # All lengths in terms of meter
     # All conversion factors from "Handbook of Chemistry and Physics" (HCP)
