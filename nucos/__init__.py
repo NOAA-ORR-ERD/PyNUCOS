@@ -12,7 +12,7 @@ NOTE: the names in here are the public API.
 
 """
 
-__version__ = "3.2.2"
+__version__ = "3.3.0"
 
 
 from .unit_conversion import (UnitConversionError,
@@ -25,6 +25,7 @@ from .unit_conversion import (UnitConversionError,
                               get_supported_names,
                               get_unit_types,
                               get_primary_name,
+                              get_primary_names,
                               get_abbreviation,
                               # not sure these should be used externally
                               # FindUnitTypes,

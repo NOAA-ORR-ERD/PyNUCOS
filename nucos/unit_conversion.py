@@ -50,36 +50,6 @@ from .lat_long import (LatLongConverter,
 # reset this to get some more print statements on import
 DEBUG = False
 
-__all__ = ['DensityConverterClass',
-           'InvalidUnitTypeError',
-           'Latitude',
-           'ConverterClass',
-           'is_supported',
-           'Converters',
-           'GetUnitNames',
-           'NotSupportedUnitError',
-           'UNIT_TYPES',
-           'TempConverterClass',
-           'Simplify',
-           'GetUnitAbbreviation',
-           'Convert',
-           'FindUnitTypes',
-           'lat_long',
-           'LatLongConverter',
-           'Longitude',
-           'ConvertDataUnits',
-           'InvalidUnitError',
-           'is_same_unit',
-           'GetUnitTypes',
-           'OilQuantityConverter',
-           'convert',
-           'UnitConversionError',
-           'format_lat',
-           'format_lon',
-           'format_lat_dms',
-           'format_lon_dms',
-           ]
-
 # A few utilities
 def Simplify(string):
     """
@@ -90,7 +60,6 @@ def Simplify(string):
     # This should perhaps be made smarter -- but what to do with whitespace?
     # "m / s" -- "m/s"
     # "meters-1" "meter s-1"
-
 
     try:
         return "".join(string.lower().split()).replace(".", "")
@@ -235,7 +204,6 @@ def get_supported_names(unit_type):
     """
     return UNIT_NAMES[Simplify(unit_type)]
 
-
 def get_primary_name(unit, unit_type=None):
     """
     Returns the primary name for a given unit.
@@ -249,6 +217,20 @@ def get_primary_name(unit, unit_type=None):
     else:
         unit_type = Simplify(unit_type)
     return Converters[unit_type].GetPrimaryName(unit)
+
+def get_primary_names(unit_type):
+    """
+    return the primary names of all the units supported for a given unit type
+    """
+    p_names = []
+
+    unit_type = Simplify(unit_type)
+    unit_type = PRETTY_UNIT_TYPES[unit_type]
+    unit_data = ConvertDataUnits[unit_type]
+    for pname, data in unit_data.items():
+        p_names.append(pname)
+
+    return p_names
 
 
 def get_abbreviation(unit, unit_type=None):

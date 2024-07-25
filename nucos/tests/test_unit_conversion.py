@@ -669,7 +669,26 @@ def test_get_primary_name_specify_unit_type(unit, unit_type, primary_name):
 def test_get_abbreviation(unit, abbv):
     assert unit_conversion.get_abbreviation(unit) == abbv
 
+def test_get_primary_names():
+    result = unit_conversion.get_primary_names('length')
+    assert set(result) == set([
+        'meter',
+        'centimeter',
+        'millimeter',
+        'micron',
+        'kilometer',
+        'foot',
+        'inch',
+        'yard',
+        'mile',
+        'nautical mile',
+        'fathom',
+        'latitude degree',
+        'latitude minute',
+    ])
 
-
+def test_get_primary_names_with_space():
+    result = unit_conversion.get_primary_names("Mass Discharge")
+    assert set(result) == {'gram per second', 'kilogram per second'}
 
 
