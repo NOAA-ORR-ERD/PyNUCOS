@@ -8,17 +8,17 @@ This repo provides a python package for doing physical unit conversion. It inclu
 
 It also includes many common units for general use.
 
-NOTE: NUCOS does NOT *properly* manage physical quantities -- rather it is helpful for working with units in the sloppy way humans often do. For example "pounds" is considered a unit of mass and can be converted, e.g. into kilograms -- this IS NOT PYSICALLY correct, but it is useful.
+NOTE: NUCOS does NOT *properly* manage physical quantities -- rather it is helpful for working with units in the sloppy way humans often do. For example "pounds" is considered a unit of mass and can be converted, e.g. into kilograms -- this IS NOT PHYSICALLY correct, but it is useful.
 
-It also handles "units" that are strictly dimensionless -- like mass fraction: e.g. g/kg. This is useful as you can convert to other dimensionless "units" like percent. But it does make the distinction between, e.g. mass fraction and volume fraction, so you can't convert between g/kb and ml/l, for example.
+It also handles "units" that are strictly dimensionless -- like mass fraction: e.g. g/kg. This is useful as you can convert to other dimensionless "units" like percent. But it does make the distinction between, e.g. mass fraction and volume fraction, so you can't convert between g/kg and ml/l, for example.
 
 There are also a few utilities that are not strictly unit conversion:
 
-- Converting latitude/longitude to/from degrees, degrees minutes seconds, etc (and formatting as Unicode objects)
+- Converting latitude/longitude to/from degrees, degrees minutes seconds, etc. (and formatting as Unicode objects)
     
 NOTE: lat-long parsing and formatting is also available in the `lat-long parser project <https://github.com/NOAA-ORR-ERD/lat_lon_parser>`_ 
 
-- converting to/from oil mass units to/from volume units: e.g. tons to barrels.
+- Converting to/from oil mass units to/from volume units: e.g. tons to barrels.
 
 
 Installing
@@ -50,7 +50,7 @@ Then the usual::
 Use Cases:
 ==========
 
-There are many unit conversion codes out there, but none that easily support the strange units used in Oil Spill Response (and the petroleum industry in general), such as API Gravity and conversion of amount of oil from mass to volume.
+There are many unit conversion codes out there, but none that easily support the strange units used in oil spill response (and the petroleum industry in general), such as API Gravity and conversion of amount of oil from mass to volume.
 
 This code is used as the core lib for a desktop unit conversion application:
 
@@ -235,7 +235,6 @@ Added some more synonyms for meter per second.
 Version 3.1.1
 -------------
 
-
 Fixed a bug with GetUnitNames() and capitalization.
 
 Version 3.1.0
@@ -330,8 +329,3 @@ NOTE: At this point, only Chris Barker has permissions on PyPi to do this -- so 
 ``https://github.com/conda-forge/pynucos-feedstock``
 
 ChrisBarker-NOAA and JamesMakela-NOAA have permissions on the feedstock.
-
-
-
-
-
