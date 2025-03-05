@@ -1,16 +1,16 @@
 name: Python package
 
-# on: [push]
+on: [push]
 
 # if we wanted to build the unit list in the CI
 # But it is auto-built by the tests anyway
 #  And this would only work if we can figure out how to push
-on:
-  push:
-#     branches:
-#       - master
-    paths-ignore:
-      - 'NUCOS_unit_list.rst'
+# on:
+#   push:
+# #     branches:
+# #       - master
+#     paths-ignore:
+#       - 'NUCOS_unit_list.rst'
 
 jobs:
   build:
@@ -35,16 +35,17 @@ jobs:
           pytest --pyargs nucos
       - name: Check for Debug prints
         run:  python check_for_prints.py
-      - name: Write unit file
-        run: |
-          # not needed -- build by the tests
-          # python -c "import nucos; nucos.unit_data.all_unit_names()"
-          git config --global user.email "pynucos_ci@nothing"
-          git config --global user.name "PyNUCOS CI"
-          git add NUCOS_unit_list.rst
-          git commit -m "updated the NUCOS unit list"
-          if [ "${1}" -eq "0" ]; then
-              git push
-          fi
+      # - name: Write unit file
+      #   run: |
+      #     # not needed -- build by the tests
+      #     # and this fails is there are no changes, as the git command returns 1
+      #     # python -c "import nucos; nucos.unit_data.all_unit_names()"
+      #     git config --global user.email "pynucos_ci@nothing"
+      #     git config --global user.name "PyNUCOS CI"
+      #     git add NUCOS_unit_list.rst
+      #     git commit -m "updated the NUCOS unit list"
+      #     if [ "${1}" -eq "0" ]; then
+      #         git push
+      #     fi
 
 
