@@ -14,11 +14,11 @@ It also handles "units" that are strictly dimensionless -- like mass fraction: e
 
 There are also a few utilities that are not strictly unit conversion:
 
-- Converting latitude/longitude to/from degrees, degrees minutes seconds, etc. (and formatting as Unicode objects)
+ * Converting latitude/longitude to/from degrees, degrees minutes seconds, etc. (and formatting as Unicode strings)
     
-NOTE: lat-long parsing and formatting is also available in the `lat-long parser project <https://github.com/NOAA-ORR-ERD/lat_lon_parser>`_ 
+   NOTE: lat-long parsing and formatting is also available in the `lat-long parser project <https://github.com/NOAA-ORR-ERD/lat_lon_parser>`_
 
-- Converting to/from oil mass units to/from volume units: e.g. tons to barrels.
+ * Converting to/from oil mass units to/from volume units: e.g. tons to barrels.
 
 
 Installing
@@ -72,7 +72,7 @@ https://github.com/NOAA-ORR-ERD
 Javascript Version
 ------------------
 
-There is also a Javascript version available for use in browser Client-side applications:
+There is also a Javascript version available for use in browser client-side applications:
 
 https://github.com/NOAA-ORR-ERD/jsNUCOS
 
@@ -215,16 +215,6 @@ via assorted utility functions::
     # Get the abbreviation (short form) for a unit:
     In [7]: nucos.get_abbreviation('microgram')
     Out[7]: 'µg'
-
-Updating Unit Names File
-========================
-
-There is a functiont that writes and RST file with all the units in it.
-
-Running::
-    python -c "import nucos; nucos.unit_data.all_unit_names()"
-
-Will write the file to ``NUCOS_unit_list.rst``
 
 
 Release History
