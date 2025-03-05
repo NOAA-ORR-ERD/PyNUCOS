@@ -1,15 +1,13 @@
 name: Python package
 
 on: [push]
-  paths-ignore:
-    - 'NUCOS_unit_list.rst'
 
-# on:
-#   push:
+on:
+  push:
 #     branches:
 #       - master
-#     paths-ignore:
-#       - '**/README.md'
+    paths-ignore:
+      - 'NUCOS_unit_list.rst'
 
 jobs:
   build:
