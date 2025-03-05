@@ -1,13 +1,22 @@
 name: Python package
 
 on: [push]
+  paths-ignore:
+    - 'NUCOS_unit_list.rst'
+
+# on:
+#   push:
+#     branches:
+#       - master
+#     paths-ignore:
+#       - '**/README.md'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.9', '3.10', '3.11', '3.12']
+        python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
 
     steps:
       - uses: actions/checkout@v2
@@ -25,5 +34,12 @@ jobs:
           pytest --pyargs nucos
       - name: Check for Debug prints
         run:  python check_for_prints.py
+      - name: Write unit file
+        run: |
+          python -c "import nucos; nucos.unit_data.all_unit_names()"
+          git add NUCOS_unit_list.rst
+          git commit -m "updated the NUCOS unit list"
+          git push
+
 
 

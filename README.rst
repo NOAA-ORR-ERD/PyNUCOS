@@ -216,10 +216,33 @@ via assorted utility functions::
     In [7]: nucos.get_abbreviation('microgram')
     Out[7]: 'µg'
 
+Updating Unit Names File
+========================
+
+There is a functiont that writes and RST file with all the units in it.
+
+Running::
+    python -c "import nucos; nucos.unit_data.all_unit_names()"
+
+Will write the file to ``NUCOS_unit_list.rst``
 
 
 Release History
 ===============
+
+Version 3.4.0
+-------------
+
+Normalized the abbreviations -- they should all be now singular, and an actual abbreviation.
+
+NOTE: "bar" (unit of pressure) seems to have no synonyms at all -- so made that work
+
+
+Version 3.3.0
+-------------
+
+Added a `get_primary_names` function.
+
 
 Version 3.2.0
 -------------

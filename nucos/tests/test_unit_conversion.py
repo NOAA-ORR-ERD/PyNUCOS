@@ -630,7 +630,7 @@ def test_is_supported_unit_not(unit_type, unit):
 
 
 @pytest.mark.parametrize(("unit", "primary_name"), [('kg', 'kilogram'),
-                                                    ('us ton', 'ton'),
+                                                    ('us ton', 'ton (US)'),
                                                     ('oz', 'ounce'),
                                                     ('fluid oz', 'fluid ounce'),
                                                     ("ukgal", "gallon (UK)"),
@@ -665,9 +665,20 @@ def test_get_primary_name_specify_unit_type(unit, unit_type, primary_name):
                           ('milligram', 'mg'),
                           ('microgram', 'µg'),
                           ('ton (UK)', "ukton"),
+                          ('bar', 'bar'),  # this one has no synonyms
                           ])
 def test_get_abbreviation(unit, abbv):
     assert unit_conversion.get_abbreviation(unit) == abbv
+
+def test_abbreviation_for_webGNOME():
+    """
+    Just to make sure we don't change anyting that might break WebGNOME
+    """
+    units = ['bbl', 'gal', 'm³', 'kg', 'ton', 'mt']
+
+    for u in units:
+        assert u == unit_conversion.get_abbreviation(u)
+
 
 def test_get_primary_names():
     result = unit_conversion.get_primary_names('length')

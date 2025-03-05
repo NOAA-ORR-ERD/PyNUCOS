@@ -12,7 +12,7 @@ NOTE: the names in here are the public API.
 
 """
 
-__version__ = "3.3.0"
+__version__ = "3.3.1"
 
 
 from .unit_conversion import (UnitConversionError,
@@ -56,4 +56,3 @@ from .lat_long import (LatLongConverter,
 
 # this should probably not be exposed
 from .unit_data import ConvertDataUnits
-

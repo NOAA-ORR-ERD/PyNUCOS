@@ -240,7 +240,7 @@ def get_abbreviation(unit, unit_type=None):
     :param unit: name of the unit
     :type unit: str
 
-    :param unit=None: Unit type -- helpful if the unit naem confilicts,
+    :param unit=None: Unit type -- helpful if the unit name conflicts,
                       e.g. oz: weight or volume?
     :type unit: str
     """
@@ -252,7 +252,12 @@ def get_abbreviation(unit, unit_type=None):
 
     unit_type = PRETTY_UNIT_TYPES[unit_type]
     unit = get_primary_name(unit, unit_type)
-    return ConvertDataUnits[unit_type][unit][1][0]
+    synonyms = ConvertDataUnits[unit_type][unit][1]
+    try:
+        return synonyms[0]
+    except IndexError:
+        # If there are no synonyms, return the primary name
+        return unit
 
 
 def GetUnitAbbreviation(unit_type, unit):
@@ -262,6 +267,7 @@ def GetUnitAbbreviation(unit_type, unit):
     :param unit_type: the type of unit: "mass", "length", etc.
     :param unit: the unit you want the abbreviation for: "gram", etc.
     """
+    warnings.warn('`GetUnitAbbreviation` is deprecated -- use `get_abbreviation`', DeprecationWarning)
     return ConvertDataUnits[unit_type][unit][1][0]
 
 

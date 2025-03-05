@@ -1,22 +1,4 @@
 
-###############
-NUCOS Unit List
-###############
-
-The NOAA Unit Converter for Oil Spills (NUCOS) is designed specifically to support
-oils spill response and planning. As the Oil industry (and the response community)
-use some unusual units, this is NOT a general purpose or full featured unit converter.
-However, it does try to include all the units that one might need for oil spill work.
-
-Complete unit type, units, and synonym list:
-
-Note that in NUCOS, unit names and synonyms are case and white space insensitive, so, eg:
-
-Pounds per Cubic Foot is the same as poundspercubicfoot
-
-All The Units:
-==============
-
 Length:
 -------
 
@@ -127,7 +109,7 @@ gallon per acre
 liter per hectare
 .................
 
-    liter/hectare, l/hectare
+    l/hectare, liter/hectare
 
 liter per square meter
 ......................
@@ -201,7 +183,7 @@ square inch
 hectare
 .......
 
-    hectares, ha
+    ha, hectares
 
 
 Volume:
@@ -250,7 +232,7 @@ gallon (UK)
 million US gallon
 .................
 
-    milliongallons, milgal
+    milgal, milliongallons
 
 cubic foot
 ..........
@@ -344,15 +326,15 @@ microgram
 
     µg, ug
 
-ton
-...
+ton (US)
+........
 
-    tons, uston
+    ton, tons, uston, short ton
 
 metric ton (tonne)
 ..................
 
-    tonne, tonnes, metric ton, metric tons, mt
+    mt, tonne, tonnes, metric ton, metric tons
 
 slug
 ....
@@ -425,7 +407,7 @@ kilometer per day
 knot
 ....
 
-    kts, knots
+    kt, kn, kts, knots
 
 mile per hour
 .............
@@ -577,7 +559,7 @@ pound per cubic foot
 pound per gallon
 ................
 
-    lbs/gal, lb/gal
+    lb/gal, lbs/gal
 
 API degree
 ..........
@@ -743,7 +725,7 @@ Newton per square meter
 bar
 ...
 
-    bars
+    
 
 millibar
 ........
@@ -907,6 +889,16 @@ part per thousand
 
     ‰, 0/00, ppt, parts per thousand
 
+part per million
+................
+
+    ppm, parts per million
+
+part per billion
+................
+
+    ppb, parts per billion
+
 
 Mass Fraction:
 --------------
@@ -998,7 +990,7 @@ part per billion
 part per trillion
 .................
 
-    parts per trillion
+    pptril, parts per trillion
 
 milliliter per liter
 ....................
@@ -1014,15 +1006,15 @@ liter per cubic meter
 Angular Measure:
 ----------------
 
-radians
-.......
+radian
+......
 
-    radian, rad
+    rad, radians
 
-degrees
-.......
+degree
+......
 
-    degree, deg
+    deg, degrees
 
 
 Angular Velocity:
@@ -1038,8 +1030,8 @@ hertz
 
     hz, cycles/sec
 
-rpm
-...
+rotations per minute
+....................
 
-    rotations per minute
+    rpm
 

@@ -46,7 +46,7 @@ ConvertDataUnits = {
         "barrel per square mile": (0.06138533995, ["bbl/mile\N{SUPERSCRIPT TWO}",
                                                    "bbl/sq.mile"]),  # calculated from HCP
         "gallon per acre": (0.93539563202687404, ["gal/acre", ]),  # calculated from HCP
-        "liter per hectare": (0.1, ["liter/hectare", "l/hectare"]),  # calculated from HCP
+        "liter per hectare": (0.1, ["l/hectare", "liter/hectare"]),  # calculated from HCP
         "liter per square meter": (1000.0, ["l/m\N{SUPERSCRIPT TWO}", "l/m^2"]),
         # these are mass/area -- so technically different.
         # but hard coding density of 0.95 -- so we can do it easily.
@@ -70,7 +70,7 @@ ConvertDataUnits = {
                                      "sq foot", "square feet"]),
         "square inch": (0.00064516, ["in\N{SUPERSCRIPT TWO}", "in^2",
                                      "sq inch", "square inches"]),
-        "hectare": (10000.0, ["hectares", "ha"]),
+        "hectare": (10000.0, ["ha", "hectares"]),
     },
 
     # All volumes in terms of cubic meter
@@ -83,7 +83,7 @@ ConvertDataUnits = {
         "liter": (1e-3, ["l", "liters"]),
         "gallon": (0.0037854118, ["gal", "gallons", "usgal"]),
         "gallon (UK)": (0.004546090, ["ukgal", "gallons(uk)"]),
-        "million US gallon": (3785.4118, ["milliongallons", "milgal"]),
+        "million US gallon": (3785.4118, ["milgal", "milliongallons"]),
         "cubic foot": (0.028316847, ["ft\N{SUPERSCRIPT THREE}", "ft^3", "cu feet", "cubicfeet"]),
         "cubic inch": (16.387064e-6, ["in\N{SUPERSCRIPT THREE}", "in^3", "cu inch", "cubicinches"]),
         "cubic yard": (.76455486, ["yd\N{SUPERSCRIPT THREE}", "yd^3", "cu yard", "cubicyards"]),
@@ -121,9 +121,9 @@ ConvertDataUnits = {
              "gram": (.001, ["g", "grams"]),
              "milligram": (.000001, ["mg"]),
              "microgram": (.000000001, ["\N{MICRO SIGN}g", "ug"]),
-             "ton": (907.18474, ["tons", "uston"]),
-             "metric ton (tonne)": (1000.0, ["tonne", "tonnes", "metric ton",
-                                             "metric tons", "mt"]),
+             "ton (US)": (907.18474, ["ton", "tons", "uston","short ton"]),
+             "metric ton (tonne)": (1000.0, ["mt", "tonne", "tonnes", "metric ton",
+                                             "metric tons"]),
              "slug": (14.5939, ["slugs"]),
              "ounce": (.028349523, ["oz", "ounces"]),
              "ton (UK)": (1016.0469, ["ukton", "long ton"]),
@@ -149,7 +149,7 @@ ConvertDataUnits = {
                                                       "meters per minute"]),
                  "kilometer per hour": (0.277777, ["km/h", "km/hr"]),
                  "kilometer per day": (0.0115740416666666, ["km/day", "km/d"]),
-                 "knot": (0.514444, ["kts", "knots"]),
+                 "knot": (0.514444, ["kt", "kn", "kts", "knots"]),
                  "mile per hour": (0.44704, ["mph", "miles per hour"]),
 
                  "foot per second": (0.3048, ["ft/s", "ft/sec",
@@ -194,8 +194,7 @@ ConvertDataUnits = {
         "gram per cubic centimeter": (1.0, ["g/cm\N{SUPERSCRIPT THREE}", "g/cm^3", "grams per cubic centimeter"]),
         "gram per liter": (.001, ["g/L", "gram per litre"]),
         "kilogram per liter": (1.0, ["kg/L", "kilogram per litre"]),
-        "gram per milliliter": (1.0, ["g/mL",
-                                      "gram per millilitre"]),
+        "gram per milliliter": (1.0, ["g/mL", "gram per millilitre"]),
         "specific gravity (15\xb0C)": (0.999016, ["S", "specificgravity",  # ASTM D1250
         # "specific gravity (15\xb0C)": (0.99913, ["S", "specificgravity",
                                                  "Spec grav", "SG",
@@ -204,7 +203,7 @@ ConvertDataUnits = {
         "tonne per cubic meter": (1.0, ["tonne/m\N{SUPERSCRIPT THREE}", "tonne/m^3",
                                         "t/m^3", "t/m\N{SUPERSCRIPT THREE}"]),
         "pound per cubic foot": (0.016018463, ["lb/ft\N{SUPERSCRIPT THREE}", "lbs/ft^3", "lb/ft^3"]),
-        "pound per gallon": (0.11982643, ["lbs/gal", "lb/gal"]),
+        "pound per gallon": (0.11982643, ["lb/gal", "lbs/gal"]),
         "API degree": (1, ["api"]),  # this is special cased in the code.
     },
 
@@ -267,7 +266,7 @@ ConvertDataUnits = {
         "kiloPascal": (1000.0, ["kPa"]),
         "megaPascal": (1000000.0, ["MPa"]),
         "Newton per square meter": (1.0, ["N/m\N{SUPERSCRIPT TWO}", "N/m^2"]),
-        "bar": (100000.0, ["bars"]),
+        "bar": (100000.0, []), # no other way to spell it :-)
         "millibar": (100.0, ["mbar"]),
         "dyne per square centimeter": (0.1, ["dyn/cm\N{SUPERSCRIPT TWO}", "dyn/cm^2"]),
         "pound per square inch": (6894.76, ["lb/in\N{SUPERSCRIPT TWO}", "lb/in^2", "psi"]),
@@ -304,7 +303,7 @@ ConvertDataUnits = {
     "Concentration": {
         "fraction (decimal)": (1.0, ["fraction", "mass per mass", "1"]),
         "percent": (0.01, ["%", "parts per hundred"]),
-        'part per thousand': (1e-3, [ '\u2030', '0/00', 'parts per thousand']),
+        'part per thousand': (1e-3, ["\N{PER MILLE SIGN}", '0/00', 'parts per thousand']),
         "part per million": (1e-6, ["ppm", "parts per million"]),
         "part per billion": (1e-9, ["ppb", "parts per billion"]),
         'part per trillion': (1e-12, ['parts per trillion']),
@@ -313,7 +312,9 @@ ConvertDataUnits = {
     "Dimensionless": {
         "fraction (decimal)": (1.0, ["number", "fraction", "1"]),
         "percent": (0.01, ["%", "parts per hundred"]),
-        'part per thousand': (1e-3, ['\u2030', '0/00', 'ppt', 'parts per thousand']),
+        'part per thousand': (1e-3, ["\N{PER MILLE SIGN}", '0/00', 'ppt', 'parts per thousand']),
+        'part per million': (1e-6, ['ppm', 'parts per million']),
+        'part per billion': (1e-9, ['ppb', 'parts per billion']),
     },
 
     # Mass Fraction: Any unit that is a mass/mass ratio.  This will be very
@@ -322,7 +323,7 @@ ConvertDataUnits = {
     'Mass Fraction': {
         'fraction (decimal)': (1.0, ['fraction', '1', 'mass per mass']),
         'percent': (0.01, ['%', 'parts per hundred']),
-        'part per thousand': (1e-3, ['\u2030', '0/00', 'ppt', 'parts per thousand']),
+        'part per thousand': (1e-3, ["\N{PER MILLE SIGN}", '0/00', 'ppt', 'parts per thousand']),
         'part per million': (1e-6, ['ppm', 'parts per million']),
         'part per billion': (1e-9, ['ppb', 'parts per billion']),
         'part per trillion': (1e-12, ['parts per trillion']),
@@ -339,23 +340,23 @@ ConvertDataUnits = {
     'Volume Fraction': {
         'fraction (decimal)': (1.0, ['fraction', '1', 'mass per mass']),
         'percent': (0.01, ['%', 'parts per hundred']),
-        'part per thousand': (1e-3, ['\u2030', '0/00', 'ppt', 'parts per thousand']),
+        'part per thousand': (1e-3, ["\N{PER MILLE SIGN}", '0/00', 'ppt', 'parts per thousand']),
         'part per million': (1e-6, ['ppm', 'parts per million']),
         'part per billion': (1e-9, ['ppb', 'parts per billion']),
-        'part per trillion': (1e-12, ['parts per trillion']),
+        'part per trillion': (1e-12, ['pptril', 'parts per trillion']),
         'milliliter per liter': (1e-3, ['ml/l', 'mL/dm^3']),
         'liter per cubic meter': (1e-3, ['l/m^3']),
     },
 
     "Angular Measure": {
-        "radians": (1.0, ["radian", "rad"]),
-        "degrees": (3.141592653589793 / 180.0, ["degree", "deg"])
+        "radian": (1.0, ["rad", "radians"]),
+        "degree": (3.141592653589793 / 180.0, ["deg", "degrees"])
     },
 
     "Angular Velocity": {
         "rad/s": (1.0, ["1/s", "radians/sec"]),
         "hertz": (2 * 3.141592653589793, ["hz", "cycles/sec"]),
-        "rpm": (3.141592653589793 / 30, ["rotations per minute"])
+        "rotations per minute": (3.141592653589793 / 30, ["rpm"])
     },
 
 }
@@ -375,12 +376,6 @@ for k in ConvertDataUnits.keys():
     unit_sets[k] = set(itertools.chain(*[y for (x, y)
                                          in ConvertDataUnits[k].values()]))
 
-# fixme: what is this used for?
-# if it's just for listing known units, then we should leave it in
-# del unit_sets['Concentration In Water']
-
-# not always length -- can be mass/area too.
-# unit_sets['Oil Concentration'] = unit_sets['Length']
 
 # Build the global unit list
 
@@ -408,12 +403,13 @@ def write_units(filename=None):
             f.write("    %s\n" % key2)
 
 
-def all_unit_names(format="str"):
+def all_unit_names(format="rst", filename='NUCOS_unit_list.rst'):
     """
-    returns a string of all unit names, grouped by unit type
+    Write our all the unit names, grouped by unit type
 
-    :param format="str": format for output -- default is plain python str
-                         other option: "rst" for restuctured text
+    :param format: format for output -- default is restructured text
+                         other option: "str" for plain python str.
+    :param filename: filename to write to. If None, it will write to stdout.
     """
     if format == "str":
         result = []
@@ -423,7 +419,7 @@ def all_unit_names(format="str"):
                 result.append("    %s\n        " % key2)
                 result.append(", ".join(value[key2][1]))
                 result.append("\n")
-        return "".join(result)
+        result = "".join(result)
     elif format == "rst":
         result = []
         for unit_type, value in ConvertDataUnits.items():
@@ -434,9 +430,14 @@ def all_unit_names(format="str"):
                 result.append('.' * len(unit) + '\n\n    ')
                 result.append(", ".join(value[unit][1]))
                 result.append("\n\n")
-        return "".join(result)
+        result = "".join(result)
     else:
         raise ValueError('only supported formats are "str" and "rst"')
+    if filename is not None:
+        with open(filename, 'w', encoding='utf-8')as outfile:
+            outfile.write(result)
+    else:
+        return result
 
 
 def dump_to_json(filename=None):
