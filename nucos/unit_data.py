@@ -26,7 +26,7 @@ ConvertDataUnits = {
                "kilometer": (1000.0, ["km", "kilometers"]),
                "foot": (0.3048, ["ft", "feet"]),
                "inch": (0.0254, ["in", "inches"]),
-               "yard": (0.9144, ["yrd", "yards"]),
+               "yard": (0.9144, ["yd", "yards"]),
                "mile": (1609.344, ["mi", "miles"]),
                "nautical mile": (1852.0, ["nm", "nauticalmiles"]),
                "fathom": (1.8288, ["fthm", "fathoms"]),
@@ -403,6 +403,27 @@ def write_units(filename=None):
             f.write("    %s\n" % key2)
 
 
+HEADER = \
+"""
+###############
+NUCOS Unit List
+###############
+
+The NOAA Unit Converter for Oil Spills (NUCOS) is designed specifically to support
+oils spill response and planning. As the Oil industry (and the response community)
+use some unusual units, this is NOT a general purpose or full featured unit converter.
+However, it does try to include all the units that one might need for oil spill work.
+
+Complete unit type, units, and synonym list:
+
+Note that in NUCOS, unit names and synonyms are case and white space insensitive, so, eg:
+
+"Pounds per Cubic Foot" is the same as "poundspercubicfoot"
+
+All The Units:
+==============
+"""
+
 def all_unit_names(format="rst", filename='NUCOS_unit_list.rst'):
     """
     Write our all the unit names, grouped by unit type
@@ -421,7 +442,7 @@ def all_unit_names(format="rst", filename='NUCOS_unit_list.rst'):
                 result.append("\n")
         result = "".join(result)
     elif format == "rst":
-        result = []
+        result = [HEADER]
         for unit_type, value in ConvertDataUnits.items():
             result.append('\n%s:\n' % unit_type)
             result.append('-' * (len(unit_type) + 1) + '\n\n')
@@ -433,12 +454,12 @@ def all_unit_names(format="rst", filename='NUCOS_unit_list.rst'):
         result = "".join(result)
     else:
         raise ValueError('only supported formats are "str" and "rst"')
-    if filename is not None:
+
+    if filename is None:
+        return result
+    else:
         with open(filename, 'w', encoding='utf-8')as outfile:
             outfile.write(result)
-    else:
-        return result
-
 
 def dump_to_json(filename=None):
     """
