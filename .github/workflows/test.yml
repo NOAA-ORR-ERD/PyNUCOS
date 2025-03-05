@@ -2,6 +2,9 @@ name: Python package
 
 # on: [push]
 
+# if we wanted to build the unit list in the CI
+# But it is auto-built by the tests anyway
+#  And this would only work if we can figure out how to push
 on:
   push:
 #     branches:
@@ -34,7 +37,10 @@ jobs:
         run:  python check_for_prints.py
       - name: Write unit file
         run: |
-          python -c "import nucos; nucos.unit_data.all_unit_names()"
+          # not needed -- build by the tests
+          # python -c "import nucos; nucos.unit_data.all_unit_names()"
+          git config --global user.email "pynucos_ci@nothing"
+          git config --global user.name "PyNUCOS CI"
           git add NUCOS_unit_list.rst
           git commit -m "updated the NUCOS unit list"
           git push
