@@ -1,4 +1,22 @@
 
+###############
+NUCOS Unit List
+###############
+
+The NOAA Unit Converter for Oil Spills (NUCOS) is designed specifically to support
+oils spill response and planning. As the Oil industry (and the response community)
+use some unusual units, this is NOT a general purpose or full featured unit converter.
+However, it does try to include all the units that one might need for oil spill work.
+
+Complete unit type, units, and synonym list:
+
+Note that in NUCOS, unit names and synonyms are case and white space insensitive, so, eg:
+
+"Pounds per Cubic Foot" is the same as "poundspercubicfoot"
+
+All The Units:
+==============
+
 Length:
 -------
 
