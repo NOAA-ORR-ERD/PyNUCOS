@@ -43,7 +43,8 @@ jobs:
           git config --global user.name "PyNUCOS CI"
           git add NUCOS_unit_list.rst
           git commit -m "updated the NUCOS unit list"
-          git push
-
+          if [ "${1}" -eq "0" ]; then
+              git push
+          fi
 
 
