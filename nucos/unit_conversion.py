@@ -76,6 +76,27 @@ def GetUnitTypes():
     return list(ConvertDataUnits.keys())
 
 
+def get_unit_type(unit):
+    """
+    Return the unit type for a given unit name.
+
+    Note that this will only work for unambiguous units
+
+    :param unit: the unit you want the type of
+    :type unit: str
+
+    In [2]: nucos.get_unit_type('meter')
+    Out[2]: 'length'
+    """
+    unit = Simplify(unit)
+
+    try:
+        unit_type = UNIT_TYPES[unit]
+    except KeyError:
+        raise NotSupportedUnitError(unit)
+    return unit_type
+
+
 def get_unit_types():
     return list(PRETTY_UNIT_TYPES.values())
 

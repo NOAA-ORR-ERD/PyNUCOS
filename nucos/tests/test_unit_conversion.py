@@ -709,3 +709,19 @@ def test_get_primary_names_with_space():
     assert set(result) == {'gram per second', 'kilogram per second'}
 
 
+def test_get_unit_type():
+    """
+    not much, but something
+    """
+    unit_type = unit_conversion.get_unit_type('m/s')
+
+    assert unit_type == "velocity"
+
+def test_get_unit_type_bad():
+    """
+    not much, but something
+    """
+    with pytest.raises(unit_conversion.NotSupportedUnitError):
+        unit_type = unit_conversion.get_unit_type('fred')
+
+
