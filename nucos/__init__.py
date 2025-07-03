@@ -12,7 +12,8 @@ NOTE: the names in here are the public API.
 
 """
 
-__version__ = "3.4.0"
+__version__ = "3.4.1"
+
 
 
 from .unit_conversion import (UnitConversionError,
