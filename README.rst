@@ -14,11 +14,11 @@ It also handles "units" that are strictly dimensionless -- like mass fraction: e
 
 There are also a few utilities that are not strictly unit conversion:
 
- * Converting latitude/longitude to/from degrees, degrees minutes seconds, etc. (and formatting as Unicode strings)
+* Converting latitude/longitude to/from degrees, degrees minutes seconds, etc. (and formatting as Unicode strings)
     
-   NOTE: lat-long parsing and formatting is also available in the `lat-long parser project <https://github.com/NOAA-ORR-ERD/lat_lon_parser>`_
+  NOTE: lat-long parsing and formatting is also available in the `lat-long parser project <https://github.com/NOAA-ORR-ERD/lat_lon_parser>`_
 
- * Converting to/from oil mass units to/from volume units: e.g. tons to barrels.
+* Converting to/from oil mass units to/from volume units: e.g. tons to barrels.
 
 
 Installing
@@ -146,9 +146,9 @@ Pass ``ustring=True`` to get a Unicode formatted string version.
 Unit names
 ----------
 
-Unit names are simple strings, and there are a lot of synonyms, both in ascii and Unicode formats.
+Unit names are simple strings, and there are a lot of synonyms, both in ASCII and Unicode formats.
 
-The full list of units and names is in the `NUCOS_unit_list.rst` file.
+The full list of units and names is in the ``NUCOS_unit_list.rst`` file.
 
 You can programmatically access the unit types, unit names, etc,
 via assorted utility functions::

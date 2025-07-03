@@ -16,7 +16,6 @@ Note that in NUCOS, unit names and synonyms are case and white space insensitive
 
 All The Units:
 ==============
-
 Length:
 -------
 
@@ -58,7 +57,7 @@ inch
 yard
 ....
 
-    yrd, yards
+    yd, yards
 
 mile
 ....
@@ -289,12 +288,12 @@ Kelvin
 Celsius
 .......
 
-    C, degrees c, degrees celsius, deg c, centigrade
+    °C, C, degrees c, degrees celsius, deg c, centigrade
 
 Fahrenheit
 ..........
 
-    F, degrees f, degree f, degrees fahrenheit, deg f
+    °F, F, degrees f, degree f, degrees fahrenheit, deg f
 
 
 Delta Temperature:
@@ -308,12 +307,12 @@ Kelvin
 Celsius
 .......
 
-    C, degrees c, degrees celsius, deg c, centigrade
+    °C, C, degrees c, degree_c, degrees celsius, deg c, centigrade
 
 Fahrenheit
 ..........
 
-    F, degrees f, degree f, deg f, degrees fahrenheit
+    °F, F, degrees f, degree f, degree_f, deg f, degrees fahrenheit
 
 
 Mass:

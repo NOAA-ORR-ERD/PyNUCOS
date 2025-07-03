@@ -149,8 +149,10 @@ KnownValues = [
     ("Dynamic Viscosity", "mPa s", "Pa s", 1.0, 0.001),
 
     ("temperature", "F", "C", 32, 0),
+    ("temperature", "°F", "°C", 32, 0),
     ("temperature", "F", "C", 212, 100),
     ("temperature", "C", "K", 0, 273.15),
+    ("temperature", "°C", "K", 0, 273.15),
     ("temperature", "F", "K", 32, 273.15),
 
     ("deltatemperature", "F", "C", 1.0, (5.0 / 9.0)),
@@ -475,6 +477,10 @@ def test_proper_unit_type_names():
 
 
 def test_GetUnitAbbreviation():
+    """
+    NOTE: GetUnitAbbreviation is a deprecated name
+          get_abbreviation is the correct one now.
+    """
     names = [('Length', 'meter', 'm'),
              ('Volume', 'cubic meter', 'm³'),
              ('Time', 'second', 's'),
@@ -484,7 +490,7 @@ def test_GetUnitAbbreviation():
 
     for unit_type, unit, abrv in names:
         print(unit_type, unit, abrv)
-        assert abrv == unit_conversion.GetUnitAbbreviation(unit_type, unit)
+        assert abrv == unit_conversion.get_abbreviation(unit, unit_type)
 
 
 def test_FindUnitTypes():

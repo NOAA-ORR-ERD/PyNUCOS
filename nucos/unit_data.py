@@ -95,22 +95,22 @@ ConvertDataUnits = {
     "Temperature": {
         "Kelvin": ((1.0, 0.0), ["K", "degrees k", "degree k", "degrees kelvin",
                                 "degree kelvin", "deg k"]),
-        "Celsius": ((1.0, 273.15), ["C", "degrees c", "degrees celsius",
+        "Celsius": ((1.0, 273.15), ["°C", "C", "degrees c", "degrees celsius",
                                     "deg c", "centigrade"]),
         "Fahrenheit": ((0.55555555555555558, (273.15 * (9. / 5.) - 32.0)),
-                       ["F", "degrees f", "degree f", "degrees fahrenheit",
+                       ["°F", "F", "degrees f", "degree f", "degrees fahrenheit",
                         "deg f"]),
     },
 
     # All Temperature units in K (C)
-    # This for temperature differences, where you don't want to reset the
+    # This for Temperature differences, where you don't want to reset the
     # zero point
     "Delta Temperature": {
         "Kelvin": (1.0, ["K", "degrees k", "degree k", "degrees kelvin",
                          "degree kelvin", "deg k"]),
-        "Celsius": (1.0, ["C", "degrees c", "degrees celsius", "deg c",
+        "Celsius": (1.0, ["°C", "C", "degrees c", "degree_c", "degrees celsius", "deg c",
                           "centigrade"]),
-        "Fahrenheit": ((5.0 / 9.0), ["F", "degrees f", "degree f", "deg f",
+        "Fahrenheit": ((5.0 / 9.0), ["°F", "F", "degrees f", "degree f", "degree_f", "deg f",
                                      "degrees fahrenheit"]),
     },
 
@@ -383,24 +383,24 @@ supported_units = set([])
 for s in unit_sets.values():
     supported_units = supported_units.union(s)
 
+# no longer needed -- see: write_all_unit_names
+# def write_units(filename=None):
+#     """
+#     write all the units out to a file.
 
-def write_units(filename=None):
-    """
-    write all the units out to a file.
+#     :param filename=None: filename to write to. If None, it will write to stdout.
 
-    :param filename=None: filename to write to. If None, it will write to stdout.
-
-    """
-    import sys
-    if filename is None:
-        f = sys.stdout
-    else:
-        f = open(filename, 'w', encoding="utf-8")
-    f.write("NUCOS unit set:\n")
-    for key, value in ConvertDataUnits.items():
-        f.write("\n%s:\n" % key)
-        for key2 in value:
-            f.write("    %s\n" % key2)
+#     """
+#     import sys
+#     if filename is None:
+#         f = sys.stdout
+#     else:
+#         f = open(filename, 'w', encoding="utf-8")
+#     f.write("NUCOS unit set:\n")
+#     for key, value in ConvertDataUnits.items():
+#         f.write("\n%s:\n" % key)
+#         for key2 in value:
+#             f.write("    %s\n" % key2)
 
 
 HEADER = \
@@ -421,24 +421,30 @@ Note that in NUCOS, unit names and synonyms are case and white space insensitive
 "Pounds per Cubic Foot" is the same as "poundspercubicfoot"
 
 All The Units:
-==============
-"""
+=============="""
 
-def all_unit_names(format="rst", filename='NUCOS_unit_list.rst'):
+def write_all_unit_names(format="rst", filename='NUCOS_unit_list.rst'):
     """
     Write our all the unit names, grouped by unit type
 
-    :param format: format for output -- default is restructured text
-                         other option: "str" for plain python str.
-    :param filename: filename to write to. If None, it will write to stdout.
+    :param format: format for output -- default is "rst".
+                   "rst": resturctured text
+                   "txt": plain text without formatting.
+    :param filename: Filename to write to.
+                     If ``None``, it will write to stdout.
+                     If "str" it will return a string
     """
-    if format == "str":
+    if format == "txt":
         result = []
-        for key, value in ConvertDataUnits.items():
-            result.append('\n%s:\n' % key)
-            for key2 in value:
-                result.append("    %s\n        " % key2)
-                result.append(", ".join(value[key2][1]))
+        # kludgy way to de-rst the header
+        header = HEADER.replace("#", "").replace("=", "").replace("\n\n\n", "\n\n").lstrip()
+        result.append(header)
+        for unit_type, value in ConvertDataUnits.items():
+            result.append(f'\n{unit_type}:\n')
+            for unit in value:
+                result.append(f"    {unit}:  ")
+                result.append(f'\N{LEFT DOUBLE QUOTATION MARK}{unit}\N{RIGHT DOUBLE QUOTATION MARK}, ')
+                result.append(", ".join(f'\N{LEFT DOUBLE QUOTATION MARK}{u}\N{RIGHT DOUBLE QUOTATION MARK}' for u in value[unit][1]))
                 result.append("\n")
         result = "".join(result)
     elif format == "rst":
@@ -453,13 +459,16 @@ def all_unit_names(format="rst", filename='NUCOS_unit_list.rst'):
                 result.append("\n\n")
         result = "".join(result)
     else:
-        raise ValueError('only supported formats are "str" and "rst"')
+        raise ValueError('only supported formats are "txt" and "rst"')
 
     if filename is None:
+        sys.stdout.write(result)
+    elif filename == "str":
         return result
     else:
-        with open(filename, 'w', encoding='utf-8')as outfile:
+        with open(filename, 'w', encoding='utf-8') as outfile:
             outfile.write(result)
+
 
 def dump_to_json(filename=None):
     """
