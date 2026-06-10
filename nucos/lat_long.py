@@ -380,7 +380,7 @@ def reduce_base_60(f):
 
 def format_latlon1(f, positive_direction, negative_direction):
     direction = positive_direction if f >= 0.0 else negative_direction
-    return FORMAT1.format(degrees, direction)
+    return FORMAT1.format(abs(f), direction)
 
 
 def format_latlon2(f, positive_direction, negative_direction):
@@ -443,7 +443,7 @@ def format_lon_d(degrees):
     :returns: string version of longitude
     """
 
-    return format_latlon2(degrees, LON_POSITIVE_DIRECTION, LON_NEGATIVE_DIRECTION)
+    return format_latlon1(degrees, LON_POSITIVE_DIRECTION, LON_NEGATIVE_DIRECTION)
 
 
 def format_lon_dm(degrees):
