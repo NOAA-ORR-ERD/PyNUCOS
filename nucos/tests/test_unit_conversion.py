@@ -65,6 +65,10 @@ KnownValues = [
     ("Oil Concentration", "kg/m^2", "micron", .95, 1000.0),
     ("Oil Concentration", "kg/km^2", "g/m^2", 1.0, 1e-3),
     ("Oil Concentration", "kg/m^2", "g/m^2", 1.0, 1e3),
+    ("Oil Concentration", "kg/km\N{SUPERSCRIPT TWO}", "kg/km^2", 1.0, 1.0),
+    ("Oil Concentration", "g/km\N{SUPERSCRIPT TWO}", "g/km^2", 1.0, 1.0),
+    ("Oil Concentration", "g/km^2", "kg/km^2", 1.0, 1e-3),
+    ("Oil Concentration", "g/km\N{SUPERSCRIPT TWO}", "micron", 1.0, 1.0526315789473684e-06),
 
     ("Area", "sq m", "ft^2", 10, 107.63910),
     ("Area", "Acre", "square yards", 1, 4840),
@@ -326,6 +330,34 @@ def test_old_api(unit_type, unit1, unit2, value, new_value):
     # now do the test:
     assert isclose(unit_conversion.convert(unit_type, unit1, unit2, value),
                    new_value, rel_tol=RELTOL)
+
+
+def test_g_per_km2_not_kg_per_km2():
+    """
+    the Unicode superscript spelling "g/km²" used to be a synonym of
+    "kilogram per square kilometer", making conversions 1000x too large
+
+    https://github.com/NOAA-ORR-ERD/PyNUCOS/issues/39
+    """
+    # the Unicode kg spelling should convert exactly like the ASCII one
+    assert isclose(unit_conversion.convert("Oil Concentration",
+                                           "kg/km\N{SUPERSCRIPT TWO}", "micron", 1.0),
+                   unit_conversion.convert("Oil Concentration",
+                                           "kg/km^2", "micron", 1.0),
+                   rel_tol=RELTOL)
+
+    # the gram spelling should be 1000x smaller than the kilogram one
+    assert isclose(unit_conversion.convert("Oil Concentration",
+                                           "g/km\N{SUPERSCRIPT TWO}", "micron", 1.0),
+                   1.0526315789473684e-06,
+                   rel_tol=RELTOL)
+
+    # and it should round-trip through the kilogram unit
+    in_kg = unit_conversion.convert("Oil Concentration", "g/km^2", "kg/km^2", 1.0)
+    assert isclose(unit_conversion.convert("Oil Concentration",
+                                           "kg/km^2", "g/km^2", in_kg),
+                   1.0,
+                   rel_tol=RELTOL)
 
 
 def test_ConverterClass_init_dupcheck():

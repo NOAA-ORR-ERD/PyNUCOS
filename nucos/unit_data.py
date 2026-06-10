@@ -52,7 +52,8 @@ ConvertDataUnits = {
         # but hard coding density of 0.95 -- so we can do it easily.
         "gram per square meter": (1.0526315789473684, ["g/m\N{SUPERSCRIPT TWO}", "g/m^2"]),
         "kilogram per square meter": (1052.6315789473684, ["kg/m\N{SUPERSCRIPT TWO}", "kg/m^2"]),
-        "kilogram per square kilometer": (.0010526315789473684, ["g/km\N{SUPERSCRIPT TWO}", "kg/km^2" ]),
+        "gram per square kilometer": (1.0526315789473684e-06, ["g/km\N{SUPERSCRIPT TWO}", "g/km^2"]),
+        "kilogram per square kilometer": (.0010526315789473684, ["kg/km\N{SUPERSCRIPT TWO}", "kg/km^2" ]),
     },
 
     # All Areas in terms of square meter
