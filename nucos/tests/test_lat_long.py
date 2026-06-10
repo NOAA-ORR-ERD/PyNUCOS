@@ -151,6 +151,17 @@ class testLatitude(unittest.TestCase):
     def testDirN(self):
         self.assertEqual(self.L(deg=45.5, direction="N").value, 45.5)
 
+    def testDirSZeroDeg(self):
+        # zero whole degrees: the hemisphere must come from direction
+        self.assertEqual(self.L(deg=0, min=30, direction="South").value, -0.5)
+
+    def testDirSZeroDegDirection(self):
+        self.assertEqual(self.L(deg=0, min=30, direction="South").direction(),
+                         'South')
+
+    def testDirNZeroDeg(self):
+        self.assertEqual(self.L(deg=0, min=30, direction="North").value, 0.5)
+
     def testDirWrong(self):
         self.assertRaises(ValueError, self.L, deg=45, direction="Whatever")
         
@@ -209,6 +220,14 @@ class testLongitude(unittest.TestCase):
 
     def testDirE(self):
         self.assertEqual(self.L(deg=45.5, direction="E").value, 45.5)
+
+    def testDirWZeroDeg(self):
+        # zero whole degrees: the hemisphere must come from direction
+        self.assertEqual(self.L(deg=0, min=45, direction="West").value, -0.75)
+
+    def testDirWZeroDegDirection(self):
+        self.assertEqual(self.L(deg=0, min=45, direction="West").direction(),
+                         'West')
 
     def testDirWrong(self):
         self.assertRaises(ValueError, self.L, deg=45, direction="Anything")
