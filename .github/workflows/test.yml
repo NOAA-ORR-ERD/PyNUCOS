@@ -17,12 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
+        python-version: ['3.10', '3.11', '3.12', '3.13', '3.14']
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
@@ -35,17 +35,6 @@ jobs:
           pytest --pyargs nucos
       - name: Check for Debug prints
         run:  python check_for_prints.py
-      # - name: Write unit file
-      #   run: |
-      #     # not needed -- build by the tests
-      #     # and this fails is there are no changes, as the git command returns 1
-      #     # python -c "import nucos; nucos.unit_data.all_unit_names()"
-      #     git config --global user.email "pynucos_ci@nothing"
-      #     git config --global user.name "PyNUCOS CI"
-      #     git add NUCOS_unit_list.rst
-      #     git commit -m "updated the NUCOS unit list"
-      #     if [ "${1}" -eq "0" ]; then
-      #         git push
-      #     fi
+
 
 
