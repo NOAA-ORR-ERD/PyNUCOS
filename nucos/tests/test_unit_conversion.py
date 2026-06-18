@@ -214,7 +214,7 @@ KnownValues = [
 
     ("Concentration In Water", "ppb", "ppm", 1000, 1),  # calculated
     ("Concentration In Water", "fraction", "%", 1, 100),  # calculated
-    ("ConcentrationInWater", "lb/ft^3", "mg/l", 1, 16018.450433864),  # hand calculated
+    ("ConcentrationInWater", "lb/ft^3", "mg/l", 1, 16018.463),  # hand calculated
     # ("ConcentrationInWater", "mg/l", "lb/ft^3", 160184.50433864002, 1),  # hand calculated
     # ("ConcentrationInWater", "kg/m^3", "lb/ft^3", 16.018464, 1),  # hand calculated
     ("ConcentrationInwater", "mg/l", "ppm", 1.0, 1.0),  # calculated (and kindof defined)
@@ -556,7 +556,20 @@ def test_is_supported():
     assert unit_conversion.is_supported('foot')
     assert unit_conversion.is_supported('FoOt')
     assert unit_conversion.is_supported('meter second-1')
+    assert unit_conversion.is_supported('milliliters')
+    assert unit_conversion.is_supported('milliters')
+    assert unit_conversion.is_supported('degree c')
     assert not unit_conversion.is_supported('something random')
+
+
+def test_lb_per_cubic_foot_consistent_across_density_tables():
+    density_value = unit_conversion.convert("Density", "lb/ft^3", "kg/m^3", 1.0)
+    concentration_value = unit_conversion.convert("Concentration In Water", "lb/ft^3", "kg/m^3", 1.0)
+    expected = 0.45359237 / 0.028316846592
+
+    assert isclose(density_value, expected, rel_tol=3e-8)
+    assert isclose(concentration_value, expected, rel_tol=3e-8)
+    assert concentration_value == density_value
 
 
 def test_NotSupportedUnitError():
@@ -723,5 +736,3 @@ def test_get_unit_type_bad():
     """
     with pytest.raises(unit_conversion.NotSupportedUnitError):
         unit_type = unit_conversion.get_unit_type('fred')
-
-
