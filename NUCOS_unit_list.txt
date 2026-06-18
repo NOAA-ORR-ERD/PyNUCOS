@@ -58,7 +58,7 @@ Volume:
     cubic meter:  “cubic meter”, “m³”, “m^3”, “cu m”, “cubic meters”
     cubic kilometer:  “cubic kilometer”, “km³”, “km^3”, “cu km”, “cubic kilometers”
     cubic centimeter:  “cubic centimeter”, “cm³”, “cm^3”, “cu cm”, “cc”
-    milliliter:  “milliliter”, “ml”, “milliters”
+    milliliter:  “milliliter”, “ml”, “milliliters”
     barrel (petroleum):  “barrel (petroleum)”, “bbl”, “barrels”, “barrel”, “bbls”
     liter:  “liter”, “l”, “liters”
     gallon:  “gallon”, “gal”, “gallons”, “usgal”
@@ -72,7 +72,7 @@ Volume:
 
 Temperature:
     Kelvin:  “Kelvin”, “K”, “degrees k”, “degree k”, “degrees kelvin”, “degree kelvin”, “deg k”
-    Celsius:  “Celsius”, “°C”, “C”, “degrees c”, “degrees celsius”, “deg c”, “centigrade”
+    Celsius:  “Celsius”, “°C”, “C”, “degrees c”, “degree c”, “degrees celsius”, “deg c”, “centigrade”
     Fahrenheit:  “Fahrenheit”, “°F”, “F”, “degrees f”, “degree f”, “degrees fahrenheit”, “deg f”
 
 Delta Temperature:

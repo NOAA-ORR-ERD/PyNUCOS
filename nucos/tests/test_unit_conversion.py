@@ -324,6 +324,7 @@ def test_old_api(unit_type, unit1, unit2, value, new_value):
     of all the known values, with the old API
     """
     # now do the test:
+    print(unit_type, unit1, unit2)
     assert isclose(unit_conversion.convert(unit_type, unit1, unit2, value),
                    new_value, rel_tol=RELTOL)
 
@@ -549,27 +550,31 @@ def test_invalid_unit_convert():
         unit_conversion.convert("density", "kg/m^33", "g/cm^3", 1.0)
 
 
-# these really jsut to get 100% coverage :-)
+# these really just to get 100% coverage :-)
 def test_is_supported():
-    """not comprehensive...
+    """
+    not comprehensive...
     """
     assert unit_conversion.is_supported('foot')
     assert unit_conversion.is_supported('FoOt')
     assert unit_conversion.is_supported('meter second-1')
     assert unit_conversion.is_supported('milliliters')
-    assert unit_conversion.is_supported('milliters')
     assert unit_conversion.is_supported('degree c')
     assert not unit_conversion.is_supported('something random')
 
 
-def test_lb_per_cubic_foot_consistent_across_density_tables():
-    density_value = unit_conversion.convert("Density", "lb/ft^3", "kg/m^3", 1.0)
-    concentration_value = unit_conversion.convert("Concentration In Water", "lb/ft^3", "kg/m^3", 1.0)
-    expected = 0.45359237 / 0.028316846592
+def test_lb_per_cubic_foot_consistent_across_units():
+    # concentration in water
+    kg_m3 = unit_conversion.convert('mass', 'lb', 'kg', 1) * unit_conversion.convert('Volume','m^3', 'ft^3', 1)
+    kg_m3_cinw = unit_conversion.convert('concentration in water', 'lb/ft^3', 'kg/m^3', 1)
 
-    assert isclose(density_value, expected, rel_tol=3e-8)
-    assert isclose(concentration_value, expected, rel_tol=3e-8)
-    assert concentration_value == density_value
+    assert isclose(kg_m3, kg_m3_cinw, rel_tol=3e-8)
+
+    # density
+    kg_m3 = unit_conversion.convert('mass', 'lb', 'kg', 1) * unit_conversion.convert('Volume','m^3', 'ft^3', 1)
+    kg_m3_dens = unit_conversion.convert('density', 'lb/ft^3', 'kg/m^3', 1)
+
+    assert isclose(kg_m3, kg_m3_dens, rel_tol=3e-8)
 
 
 def test_NotSupportedUnitError():

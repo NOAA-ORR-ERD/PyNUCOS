@@ -1,0 +1,17 @@
+[workspace]
+name = "pynucos"
+authors = ["Chris Barker <Chris.Barker@noaa.gov>"]
+channels = ["https://prefix.dev/conda-forge"]
+platforms = ["win-64", "linux-64", "osx-arm64", "osx-64"]
+
+
+[dependencies]
+python = ">=3.10,<3.15"
+pytest = "*"
+ipython = ">=9.14.1,<10"
+
+[tool.pixi.pypi-dependencies]
+my-package = { path = ".", editable = true }
+
+[tasks]
+test = "pytest --pyargs nucos"

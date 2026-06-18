@@ -224,7 +224,7 @@ cubic centimeter
 milliliter
 ..........
 
-    ml, milliters
+    ml, milliliters
 
 barrel (petroleum)
 ..................
@@ -288,7 +288,7 @@ Kelvin
 Celsius
 .......
 
-    °C, C, degrees c, degrees celsius, deg c, centigrade
+    °C, C, degrees c, degree c, degrees celsius, deg c, centigrade
 
 Fahrenheit
 ..........
