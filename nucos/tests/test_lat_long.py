@@ -42,6 +42,13 @@ class testLatLongErrors(unittest.TestCase):
     def testTooBigSec(self):
         self.assertRaises(ValueError , self.LLC.ToDecDeg, d=30, m=42, s=61)
 
+    def testExactly60Min(self):
+        # exactly 60 minutes is not a valid reading either
+        self.assertRaises(ValueError, self.LLC.ToDecDeg, 0, 60)
+
+    def testExactly60Sec(self):
+        self.assertRaises(ValueError, self.LLC.ToDecDeg, 0, 0, 60)
+
     def testDegFractAndMin(self):
         self.assertRaises(ValueError , self.LLC.ToDecDeg, d=30.2, m=5, s=0)
 
@@ -281,4 +288,19 @@ def test_format_lat_dms(number, text):
                          ])
 def test_format_lon_dms(number, text):
     assert lat_long.format_lon_dms(number) == text
+
+
+# a value a hair below a whole degree must not display as 60 minutes/seconds;
+# it should carry up into the next-higher field instead
+def test_format_lat_dm_carry():
+    assert lat_long.format_lat_dm(45.99999999999) == "46\xb0 0.00\u2032 North"
+
+
+def test_format_lat_dms_carry():
+    assert lat_long.format_lat_dms(45.9999999999) == "46\xb0 0\u2032 0.00\u2033 North"
+
+
+def test_format_lat_dm_carry_south():
+    # carry must keep the hemisphere for negative values
+    assert lat_long.format_lat_dm(-45.99999999999) == "46\xb0 0.00\u2032 South"
 
