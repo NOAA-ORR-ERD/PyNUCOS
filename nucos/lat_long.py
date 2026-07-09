@@ -241,6 +241,8 @@ class Latitude(object):
         ndir = self.negative_direction[0].upper()
         pdir = self.positive_direction[0].upper()
 
+        negate = False
+
         if direction:
             if deg < 0.0:
                 msg = "degrees cannot be negative if direction is specified"
@@ -249,12 +251,17 @@ class Latitude(object):
             if direction[0].upper() == pdir:
                 pass
             elif direction[0].upper() == ndir:
-                deg = -deg
+                negate = True
             else:
                 msg = "direction must start with %r or %r" % (pdir, ndir)
                 raise ValueError(msg)
 
         self.value = LatLongConverter.ToDecDeg(deg, min, sec, max=self.max)
+
+        if negate:
+            # negate the result rather than deg: -0 carries no sign bit,
+            # so the hemisphere would be lost when deg is zero
+            self.value = -self.value
 
     def direction(self):
         if self.value < 0.0:
