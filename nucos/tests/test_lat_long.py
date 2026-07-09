@@ -253,6 +253,23 @@ class testLongitude(unittest.TestCase):
 
 # tests the format* functions -- used by ResponseLink
 
+## decimal degrees formatting:
+@pytest.mark.parametrize(("number", "text"),
+                         [(33.5, "33.50\xb0 North"),
+                          (-0.1, "0.10\xb0 South")
+                         ])
+def test_format_lat_d(number, text):
+    assert lat_long.format_lat_d(number) == text
+
+
+@pytest.mark.parametrize(("number", "text"),
+                         [(-70.25, "70.25\xb0 West"),
+                          (33.5, "33.50\xb0 East")
+                         ])
+def test_format_lon_d(number, text):
+    assert lat_long.format_lon_d(number) == text
+
+
 @pytest.mark.parametrize(("number", "text"),
                          [(28.2186111111, "28\xb0 13.12\u2032 North"),  # from incident 6652
                           (-0.1, "0\xb0 6.00\u2032 South")
