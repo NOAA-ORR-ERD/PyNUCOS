@@ -143,10 +143,15 @@ kilogram per square meter
 
     kg/m², kg/m^2
 
+gram per square kilometer
+.........................
+
+    g/km², g/km^2
+
 kilogram per square kilometer
 .............................
 
-    g/km², kg/km^2
+    kg/km², kg/km^2
 
 
 Area:
