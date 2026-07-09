@@ -91,9 +91,8 @@ class LatLongConverter(object):
         if m < 0 or s < 0:
             raise ValueError("Minutes and Seconds have to be positive")
 
-        if m > 60.0 or s > 60.0:
-            raise ValueError("Minutes and Seconds have to be between "
-                             "-180 and 180")
+        if m >= 60.0 or s >= 60.0:
+            raise ValueError("Minutes and Seconds have to be less than 60")
 
         if abs(d) > max:
             raise ValueError("Degrees have to be between -180 and 180")
@@ -378,6 +377,22 @@ def reduce_base_60(f):
     return whole, fract
 
 
+def carry_base_60(whole, fract, decimals):
+    """round a base-60 fractional field to the display precision, carrying into
+    the next-higher field when the rounded value reaches 60.
+
+    Minutes and seconds are sexagesimal, so they must display in [0, 60). The
+    final display rounding can otherwise push a value like 59.999 up to 60.00,
+    which is not a valid reading. When that happens we drop 60 and add one to
+    the whole part (away from zero).
+    """
+    fract = round(fract, decimals)
+    if fract >= 60:
+        fract -= 60
+        whole += 1 if whole >= 0 else -1
+    return whole, fract
+
+
 def format_latlon1(f, positive_direction, negative_direction):
     direction = positive_direction if f >= 0.0 else negative_direction
     return FORMAT1.format(degrees, direction)
@@ -387,6 +402,8 @@ def format_latlon2(f, positive_direction, negative_direction):
     direction = positive_direction if f >= 0.0 else negative_direction
     degrees, minutes = reduce_base_60(f)
     degrees = abs(degrees)
+    # minutes display at 2 decimals; carry into degrees if it rounds up to 60
+    degrees, minutes = carry_base_60(degrees, minutes, 2)
     return FORMAT2.format(degrees, minutes, direction)
 
 
@@ -395,6 +412,9 @@ def format_latlon3(f, positive_direction, negative_direction):
     degrees, minutes = reduce_base_60(f)
     minutes, seconds = reduce_base_60(minutes)
     degrees = abs(degrees)
+    # seconds display at 2 decimals, minutes at 0; carry up so neither shows 60
+    minutes, seconds = carry_base_60(minutes, seconds, 2)
+    degrees, minutes = carry_base_60(degrees, minutes, 0)
     return FORMAT3.format(degrees, minutes, seconds, direction)
 
 
