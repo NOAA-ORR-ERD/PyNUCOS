@@ -384,6 +384,9 @@ class ConverterClass:
         except KeyError:
             raise InvalidUnitError((ToUnit, self.Name))
 
+        if FromUnit == ToUnit:
+            return Value
+
         return Value * self.Convertdata[FromUnit] / self.Convertdata[ToUnit]
 
     def GetPrimaryName(self, unit):
@@ -420,6 +423,9 @@ class TempConverterClass(ConverterClass):
             ToUnit = self.Synonyms[ToUnit]
         except KeyError:
             raise InvalidUnitError((ToUnit, self.Name))
+
+        if FromUnit == ToUnit:
+            return Value
 
         A1 = self.Convertdata[FromUnit][0]
         B1 = self.Convertdata[FromUnit][1]
@@ -459,6 +465,9 @@ class DensityConverterClass(ConverterClass):
             ToUnit = self.Synonyms[ToUnit]
         except KeyError:
             raise InvalidUnitError((ToUnit, self.Name))
+
+        if FromUnit == ToUnit:
+            return Value
 
         if FromUnit == "apidegree":
             # another Special case (could I do this the same as temp?)

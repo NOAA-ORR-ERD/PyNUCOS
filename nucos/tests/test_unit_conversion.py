@@ -741,3 +741,50 @@ def test_get_unit_type_bad():
     """
     with pytest.raises(unit_conversion.NotSupportedUnitError):
         unit_type = unit_conversion.get_unit_type('fred')
+
+
+SelfConversionValues = [0.1, 1.0, 3.3, 15.0, 100.0, 12345.6789]
+
+
+def all_primary_units():
+    for unit_type, converter in unit_conversion.Converters.items():
+        for unit in sorted(set(converter.Synonyms.values())):
+            yield unit_type, unit
+
+
+def test_same_unit_temperature():
+    assert unit_conversion.convert("Temperature", "F", "F", 15) == 15
+
+
+def test_same_unit_api_degree():
+    assert unit_conversion.convert("Density", "API degree", "API degree", 0.1) == 0.1
+
+
+@pytest.mark.parametrize('unit_type, unit', list(all_primary_units()))
+def test_same_unit_is_exact(unit_type, unit):
+    for value in SelfConversionValues:
+        assert unit_conversion.convert(unit_type, unit, unit, value) == value
+
+
+@pytest.mark.parametrize('unit_type, unit1, unit2, value',
+                         [("Length", "ft", "feet", 3.3),
+                          ("Length", "feet", "ft", 3.3),
+                          ("Length", "foot", "ft", 3.3),
+                          ("Temperature", "F", "fahrenheit", 15.0),
+                          ("Temperature", "degreesF", "F", 15.0),
+                          ("Density", "API", "API degree", 0.1),
+                          ("Area", "ft^2", "square feet", 7.0),
+                          ("Mass", "kg", "kilograms", 2.2),
+                          ])
+def test_synonyms_of_one_unit_are_exact(unit_type, unit1, unit2, value):
+    assert unit_conversion.convert(unit_type, unit1, unit2, value) == value
+
+
+def test_same_bad_unit_still_raises():
+    with pytest.raises(unit_conversion.InvalidUnitError):
+        unit_conversion.convert("Length", "spam", "spam", 1.0)
+
+
+def test_same_bad_unit_still_raises_new_api():
+    with pytest.raises(unit_conversion.NotSupportedUnitError):
+        unit_conversion.convert("spam", "spam", 1.0)
